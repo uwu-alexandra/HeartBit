@@ -1,4 +1,5 @@
-package com.heartbit_mobile;
+package com.example.proiectingineriaprogramarii;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,7 +17,7 @@ public class Register extends AppCompatActivity {
 
     TextInputEditText editTextCnp,editTextPassword;
     Button registerBtn;
-    // FireBaseAuth mAuth;
+   // FireBaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
 
@@ -41,7 +42,7 @@ public class Register extends AppCompatActivity {
         editTextCnp=findViewById(R.id.cnp);
         editTextPassword=findViewById(R.id.password);
         registerBtn=findViewById(R.id.registerBtn);
-        // mAuth=FirebaseAuth.getInstance();
+       // mAuth=FirebaseAuth.getInstance();
         progressBar=findViewById(R.id.progressBar);
         textView=findViewById(R.id.loginNow);
 

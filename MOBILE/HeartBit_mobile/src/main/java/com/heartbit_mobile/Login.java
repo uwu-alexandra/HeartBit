@@ -1,4 +1,4 @@
-package com.example.proiectingineriaprogramarii;
+package com.heartbit_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 

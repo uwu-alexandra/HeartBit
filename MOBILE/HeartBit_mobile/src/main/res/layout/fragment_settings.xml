@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_200"
-    tools:context=".HomeFragment">
+    tools:context=".ui.settings.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment Home"
+        android:text="Fragment Settings"
         android:gravity="center"
-        android:textSize="50dp"
-
-        />
+        android:textSize="50dp" />
 
 </FrameLayout>

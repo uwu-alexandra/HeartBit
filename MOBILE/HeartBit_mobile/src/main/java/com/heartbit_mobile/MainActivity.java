@@ -14,7 +14,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.heartbit_mobile.databinding.ActivityMainBinding;
+import com.heartbit_mobile.ui.calendar.CalendarFragment;
+import com.heartbit_mobile.ui.dashboard.DashboardFragment;
 import com.heartbit_mobile.ui.home.HomeFragment;
+import com.heartbit_mobile.ui.settings.SettingsFragment;
+import com.heartbit_mobile.ui.support.SupportFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        replaceFragment(new HomeFragment());
         binding.navView.setOnItemSelectedListener(item -> {
             switch (item.getItemId())
             {
@@ -44,13 +49,16 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(new SupportFragment());
                     break;
                 case R.id.navigation_calendar:
+                        replaceFragment(new CalendarFragment());
                     break;
                 case R.id.navigation_home:
-                    replaceFragment(new HomeFragment());
+                        replaceFragment(new HomeFragment());
                     break;
                 case R.id.navigation_dashboard:
+                        replaceFragment(new DashboardFragment());
                     break;
                 case R.id.navigation_settings:
+                        replaceFragment(new SettingsFragment());
                     break;
             }
 

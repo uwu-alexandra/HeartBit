@@ -1,16 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.calendar.CalendarFragment">
+    tools:context=".ui.calendar.CalendarFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Fragment Calendar"
+        android:layout_height="wrap_content"
+        android:text="Programările mele"
         android:gravity="center"
-        android:textSize="50dp" />
+        android:textSize="20dp" />
 
-</FrameLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey">
+
+        <TableRow>
+
+            <LinearLayout
+                android:id="@+id/programareLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/baseline_add_circle_24" />
+
+                <TextView
+                    android:id="@+id/programareNoua"
+                    android:layout_width="225dp"
+                    android:layout_height="30dp"
+                    android:scrollbars="vertical"
+                    android:text="Adaugă o programare"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/baseline_arrow_right_24" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/recomandariLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="@color/grey">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/person_question_mark_svgrepo_com" />
+
+                <TextView
+                    android:id="@+id/recomandari"
+                    android:layout_width="225dp"
+                    android:layout_height="30dp"
+                    android:scrollbars="vertical"
+                    android:text="Vezi recomandări"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/baseline_arrow_right_24" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/programari"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:text="Programări"
+        android:textSize="20dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/grey">
+
+        <Button
+            android:id="@+id/pastBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="trecute"
+            android:backgroundTint="@drawable/toggle_button_selected"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:id="@+id/futureBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="viitoare"
+            android:backgroundTint="@drawable/toggle_button_selected"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/black"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

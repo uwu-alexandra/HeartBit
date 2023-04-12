@@ -1,6 +1,7 @@
-package com.heartbit_mobile.ui.support;
+package com.heartbit_mobile.ui.calendar;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -11,9 +12,11 @@ import android.widget.Button;
 
 import com.heartbit_mobile.R;
 
-public class SolicitareFragment extends Fragment {
+public class ProgramareFragment extends Fragment {
 
+    private Button sendBtn;
     private Button returnBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +25,17 @@ public class SolicitareFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_solicitare, container, false);
-        returnBtn=view.findViewById(R.id.returnFromSolicitareBtn);
+        View view=inflater.inflate(R.layout.fragment_programare,container,false);
+        sendBtn=view.findViewById(R.id.sendCerereBtn);
+        returnBtn=view.findViewById(R.id.returnFromProgramareBtn);
+
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

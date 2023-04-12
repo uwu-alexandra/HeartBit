@@ -3,25 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.support.SolicitareFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.calendar.ProgramareFragment">
 
     <TextView
-        android:id="@+id/solicitare_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:scrollbars="vertical"
-        android:text="Solicitare"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:text="Programare nouă" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Motiv"
-        android:hint="Motiv"
+        android:id="@+id/Specialitate"
+        android:hint="Alege specialitatea"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         />
@@ -31,24 +29,46 @@
         android:layout_height="wrap_content"
         />
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Detalii"
-        android:hint="Detalii"
+        android:id="@+id/Data"
+        android:hint="Alege data"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="40dp"
         />
-    <Button
-        android:id="@+id/sendSolicitareBtn"
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_green"
-        android:text="Trimite"
+        />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Locatia"
+        android:hint="Alege locatia"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Medic"
+        android:hint="Alege medic (optional)"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         />
 
     <Button
-        android:id="@+id/returnFromSolicitareBtn"
+        android:id="@+id/sendCerereBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/dark_green"
+        android:text="Trimitere cerere"
+        />
+
+    <Button
+        android:id="@+id/returnFromProgramareBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Renunţare"
         android:backgroundTint="@color/red_dark"/>
-
 </LinearLayout>

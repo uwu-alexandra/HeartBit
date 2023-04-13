@@ -99,12 +99,13 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
-                                   
+
                                 }else{
                                     Toast.makeText(Register.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
+
             }
         });
 

@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context=".Register">
+    tools:context=".ui.logare.Register">
 
     <TextView
         android:layout_width="match_parent"
@@ -37,6 +37,26 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="@string/password" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/nume"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Nume" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/prenume"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Prenume" />
 
     <ProgressBar
         android:id="@+id/progressBar"

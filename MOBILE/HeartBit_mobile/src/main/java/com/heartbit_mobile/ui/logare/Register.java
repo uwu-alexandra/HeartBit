@@ -1,5 +1,6 @@
-package com.heartbit_mobile;
+package com.heartbit_mobile.ui.logare;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,17 +12,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.heartbit_mobile.MainActivity;
+import com.heartbit_mobile.R;
 
 public class Register extends AppCompatActivity {
 
-    TextInputEditText editTextCnp, editTextPassword;
-    Button registerBtn;
-    // FireBaseAuth mAuth;
+    private TextInputEditText editTextCnp, editTextPassword,editTextNume,editTextPrenume;
+    private Button registerBtn;
+    private FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
 
-    /*
+
     @Override
     public void onStart() {
         super.onStart();
@@ -33,7 +41,6 @@ public class Register extends AppCompatActivity {
              finish();
         }
     }
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +48,10 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         editTextCnp = findViewById(R.id.cnp);
         editTextPassword = findViewById(R.id.password);
+        editTextNume=findViewById(R.id.nume);
+        editTextPrenume=findViewById(R.id.prenume);
         registerBtn = findViewById(R.id.registerBtn);
-        // mAuth=FirebaseAuth.getInstance();
+        mAuth=FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
 
@@ -59,38 +68,45 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                String cnp, password;
+                String cnp, password,nume,prenume;
                 cnp = editTextCnp.getText().toString();
                 password = editTextPassword.getText().toString();
+                nume=editTextNume.getText().toString();
+                prenume=editTextPrenume.getText().toString();
 
                 if (TextUtils.isEmpty(cnp)) {
-                    Toast.makeText(Register.this, "Enter cnp", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Introduceţi cnp", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Register.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Introduceţi parola", Toast.LENGTH_SHORT).show();
                     return;
                 }
-/*
-                mAuth.createUserWithEmailAndPassword(cnp, password)
+
+                if (TextUtils.isEmpty(nume)) {
+                    Toast.makeText(Register.this, "Introduceţi numele", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(prenume)) {
+                    Toast.makeText(Register.this, "Introduceţi prenumele", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                mAuth.createUserWithEmailAndPassword(cnp,password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Register.this, "Account created",
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(Register.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-
+                                if(task.isSuccessful()) {
+                                   
+                                }else{
+                                    Toast.makeText(Register.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
-                        */
-
             }
         });
+
     }
 }

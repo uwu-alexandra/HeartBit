@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "134775428923",
+    "firebase_url": "https://proiectip-f2b57-default-rtdb.firebaseio.com",
+    "project_id": "proiectip-f2b57",
+    "storage_bucket": "proiectip-f2b57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134775428923:android:382f9bfdf1870a18c4891e",
+        "android_client_info": {
+          "package_name": "com.heartbit_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134775428923-dff9bfgip7bev2mpvifa85p5248e6mif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1SfrCyzNNZhFQ9QhRVVWyL6ZfcLxbnzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134775428923-dff9bfgip7bev2mpvifa85p5248e6mif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

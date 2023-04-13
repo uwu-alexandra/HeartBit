@@ -12,11 +12,11 @@
         android:theme="@style/Theme.HEARTBIT_MOBILE"
         tools:targetApi="31" >
         <activity
-            android:name=".Login"
+            android:name=".ui.logare.Login"
             android:exported="false" />
 
         <activity
-            android:name=".Register"
+            android:name=".ui.logare.Register"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

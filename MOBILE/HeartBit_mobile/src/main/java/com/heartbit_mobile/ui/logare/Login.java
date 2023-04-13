@@ -1,4 +1,4 @@
-package com.heartbit_mobile;
+package com.heartbit_mobile.ui.logare;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.heartbit_mobile.R;
 
 public class Login extends AppCompatActivity {
 

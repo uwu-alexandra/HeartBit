@@ -3,56 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.support.SupportFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.support.SupportFragment">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Suport"
         android:gravity="center"
+        android:text="Suport"
         android:textSize="20dp" />
 
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:background="@color/grey">
 
-    <TableRow>
+        <TableRow>
 
-        <LinearLayout
-            android:id="@+id/ghidLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:layout_marginBottom="5dp"
-            >
+            <LinearLayout
+                android:id="@+id/ghidLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="30dp"
-                android:src="@drawable/baseline_book_24" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/baseline_book_24" />
 
-            <TextView
-                android:id="@+id/ghid_utilizare"
-                android:layout_width="225dp"
-                android:layout_height="30dp"
-                android:maxLines="3"
-                android:scrollbars="vertical"
-                android:text="Ghid de utilizare"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/ghid_utilizare"
+                    android:layout_width="225dp"
+                    android:layout_height="30dp"
+                    android:text="Ghid de utilizare"
+                    android:textSize="20dp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/baseline_arrow_right_24" />
-        </LinearLayout>
-    </TableRow>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="right"
+                    android:src="@drawable/baseline_arrow_right_24" />
+            </LinearLayout>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -60,7 +63,7 @@
 
             <LinearLayout
                 android:id="@+id/solicitareLayout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -74,14 +77,18 @@
                     android:id="@+id/solicitare"
                     android:layout_width="225dp"
                     android:layout_height="30dp"
-                    android:maxLines="3"
-                    android:scrollbars="vertical"
                     android:text="Solicitare"
                     android:textSize="20dp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:gravity="right"
                     android:src="@drawable/baseline_arrow_right_24" />
             </LinearLayout>
         </TableRow>
@@ -93,8 +100,8 @@
         android:layout_height="300dp"
         android:gravity="center|top"
         android:scrollbars="vertical"
-        android:textStyle="bold"
         android:text="Ai nevoie de un alt fel de ajutor? \n Sună la clinică! \n\n 0255 200 200 \n Luni-Vineri, orele: 09-17"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </LinearLayout>

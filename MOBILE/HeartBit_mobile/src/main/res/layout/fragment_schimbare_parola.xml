@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.calendar.ProgramareFragment">
+    tools:context=".ui.settings.SchimbareParolaFragment">
 
     <TextView
+        android:id="@+id/schimbareParolaTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Programare nouă"
+        android:text="Schimbare Parolă"
         android:textSize="20dp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -18,52 +19,51 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Specialitate"
+        android:id="@+id/parolaActuala"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Alege specialitatea" />
+        android:hint="Introduceţi parola actuală" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Data"
+        android:id="@+id/parolaNoua"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Alege data" />
+        android:hint="Introduceţi parola nouă*" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Locatia"
+        android:id="@+id/comfirmareParolaNoua"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Alege locatia" />
+        android:hint="Introduceţi parola din nou" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
+        android:id="@+id/solicitare_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Medic"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Alege medic (optional)" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="*Noua parolă trebuie să conţină cel puţin 8 caractere \n (o literă mare, o literă mică, un număr şi un caracter special"
+        android:textSize="10dp" />
 
     <Button
-        android:id="@+id/sendCerereBtn"
+        android:id="@+id/salvareNouaParola"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dark_green"
-        android:text="Trimitere cerere" />
+        android:text="Salvare noua parolă" />
 
     <Button
-        android:id="@+id/returnFromProgramareBtn"
+        android:id="@+id/returnFromSchimbareParola"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red_dark"
         android:text="Renunţare" />
+
 </LinearLayout>

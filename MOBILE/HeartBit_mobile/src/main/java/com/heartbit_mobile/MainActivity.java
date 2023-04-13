@@ -43,33 +43,32 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFragment(new HomeFragment());
         binding.navView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId())
-            {
+            switch (item.getItemId()) {
                 case R.id.navigation_support:
-                        replaceFragment(new SupportFragment());
+                    replaceFragment(new SupportFragment());
                     break;
                 case R.id.navigation_calendar:
-                        replaceFragment(new CalendarFragment());
+                    replaceFragment(new CalendarFragment());
                     break;
                 case R.id.navigation_home:
-                        replaceFragment(new HomeFragment());
+                    replaceFragment(new HomeFragment());
                     break;
                 case R.id.navigation_dashboard:
-                        replaceFragment(new DashboardFragment());
+                    replaceFragment(new DashboardFragment());
                     break;
                 case R.id.navigation_settings:
-                        replaceFragment(new SettingsFragment());
+                    replaceFragment(new SettingsFragment());
                     break;
             }
 
             return true;
         });
     }
-    private void replaceFragment(Fragment fragment)
-    {
-    FragmentManager fragmentManager=getSupportFragmentManager();
-    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-    fragmentTransaction.replace(R.id.frame_layout,fragment);
-    fragmentTransaction.commit();
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }

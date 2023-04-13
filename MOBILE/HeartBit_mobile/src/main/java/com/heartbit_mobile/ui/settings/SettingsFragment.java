@@ -1,66 +1,159 @@
 package com.heartbit_mobile.ui.settings;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.heartbit_mobile.R;
+import com.heartbit_mobile.ui.support.SolicitareFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SettingsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private LinearLayout schimbareParolaLayout;
+    private LinearLayout deconectareContLayout;
+    private LinearLayout stergereContLayout;
+    private LinearLayout permisiuneBluetoothLayout;
+    private LinearLayout cadruLegalLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        schimbareParolaLayout = view.findViewById(R.id.schimbareParolaLayout);
+        deconectareContLayout = view.findViewById(R.id.deconectareContLayout);
+        stergereContLayout = view.findViewById(R.id.stergereContLayout);
+        permisiuneBluetoothLayout = view.findViewById(R.id.permisiuneBluetoothLayout);
+        cadruLegalLayout = view.findViewById(R.id.cadruLegalLayout);
+
+        schimbareParolaLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickParolaLayout();
+            }
+        });
+        deconectareContLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickDeconectareContLayout();
+            }
+        });
+
+        stergereContLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickStergereContLayout();
+            }
+        });
+        permisiuneBluetoothLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickBluetoothLayout();
+            }
+        });
+
+        cadruLegalLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickCandruLegalLayout();
+            }
+        });
+
+        return view;
+    }
+
+    private void onClickParolaLayout() {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.hide(this);
+        transaction.commit();
+
+        FragmentTransaction transaction2 = getParentFragmentManager().beginTransaction();
+        transaction2.add(R.id.frame_layout, new SchimbareParolaFragment());
+        transaction2.commit();
+    }
+
+    private void onClickDeconectareContLayout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.logout_message)
+                .setTitle(R.string.logout_title)
+                .setPositiveButton(R.string.logout_positive_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // deconectați utilizatorul aici
+                    }
+                })
+                .setNegativeButton(R.string.logout_negative_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // închideți dialogul fără a face nimic
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void onClickStergereContLayout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.stergere_message)
+                .setTitle(R.string.stergere_title)
+                .setPositiveButton(R.string.stergere_positive_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // stergeti utilizatorul aici
+                    }
+                })
+                .setNegativeButton(R.string.stergere_negative_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // închideți dialogul fără a face nimic
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void onClickBluetoothLayout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom_bluetooth, null);
+        builder.setView(dialogView);
+
+        Button cancelButton = dialogView.findViewById(R.id.bluetooth_dialog_cancel_button);
+        Button confirmButton = dialogView.findViewById(R.id.bluetooth_dialog_confirm_button);
+        AlertDialog dialog = builder.create();
+// Setarea listenerilor de click pentru butoane
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru anularea acțiunii
+                dialog.dismiss();
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru confirmarea acțiunii
+            }
+        });
+        dialog.show();
+    }
+
+    private void onClickCandruLegalLayout() {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.hide(this);
+        transaction.commit();
+
+        FragmentTransaction transaction2 = getParentFragmentManager().beginTransaction();
+        transaction2.add(R.id.frame_layout, new CadruLegalFragment());
+        transaction2.commit();
     }
 }

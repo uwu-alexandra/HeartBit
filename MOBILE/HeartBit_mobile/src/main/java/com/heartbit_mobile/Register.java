@@ -15,9 +15,9 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class Register extends AppCompatActivity {
 
-    TextInputEditText editTextCnp,editTextPassword;
+    TextInputEditText editTextCnp, editTextPassword;
     Button registerBtn;
-   // FireBaseAuth mAuth;
+    // FireBaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
 
@@ -39,17 +39,17 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        editTextCnp=findViewById(R.id.cnp);
-        editTextPassword=findViewById(R.id.password);
-        registerBtn=findViewById(R.id.registerBtn);
-       // mAuth=FirebaseAuth.getInstance();
-        progressBar=findViewById(R.id.progressBar);
-        textView=findViewById(R.id.loginNow);
+        editTextCnp = findViewById(R.id.cnp);
+        editTextPassword = findViewById(R.id.password);
+        registerBtn = findViewById(R.id.registerBtn);
+        // mAuth=FirebaseAuth.getInstance();
+        progressBar = findViewById(R.id.progressBar);
+        textView = findViewById(R.id.loginNow);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),Login.class);
+                Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
                 finish();
             }
@@ -59,18 +59,16 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                String cnp,password;
-                cnp=editTextCnp.getText().toString();
-                password=editTextPassword.getText().toString();
+                String cnp, password;
+                cnp = editTextCnp.getText().toString();
+                password = editTextPassword.getText().toString();
 
-                if(TextUtils.isEmpty(cnp))
-                {
+                if (TextUtils.isEmpty(cnp)) {
                     Toast.makeText(Register.this, "Enter cnp", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(TextUtils.isEmpty(password))
-                {
+                if (TextUtils.isEmpty(password)) {
                     Toast.makeText(Register.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }

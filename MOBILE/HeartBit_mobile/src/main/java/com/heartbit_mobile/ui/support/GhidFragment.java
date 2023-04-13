@@ -16,6 +16,7 @@ import com.heartbit_mobile.R;
 public class GhidFragment extends Fragment {
     private String previousFragmentTag;
     private Button returnBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public class GhidFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ghid, container, false);
-        returnBtn=view.findViewById(R.id.returnFromGhidBtn);
+        returnBtn = view.findViewById(R.id.returnFromGhidBtn);
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,13 +36,13 @@ public class GhidFragment extends Fragment {
         });
         return view;
     }
-    private void onReturnClick()
-    {
+
+    private void onReturnClick() {
         Fragment previousFragment = getParentFragmentManager().findFragmentByTag(previousFragmentTag);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.remove(this);
-       // transaction.show(previousFragment);
+        // transaction.show(previousFragment);
         transaction.commit();
 
-        }
     }
+}

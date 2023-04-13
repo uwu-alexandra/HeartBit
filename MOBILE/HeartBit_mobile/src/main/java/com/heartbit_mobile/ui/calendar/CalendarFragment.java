@@ -24,38 +24,39 @@ public class CalendarFragment extends Fragment {
 
     private Button pastBtn;
     private Button futureBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        calendarViewModel=new ViewModelProvider(this).get(CalendarViewModel.class);
+        calendarViewModel = new ViewModelProvider(this).get(CalendarViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_calendar,container,false);
-        programareLayout=view.findViewById(R.id.programareLayout);
-        recomandariLayout=view.findViewById(R.id.recomandariLayout);
-        pastBtn=view.findViewById(R.id.pastBtn);
-        futureBtn=view.findViewById(R.id.futureBtn);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        programareLayout = view.findViewById(R.id.programareLayout);
+        recomandariLayout = view.findViewById(R.id.recomandariLayout);
+        pastBtn = view.findViewById(R.id.pastBtn);
+        futureBtn = view.findViewById(R.id.futureBtn);
         programareLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            onLayoutProgramareClick();
+                onLayoutProgramareClick();
             }
         });
 
         recomandariLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            onLayoutRecomandariClick();
+                onLayoutRecomandariClick();
             }
         });
 
         pastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            onPastBtnClick();
+                onPastBtnClick();
             }
         });
 
@@ -67,8 +68,8 @@ public class CalendarFragment extends Fragment {
         });
         return view;
     }
-    private void onLayoutProgramareClick()
-    {
+
+    private void onLayoutProgramareClick() {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.hide(this);
         transaction.commit();
@@ -77,8 +78,8 @@ public class CalendarFragment extends Fragment {
         transaction2.add(R.id.frame_layout, new ProgramareFragment());
         transaction2.commit();
     }
-    private void onLayoutRecomandariClick()
-    {
+
+    private void onLayoutRecomandariClick() {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.hide(this);
         transaction.commit();
@@ -88,8 +89,7 @@ public class CalendarFragment extends Fragment {
         transaction2.commit();
     }
 
-    private void onPastBtnClick()
-    {
+    private void onPastBtnClick() {
         pastBtn.setClickable(false);
         pastBtn.setBackgroundColor(Color.WHITE);
         futureBtn.setClickable(true);
@@ -97,21 +97,19 @@ public class CalendarFragment extends Fragment {
         afisareDateIstoric();
     }
 
-    private void onFutureBtnClick()
-    {
+    private void onFutureBtnClick() {
         pastBtn.setClickable(true);
         pastBtn.setBackgroundColor(Color.GRAY);
         futureBtn.setClickable(false);
         futureBtn.setBackgroundColor(Color.WHITE);
         afisareDateViitoare();
     }
-    private void afisareDateIstoric()
-    {
+
+    private void afisareDateIstoric() {
 
     }
 
-    private void afisareDateViitoare()
-    {
+    private void afisareDateViitoare() {
 
     }
 }

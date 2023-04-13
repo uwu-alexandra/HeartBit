@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/bluetooth_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bluetooth"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingBottom="8dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/bluetooth_dialog_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aplicaţia mobilă utilizează un modul bluetooth pentru a comunica
+        \ncu senzorii sistemului wearable. Este necesar să aveţi bluetooth-ul
+        \npornit pe telefon pentru colectarea datelor"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:paddingBottom="16dp" />
+
+
+    <Button
+        android:id="@+id/bluetooth_dialog_confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Porneşte bluetooth"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/dark_green"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/bluetooth_dialog_cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Renunţare"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/red_dark"
+        android:padding="8dp" />
+
+
+
+</LinearLayout>

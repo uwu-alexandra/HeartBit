@@ -1,6 +1,7 @@
 package com.heartbit_mobile.ui.support;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,6 +15,7 @@ import com.heartbit_mobile.R;
 public class SolicitareFragment extends Fragment {
 
     private Button returnBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class SolicitareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_solicitare, container, false);
-        returnBtn=view.findViewById(R.id.returnFromSolicitareBtn);
+        returnBtn = view.findViewById(R.id.returnFromSolicitareBtn);
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,8 +34,8 @@ public class SolicitareFragment extends Fragment {
         });
         return view;
     }
-    private void onReturnClick()
-    {
+
+    private void onReturnClick() {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.remove(this);
         //transaction.show(previousFragment);

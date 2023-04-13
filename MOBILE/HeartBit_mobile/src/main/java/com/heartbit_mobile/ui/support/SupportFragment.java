@@ -1,4 +1,5 @@
 package com.heartbit_mobile.ui.support;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,26 +15,26 @@ import android.widget.LinearLayout;
 import com.heartbit_mobile.R;
 
 public class SupportFragment extends Fragment {
-private SupportViewModel supportViewModel;
-private LinearLayout ghidLayout;
-private LinearLayout solicitareLayout;
+    private SupportViewModel supportViewModel;
+    private LinearLayout ghidLayout;
+    private LinearLayout solicitareLayout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportViewModel=new ViewModelProvider(this).get(SupportViewModel.class);
+        supportViewModel = new ViewModelProvider(this).get(SupportViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_support, container, false);
-        ghidLayout=view.findViewById(R.id.ghidLayout);
-        solicitareLayout=view.findViewById(R.id.solicitareLayout);
+        ghidLayout = view.findViewById(R.id.ghidLayout);
+        solicitareLayout = view.findViewById(R.id.solicitareLayout);
         ghidLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-             onLayoutGhidClick();
+            public void onClick(View v) {
+                onLayoutGhidClick();
             }
         });
 
@@ -45,6 +46,7 @@ private LinearLayout solicitareLayout;
         });
         return view;
     }
+
     private void onLayoutGhidClick() {
 
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -68,8 +70,7 @@ private LinearLayout solicitareLayout;
         transaction2.commit();
     }
 
-    private void onLayoutSolicitareClick()
-    {
+    private void onLayoutSolicitareClick() {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.hide(this);
         transaction.commit();

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.support.SolicitareFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.support.SolicitareFragment">
 
     <TextView
         android:id="@+id/solicitare_title"
@@ -17,38 +17,36 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/Motiv"
-        android:hint="Motiv"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        />
+        android:hint="Motiv" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/Detalii"
-        android:hint="Detalii"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        />
+        android:hint="Detalii" />
+
     <Button
         android:id="@+id/sendSolicitareBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dark_green"
-        android:text="Trimite"
-        />
+        android:text="Trimite" />
 
     <Button
         android:id="@+id/returnFromSolicitareBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Renunţare"
-        android:backgroundTint="@color/red_dark"/>
+        android:backgroundTint="@color/red_dark"
+        android:text="Renunţare" />
 
 </LinearLayout>

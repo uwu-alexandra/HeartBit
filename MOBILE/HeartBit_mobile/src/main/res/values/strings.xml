@@ -19,4 +19,17 @@
     <string name="support_title">Support</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cnp_text">CNP</string>
+    <string name="loginBtn">Login</string>
+
+    <string name="logout_title">Deconectare</string>
+    <string name="logout_message">Sunteți sigur că doriți să vă deconectați?</string>
+    <string name="logout_positive_button">Deconectare</string>
+    <string name="logout_negative_button">Anulare</string>
+
+    <string name="stergere_title">Ştergere</string>
+    <string name="stergere_message">Sunteți sigur că doriți să ştergeţi contul?</string>
+    <string name="stergere_positive_button">Ştergere</string>
+    <string name="stergere_negative_button">Anulare</string>
+
 </resources>

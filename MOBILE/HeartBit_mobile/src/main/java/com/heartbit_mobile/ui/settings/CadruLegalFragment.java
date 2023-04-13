@@ -1,4 +1,4 @@
-package com.heartbit_mobile.ui.calendar;
+package com.heartbit_mobile.ui.settings;
 
 import android.os.Bundle;
 
@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.heartbit_mobile.R;
 
-public class RecomandariFragment extends Fragment {
-
+public class CadruLegalFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,7 +20,7 @@ public class RecomandariFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recomandari, container, false);
+        View view = inflater.inflate(R.layout.fragment_cadru_legal, container, false);
         return view;
     }
 }

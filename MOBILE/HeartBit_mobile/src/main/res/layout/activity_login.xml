@@ -3,65 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     android:padding="15dp"
     tools:context=".Login">
 
     <TextView
-        android:text="@string/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
         android:layout_marginBottom="25dp"
-        />
-<com.google.android.material.textfield.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/cnp"
-        android:hint="CNP"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-   />
+        android:gravity="center"
+        android:text="@string/login"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password"
-        android:hint="@string/password"
+        android:id="@+id/cnp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        />
+        android:hint="@string/cnp_text" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/password" />
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:visibility="gone" />
 
     <Button
-    android:id="@+id/loginBtn"
-    android:text="@string/login"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login" />
 
     <TextView
         android:id="@+id/registerNow"
-        android:text="@string/click_to_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
         android:layout_marginTop="20sp"
-        />
+        android:gravity="center"
+        android:text="@string/click_to_register"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>

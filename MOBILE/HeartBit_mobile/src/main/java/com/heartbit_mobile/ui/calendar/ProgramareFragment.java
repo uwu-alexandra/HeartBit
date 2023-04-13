@@ -25,9 +25,9 @@ public class ProgramareFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_programare,container,false);
-        sendBtn=view.findViewById(R.id.sendCerereBtn);
-        returnBtn=view.findViewById(R.id.returnFromProgramareBtn);
+        View view = inflater.inflate(R.layout.fragment_programare, container, false);
+        sendBtn = view.findViewById(R.id.sendCerereBtn);
+        returnBtn = view.findViewById(R.id.returnFromProgramareBtn);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +44,8 @@ public class ProgramareFragment extends Fragment {
         });
         return view;
     }
-    private void onReturnClick()
-    {
+
+    private void onReturnClick() {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.remove(this);
         //transaction.show(previousFragment);

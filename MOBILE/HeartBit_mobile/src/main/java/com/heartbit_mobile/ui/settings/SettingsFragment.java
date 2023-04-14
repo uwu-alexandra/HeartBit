@@ -2,6 +2,7 @@ package com.heartbit_mobile.ui.settings;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.heartbit_mobile.R;
+import com.heartbit_mobile.ui.logare.Login;
 import com.heartbit_mobile.ui.support.SolicitareFragment;
 
 public class SettingsFragment extends Fragment {
@@ -92,6 +95,10 @@ public class SettingsFragment extends Fragment {
                 .setPositiveButton(R.string.logout_positive_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // deconectați utilizatorul aici
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(getActivity(), Login.class);
+                        startActivity(intent);
+                        getActivity().finish();
                     }
                 })
                 .setNegativeButton(R.string.logout_negative_button, new DialogInterface.OnClickListener() {

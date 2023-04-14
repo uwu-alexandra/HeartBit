@@ -29,7 +29,6 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
-
     @Override
     public void onStart() {
         super.onStart();

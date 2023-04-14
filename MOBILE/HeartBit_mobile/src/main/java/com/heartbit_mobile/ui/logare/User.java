@@ -19,4 +19,6 @@ public class User {
         this.prenume = prenume;
         this.cnp = cnp;
     }
+
+
 }

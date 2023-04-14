@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -29,7 +30,6 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
-
 
     @Override
     public void onStart() {
@@ -84,6 +84,13 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                if (cnp.length() != 13) {
+                    Toast.makeText(Register.this, "CNP invalid", Toast.LENGTH_SHORT).show();
+                    editTextCnp.setError("CNP invalid");
+                    editTextCnp.requestFocus();
+                    return;
+                }
+
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(Register.this, "Introduceţi parola", Toast.LENGTH_SHORT).show();
                     editTextCnp.setError("Parolă necompletată");
@@ -112,6 +119,13 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(Register.this, "Email invalid", Toast.LENGTH_SHORT).show();
+                    editTextCnp.setError("Email invalid");
+                    editTextCnp.requestFocus();
+                    return;
+                }
+
                 progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -121,7 +135,7 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     //we will store the additional fields in FireBase
                                     User user = new User(email, password, nume, prenume, cnp);
-                                    FirebaseDatabase.getInstance().getReference("Conturi")
+                                    FirebaseDatabase.getInstance().getReference("Users")
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
@@ -133,13 +147,11 @@ public class Register extends AppCompatActivity {
                                                     }
                                                 }
                                             });
-
                                 } else {
                                     Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
-
             }
         });
 

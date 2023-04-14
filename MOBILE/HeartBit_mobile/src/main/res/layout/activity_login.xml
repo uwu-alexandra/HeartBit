@@ -23,10 +23,10 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/cnp"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="@string/cnp_text" />
+        android:hint="Email" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

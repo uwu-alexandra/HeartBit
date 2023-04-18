@@ -134,7 +134,7 @@ public class Register extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     //we will store the additional fields in FireBase
-                                    User user = new User(email, password, nume, prenume, cnp);
+                                   /* User user = new User(email, password, nume, prenume, cnp);
                                     FirebaseDatabase.getInstance().getReference("Users")
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -146,7 +146,7 @@ public class Register extends AppCompatActivity {
                                                         Toast.makeText(Register.this, "Probleme cu inregistrarea", Toast.LENGTH_LONG);
                                                     }
                                                 }
-                                            });
+                                            });*/
                                     Intent intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
                                     finish();

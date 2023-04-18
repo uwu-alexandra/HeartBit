@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.support.SolicitareFragment">
+
+    <TextView
+        android:id="@+id/solicitare_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:scrollbars="vertical"
+        android:text="Solicitare"
+        android:textSize="20dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Motiv"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Motiv" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Detalii"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="Detalii" />
+
+    <Button
+        android:id="@+id/sendSolicitareBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/dark_green"
+        android:text="Trimite" />
+
+    <Button
+        android:id="@+id/returnFromSolicitareBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red_dark"
+        android:text="Renunţare" />
+
+</LinearLayout>

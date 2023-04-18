@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.calendar.ProgramareFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Programare nouă"
+        android:textSize="20dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Specialitate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Alege specialitatea" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Data"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Alege data" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Locatia"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Alege locatia" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/Medic"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Alege medic (optional)" />
+
+    <Button
+        android:id="@+id/sendCerereBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/dark_green"
+        android:text="Trimitere cerere" />
+
+    <Button
+        android:id="@+id/returnFromProgramareBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red_dark"
+        android:text="Renunţare" />
+</LinearLayout>

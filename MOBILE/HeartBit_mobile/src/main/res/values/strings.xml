@@ -1,22 +1,22 @@
 <resources>
-    <string name="app_name">HEARTBIT_MOBILE</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">HEARTBIT</string>
+    <string name="title_home">Acasă</string>
+    <string name="title_dashboard">Dosar medical</string>
+    <string name="title_notifications">Setări</string>
     <string name="password">Password</string>
     <string name="login">login</string>
     <string name="click_to_register">Register Now</string>
     <string name="register">Register</string>
     <string name="click_to_login">Login now</string>
     <string name="cnp">CNP</string>
-    <string name="support">Support</string>
-    <string name="title_support">Support</string>
-    <string name="title_calendar">Calendar</string>
-    <string name="notifications_title">Notifications</string>
-    <string name="dashboard_title">Dashboard</string>
-    <string name="home_title">Home</string>
-    <string name="calendar_title">Calendar</string>
-    <string name="support_title">Support</string>
+    <string name="support">Suport</string>
+    <string name="title_support">Suport</string>
+    <string name="title_calendar">Programările mele</string>
+    <string name="notifications_title">Setări</string>
+    <string name="dashboard_title">Dosar medical</string>
+    <string name="home_title">Acasă</string>
+    <string name="calendar_title">Programările mele</string>
+    <string name="support_title">Suport</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cnp_text">CNP</string>
@@ -31,5 +31,9 @@
     <string name="stergere_message">Sunteți sigur că doriți să ştergeţi contul?</string>
     <string name="stergere_positive_button">Ştergere</string>
     <string name="stergere_negative_button">Anulare</string>
+    <string name="ghid_de_utilizare">Ghid de utilizare</string>
+    <string name="solicitare">Solicitare</string>
+    <string name="suport">Suport</string>
+    <string name="suport_help"><b>Ai nevoie de un alt fel de ajutor?</b> \n\n Sună la clinică! \n <u>0255 200 200</u> \n Luni–Vineri, orele: 09–17\n\n</string>
 
 </resources>

@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fontFamily="@font/adamina"
     tools:context=".ui.support.SupportFragment">
 
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="82dp"
         android:gravity="center"
-        android:text="Suport"
-        android:textSize="20dp" />
+        android:text="@string/suport"
+        android:textColor="@color/red_dark"
+        android:textSize="35sp" />
 
 
     <TableLayout
@@ -20,29 +22,34 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/grey">
+        android:background="@drawable/table_background_with_border">
 
         <TableRow>
 
             <LinearLayout
                 android:id="@+id/ghidLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="378dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/baseline_book_24" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/ghid_utilizare"
                     android:layout_width="225dp"
-                    android:layout_height="30dp"
-                    android:text="Ghid de utilizare"
-                    android:textSize="20dp" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/ghid_de_utilizare"
+                    android:textSize="30sp" />
 
                 <Space
                     android:layout_width="0dp"
@@ -52,11 +59,22 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:src="@drawable/baseline_arrow_right_24" />
             </LinearLayout>
         </TableRow>
+        <RelativeLayout
+            android:layout_width="2dp"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
+            <View
+                android:layout_width="370dp"
+                android:layout_height="3dp"
+                android:background="@color/sec_grey"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -69,26 +87,31 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/form_new_svgrepo_com" />
-
-                <TextView
-                    android:id="@+id/solicitare"
-                    android:layout_width="225dp"
-                    android:layout_height="30dp"
-                    android:text="Solicitare"
-                    android:textSize="20dp" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
+                <TextView
+                    android:id="@+id/solicitare"
+                    android:layout_width="225dp"
+                    android:layout_height="35dp"
+                    android:text="@string/solicitare"
+                    android:textSize="30sp"/>
+
+                <Space
+                    android:layout_width="-1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:src="@drawable/baseline_arrow_right_24" />
             </LinearLayout>
         </TableRow>
@@ -97,11 +120,10 @@
     <TextView
         android:id="@+id/contact"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:gravity="center|top"
+        android:layout_height="297dp"
+        android:gravity="center|center"
         android:scrollbars="vertical"
-        android:text="Ai nevoie de un alt fel de ajutor? \n Sună la clinică! \n\n 0255 200 200 \n Luni-Vineri, orele: 09-17"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:text="@string/suport_help"
+        android:textSize="30sp" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -134,19 +136,20 @@ public class Register extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     //we will store the additional fields in FireBase
-                                   /* User user = new User(email, password, nume, prenume, cnp);
+                                   User user = new User(email, password, nume, prenume, cnp);
                                     FirebaseDatabase.getInstance().getReference("Users")
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        Toast.makeText(Register.this, "Cont creat cu succes", Toast.LENGTH_LONG);
+                                                        Toast.makeText(Register.this, "Cont creat cu succes", Toast.LENGTH_LONG).show();
                                                     } else {
-                                                        Toast.makeText(Register.this, "Probleme cu inregistrarea", Toast.LENGTH_LONG);
+                                                        Toast.makeText(Register.this, "Probleme cu inregistrarea", Toast.LENGTH_LONG).show();
+                                                        Log.e("RegistrationError", "Error registering user: " + task.getException().getMessage());
                                                     }
                                                 }
-                                            });*/
+                                            });
                                     Intent intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
                                     finish();

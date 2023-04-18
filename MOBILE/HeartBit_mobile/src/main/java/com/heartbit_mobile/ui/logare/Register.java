@@ -147,6 +147,9 @@ public class Register extends AppCompatActivity {
                                                     }
                                                 }
                                             });
+                                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                                    startActivity(intent);
+                                    finish();
                                 } else {
                                     Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }

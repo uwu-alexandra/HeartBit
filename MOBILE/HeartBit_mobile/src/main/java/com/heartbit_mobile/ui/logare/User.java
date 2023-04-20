@@ -13,17 +13,20 @@ public class User {
     private String email;
     @PropertyName("password")
     private String password;
+    @PropertyName("cod")
+    private String cod;
 
     public User() {
 
     }
 
-    public User(String email, String password, String nume, String prenume, String cnp) {
+    public User(String email, String password, String nume, String prenume, String cnp, String cod) {
         this.email = email;
         this.password = password;
         this.nume = nume;
         this.prenume = prenume;
         this.cnp = cnp;
+        this.cod = cod;
     }
 
     @PropertyName("nume")
@@ -74,5 +77,15 @@ public class User {
     @PropertyName("password")
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @PropertyName("cod")
+    public String getCod() {
+        return cod;
+    }
+
+    @PropertyName("cod")
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 }

@@ -6,8 +6,8 @@
     <string name="password">Password</string>
     <string name="login">Contul meu</string>
     <string name="click_to_register">Nu aveti cont? Inregistrati-va</string>
-    <string name="register">Register</string>
-    <string name="click_to_login">Login now</string>
+    <string name="register">Creare cont</string>
+    <string name="click_to_login">Aveti deja cont? Autentificati-va</string>
     <string name="cnp">CNP</string>
     <string name="support">Suport</string>
     <string name="title_support">Suport</string>
@@ -38,5 +38,8 @@
     <string name="email">Email</string>
     <string name="autentificare">Autentificare</string>
     <string name="resetPass"><u>Ai uitat parola? Reseteaza aici!</u></string>
+    <string name="cod">Cod</string>
+    <string name="prenume">Prenume</string>
+    <string name="nume">Nume</string>
 
 </resources>

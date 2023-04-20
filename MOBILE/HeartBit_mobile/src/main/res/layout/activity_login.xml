@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:paddingHorizontal="20dp"
-    android:paddingTop="50dp"
+    android:paddingTop="70dp"
     tools:context=".ui.logare.Login">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@mipmap/bg">
     <Space
         android:layout_width="0dp"
-        android:layout_height="130dp"
+        android:layout_height="100dp"
         android:layout_weight="1"
         tools:ignore="InefficientWeight" />
     <TextView
@@ -67,18 +68,18 @@
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green"
+        android:backgroundTint="@color/okButton"
         android:text="@string/autentificare"
         android:textColor="@color/white"
       />
-    <TextView
+    <Button
         android:id="@+id/registerNow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5sp"
         android:gravity="center"
         android:text="@string/click_to_register"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
 </LinearLayout>
 </ScrollView>

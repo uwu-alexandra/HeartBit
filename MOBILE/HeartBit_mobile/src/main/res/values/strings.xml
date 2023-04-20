@@ -5,7 +5,7 @@
     <string name="title_notifications">Setări</string>
     <string name="password">Password</string>
     <string name="login">Contul meu</string>
-    <string name="click_to_register">Register Now</string>
+    <string name="click_to_register">Nu aveti cont? Inregistrati-va</string>
     <string name="register">Register</string>
     <string name="click_to_login">Login now</string>
     <string name="cnp">CNP</string>

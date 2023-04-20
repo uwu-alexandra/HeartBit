@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minWidth="1200dp"
+    android:minHeight="400dp"
     android:orientation="vertical"
-    tools:context=".ui.settings.SchimbareParolaFragment">
+    android:gravity="center">
 
     <TextView
         android:id="@+id/schimbareParolaTitle"
@@ -54,16 +56,18 @@
 
     <Button
         android:id="@+id/salvareNouaParola"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dark_green"
-        android:text="Salvare noua parolă" />
+        android:text="Salvare noua parolă"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/returnFromSchimbareParola"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red_dark"
-        android:text="Renunţare" />
+        android:text="Renunţare"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

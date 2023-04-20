@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.calendar.ProgramareFragment">
+    android:minWidth="1200dp"
+    android:minHeight="400dp"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -55,15 +57,17 @@
 
     <Button
         android:id="@+id/sendCerereBtn"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dark_green"
-        android:text="Trimitere cerere" />
+        android:text="Trimitere cerere"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/returnFromProgramareBtn"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red_dark"
-        android:text="Renunţare" />
+        android:text="Renunţare"
+        android:textColor="@color/white"/>
 </LinearLayout>

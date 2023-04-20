@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.ui.logare.Login;
-import com.heartbit_mobile.ui.support.SolicitareFragment;
 
 public class SettingsFragment extends Fragment {
 
@@ -79,13 +78,29 @@ public class SettingsFragment extends Fragment {
     }
 
     private void onClickParolaLayout() {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.hide(this);
-        transaction.commit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom_schimbare_parola, null);
+        builder.setView(dialogView);
 
-        FragmentTransaction transaction2 = getParentFragmentManager().beginTransaction();
-        transaction2.add(R.id.frame_layout, new SchimbareParolaFragment());
-        transaction2.commit();
+        Button cancelButton = dialogView.findViewById(R.id.returnFromSchimbareParola);
+        Button confirmButton = dialogView.findViewById(R.id.salvareNouaParola);
+        AlertDialog dialog = builder.create();
+// Setarea listenerilor de click pentru butoane
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru anularea acțiunii
+                dialog.dismiss();
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru confirmarea acțiunii
+            }
+        });
+        dialog.show();
     }
 
     private void onClickDeconectareContLayout() {

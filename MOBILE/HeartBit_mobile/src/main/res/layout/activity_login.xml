@@ -5,21 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-
-    android:padding="15dp"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="50dp"
     tools:context=".ui.logare.Login">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:layout_weight="1"
+        tools:ignore="InefficientWeight" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:gravity="center"
         android:text="@string/login"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textColor="@color/red_dark"
+        android:textSize="35sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -28,8 +33,8 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Email" />
+        android:layout_height="50dp"
+        android:hint="@string/email" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -38,8 +43,19 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:hint="@string/password" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/resetPass"
+        android:textSize="18sp"
+        android:textAlignment="viewEnd"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_weight="1"
+        tools:ignore="InefficientWeight" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -51,7 +67,10 @@
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login" />
+        android:background="@color/green"
+        android:text="@string/autentificare"
+        android:textColor="@color/white"
+      />
 
     <TextView
         android:id="@+id/registerNow"

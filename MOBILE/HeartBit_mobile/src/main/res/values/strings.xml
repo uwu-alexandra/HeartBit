@@ -4,7 +4,7 @@
     <string name="title_dashboard">Dosar medical</string>
     <string name="title_notifications">Setări</string>
     <string name="password">Password</string>
-    <string name="login">login</string>
+    <string name="login">Contul meu</string>
     <string name="click_to_register">Register Now</string>
     <string name="register">Register</string>
     <string name="click_to_login">Login now</string>
@@ -35,5 +35,8 @@
     <string name="solicitare">Solicitare</string>
     <string name="suport">Suport</string>
     <string name="suport_help"><b>Ai nevoie de un alt fel de ajutor?</b> \n\n Sună la clinică! \n <u>0255 200 200</u> \n Luni–Vineri, orele: 09–17\n\n</string>
+    <string name="email">Email</string>
+    <string name="autentificare">Autentificare</string>
+    <string name="resetPass"><u>Ai uitat parola? Reseteaza aici!</u></string>
 
 </resources>

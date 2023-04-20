@@ -71,7 +71,6 @@
         android:text="@string/autentificare"
         android:textColor="@color/white"
       />
-
     <TextView
         android:id="@+id/registerNow"
         android:layout_width="match_parent"

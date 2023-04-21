@@ -29,13 +29,16 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="@string/email" />
+        android:hint="@string/email"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -45,13 +48,18 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="@string/password" />
+        android:hint="@string/password"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/resetPass"
         android:textSize="18sp"
-        android:textAlignment="viewEnd"/>
+        android:textAlignment="viewEnd"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@color/black"/>
     <Space
         android:layout_width="0dp"
         android:layout_height="10dp"

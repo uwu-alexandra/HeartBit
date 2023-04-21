@@ -7,48 +7,57 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="82dp"
             android:gravity="center"
-            android:text="Setări aplicaţie \n Versiunea 1.0.0"
-            android:textSize="20sp" />
+            android:text="@string/Titlu_setari"
+            android:textColor="@color/red_dark"
+            android:textSize="35sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Setări cont"
-            android:textSize="20dp" />
+            android:gravity="start"
+            android:text="@string/setari_cont"
+            android:textSize="25sp"
+            android:paddingVertical="10sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"/>
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey">
+            android:background="@drawable/table_background_with_border">
 
             <TableRow>
 
                 <LinearLayout
                     android:id="@+id/schimbareParolaLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="370dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="16dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/baseline_lock_24" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/schimbareParola"
                         android:layout_width="225dp"
-                        android:layout_height="30dp"
-                        android:text="Schimbare Parolă"
-                        android:textSize="20dp" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/schimbare_parol"
+                        android:textSize="25sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -56,8 +65,8 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:gravity="end"
                         android:src="@drawable/baseline_arrow_right_24" />
                 </LinearLayout>
@@ -71,22 +80,26 @@
                     android:id="@+id/deconectareContLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey"
                     android:orientation="horizontal"
                     android:padding="16dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25sp"
+                        android:layout_height="35dp"
                         android:src="@drawable/baseline_logout_24" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/deconectareCont"
                         android:layout_width="225dp"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:scrollbars="vertical"
-                        android:text="Deconectare cont"
-                        android:textSize="20dp" />
+                        android:text="@string/deconectare"
+                        android:textSize="25sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -94,8 +107,8 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:gravity="end"
                         android:src="@drawable/baseline_arrow_right_24" />
                 </LinearLayout>
@@ -109,22 +122,26 @@
                     android:id="@+id/stergereContLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey"
                     android:orientation="horizontal"
                     android:padding="16dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="30dp"
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
                         android:src="@drawable/baseline_delete_forever_24" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/stergereCont"
                         android:layout_width="225dp"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:scrollbars="vertical"
-                        android:text="Ştergere cont"
-                        android:textSize="20dp" />
+                        android:text="@string/stergere"
+                        android:textSize="25sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -132,8 +149,8 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:gravity="end"
                         android:src="@drawable/baseline_arrow_right_24" />
                 </LinearLayout>
@@ -143,35 +160,43 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Setări permisiuni"
-            android:textSize="20dp" />
+            android:gravity="start"
+            android:text="@string/permisiuni"
+            android:textSize="25sp"
+            android:paddingVertical="10sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"/>
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey">
+            android:background="@drawable/table_background_with_border">
 
             <TableRow>
 
                 <LinearLayout
                     android:id="@+id/permisiuneBluetoothLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="370dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="16dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/baseline_bluetooth_24" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/permisiuneBluetooth"
                         android:layout_width="225dp"
-                        android:layout_height="30dp"
-                        android:text="Permisiune Bluetooth"
-                        android:textSize="20dp" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/permisiune_bluetooth"
+                        android:textSize="25sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -179,8 +204,8 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:gravity="end"
                         android:src="@drawable/baseline_arrow_right_24" />
                 </LinearLayout>
@@ -194,22 +219,26 @@
                     android:id="@+id/cadruLegalLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey"
                     android:orientation="horizontal"
                     android:padding="16dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/baseline_insert_drive_file_24" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/cadruLegal"
-                        android:layout_width="225dp"
-                        android:layout_height="30dp"
+                        android:layout_width="222dp"
+                        android:layout_height="wrap_content"
                         android:scrollbars="vertical"
-                        android:text="Cadru legal"
-                        android:textSize="20dp" />
+                        android:text="@string/cadru_legal"
+                        android:textSize="25sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -217,8 +246,8 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:gravity="end"
                         android:src="@drawable/baseline_arrow_right_24" />
                 </LinearLayout>

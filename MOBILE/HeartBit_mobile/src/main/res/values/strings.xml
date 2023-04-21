@@ -41,5 +41,13 @@
     <string name="cod">Cod</string>
     <string name="prenume">Prenume</string>
     <string name="nume">Nume</string>
+    <string name="setari_cont">Setări</string>
+    <string name="schimbare_parol">Schimbare Parolă</string>
+    <string name="deconectare">Deconectare cont</string>
+    <string name="stergere">Ştergere cont</string>
+    <string name="permisiuni">Setări permisiuni</string>
+    <string name="permisiune_bluetooth">Permisiune BT</string>
+    <string name="cadru_legal">Cadru legal</string>
+    <string name="Titlu_setari">Setări aplicaţie</string>
 
 </resources>

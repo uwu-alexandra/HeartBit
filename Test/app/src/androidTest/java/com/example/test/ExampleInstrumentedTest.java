@@ -1,4 +1,4 @@
-package com.heartbit_mobile;
+package com.example.test;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.heartbit_mobile", appContext.getPackageName());
+        assertEquals("com.example.test", appContext.getPackageName());
     }
 }

@@ -9,9 +9,11 @@
     <color name="grey">#EEE9E7</color>
     <color name="sec_grey">#C6C6C6</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#00FF00</color>
+    <color name="green">#4CAF50</color>
     <color name="dark_green">#008000</color>
     <color name="red">#FF0000</color>
     <color name="red_dark">#8B0000</color>
     <color name="red_darker">#600000</color>
+    <color name="okButton">#00AB08</color>
+    <color name="signUp">#4CAF50</color>
 </resources>

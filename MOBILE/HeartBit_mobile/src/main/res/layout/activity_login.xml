@@ -5,31 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-
-    android:padding="15dp"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="70dp"
     tools:context=".ui.logare.Login">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@mipmap/bg">
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        tools:ignore="InefficientWeight" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:gravity="center"
         android:text="@string/login"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textColor="@color/red_dark"
+        android:textSize="35sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Email" />
+        android:layout_height="50dp"
+        android:hint="@string/email"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -38,8 +47,24 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="@string/password" />
+        android:layout_height="50dp"
+        android:hint="@string/password"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/resetPass"
+        android:textSize="18sp"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@color/black"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_weight="1"
+        tools:ignore="InefficientWeight" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -51,16 +76,18 @@
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login" />
-
-    <TextView
+        android:backgroundTint="@color/okButton"
+        android:text="@string/autentificare"
+        android:textColor="@color/white"
+      />
+    <Button
         android:id="@+id/registerNow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5sp"
         android:gravity="center"
         android:text="@string/click_to_register"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
 </LinearLayout>
 </ScrollView>

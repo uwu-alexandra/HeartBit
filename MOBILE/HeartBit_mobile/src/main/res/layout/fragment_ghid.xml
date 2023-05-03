@@ -10,16 +10,32 @@
     <TextView
         android:id="@+id/ghid_utilizare_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="82dp"
         android:gravity="center"
-        android:scrollbars="vertical"
-        android:text="Ghid de utilizare"
-        android:textSize="20dp" />
+        android:text="@string/ghid_titlu"
+        android:textSize="35sp"
+        android:textColor="@color/red_dark"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/ghid_utilizare_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:scrollbars="vertical"
+            android:text="@string/text_ghid_utilizare"
+            android:textSize="20sp" />
+
+    </ScrollView>
     <Button
         android:id="@+id/returnFromGhidBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Return" />
+        android:text="@string/back"
+        android:textColor="@color/white" />
 
 </LinearLayout>

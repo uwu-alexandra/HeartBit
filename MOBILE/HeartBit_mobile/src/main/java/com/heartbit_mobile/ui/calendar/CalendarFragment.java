@@ -1,5 +1,6 @@
 package com.heartbit_mobile.ui.calendar;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.heartbit_mobile.R;
-import com.heartbit_mobile.ui.support.SolicitareFragment;
 
 
 public class CalendarFragment extends Fragment {
@@ -70,14 +70,31 @@ public class CalendarFragment extends Fragment {
     }
 
     private void onLayoutProgramareClick() {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.hide(this);
-        transaction.commit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom_programare, null);
+        builder.setView(dialogView);
 
-        FragmentTransaction transaction2 = getParentFragmentManager().beginTransaction();
-        transaction2.add(R.id.frame_layout, new ProgramareFragment());
-        transaction2.commit();
+        Button cancelButton = dialogView.findViewById(R.id.returnFromProgramareBtn);
+        Button confirmButton = dialogView.findViewById(R.id.sendCerereBtn);
+        AlertDialog dialog = builder.create();
+// Setarea listenerilor de click pentru butoane
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru anularea acțiunii
+                dialog.dismiss();
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru confirmarea acțiunii
+            }
+        });
+        dialog.show();
     }
+
 
     private void onLayoutRecomandariClick() {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

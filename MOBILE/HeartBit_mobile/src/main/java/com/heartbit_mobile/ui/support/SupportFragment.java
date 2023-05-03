@@ -1,5 +1,6 @@
 package com.heartbit_mobile.ui.support;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.heartbit_mobile.R;
@@ -71,12 +73,28 @@ public class SupportFragment extends Fragment {
     }
 
     private void onLayoutSolicitareClick() {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.hide(this);
-        transaction.commit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom_solicitare, null);
+        builder.setView(dialogView);
 
-        FragmentTransaction transaction2 = getParentFragmentManager().beginTransaction();
-        transaction2.add(R.id.frame_layout, new SolicitareFragment());
-        transaction2.commit();
+        Button cancelButton = dialogView.findViewById(R.id.returnFromSolicitareBtn);
+        Button confirmButton = dialogView.findViewById(R.id.sendSolicitareBtn);
+        AlertDialog dialog = builder.create();
+// Setarea listenerilor de click pentru butoane
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru anularea acțiunii
+                dialog.dismiss();
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru confirmarea acțiunii
+            }
+        });
+        dialog.show();
     }
 }

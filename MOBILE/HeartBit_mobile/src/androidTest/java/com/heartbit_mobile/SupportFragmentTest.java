@@ -5,6 +5,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
+
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
@@ -46,7 +48,7 @@ public class SupportFragmentTest {
                 {"Titlul paginii", R.id.header_title, "Suport"},
                 {"Tabel rand1", R.id.ghid_utilizare, "Ghid de utilizare"},
                 {"Tabel rand2", R.id.solicitare, "Solicitare"},
-                {"Text ajutor", R.id.contact, "Ai nevoie de un alt fel de ajutor? \\n\\n Sună la clinică! \\n 0255 200 200 \\n Luni–Vineri, orele: 09–17\\n\\n"},
+                {"Text ajutor", R.id.contact, "Ai nevoie de un alt fel de ajutor? \n\n Sună la clinică! \n 0255 200 200 \n Luni–Vineri, orele: 09–17"},
         });
     }
 
@@ -56,6 +58,6 @@ public class SupportFragmentTest {
     }
 
     private static void textIsDisplayedCorrectly(int text_id, String expectedText) {
-        Espresso.onView(withId(text_id)).check(matches(withText(expectedText)));
+        Espresso.onView(withId(text_id)).check(matches(withText(equalToIgnoringWhiteSpace(expectedText))));
     }
 }

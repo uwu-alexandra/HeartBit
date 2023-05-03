@@ -9,6 +9,7 @@
 
 
     <TextView
+        android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:gravity="center"
@@ -124,6 +125,7 @@
         android:gravity="center|center"
         android:scrollbars="vertical"
         android:text="@string/suport_help"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        />
 
 </LinearLayout>

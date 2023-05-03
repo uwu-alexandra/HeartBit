@@ -4,45 +4,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="1200dp"
-    android:minHeight="400dp"
+    android:minHeight="500dp"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:paddingHorizontal="10sp">
 
-    <TextView
-        android:id="@+id/solicitare_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:scrollbars="vertical"
-        android:text="Solicitare"
-        android:textSize="20dp" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/solicitare_title"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/solicitare_titlu"
+            android:textSize="35sp"
+            android:textColor="@color/red_dark"/>
+
+        <Button
+            android:id="@+id/closeDialogBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="@string/X"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/motiv_prompt"
+        android:textColorHint="@color/black"
+        android:gravity="start"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:textColor="@color/black"
+        android:textSize="17sp"/>
+
+    <Spinner
+        android:id="@+id/motiv_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:entries="@array/solicitari_options"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:dropDownVerticalOffset="50dp"
+        android:paddingHorizontal="10sp"/>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Motiv"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Motiv" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingVertical="5sp"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/Detalii"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:hint="Detalii" />
+        android:hint="@string/detalii"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:paddingHorizontal="20sp"/>
 
     <Button
         android:id="@+id/sendSolicitareBtn"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:backgroundTint="@color/dark_green"
-        android:text="Trimite"
+        android:text="@string/send"
+        android:backgroundTint="@color/okButton"
         android:textColor="@color/white"
         android:gravity="center"/>
 
@@ -51,8 +90,8 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/red_dark"
-        android:text="Renunţare"
+        android:text="@string/cancel"
         android:textColor="@color/white"
-        android:gravity="center"/>
+        android:gravity="center" />
 
 </LinearLayout>

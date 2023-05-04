@@ -23,7 +23,7 @@ public class DashboardFragment extends Fragment {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-       // TextView textView = binding.textDashboard;
+        //TextView textView = binding.textDashboard;
         //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
-    tools:context=".ui.support.GhidFragment">
+    android:padding="15dp">
 
     <TextView
         android:id="@+id/ghid_utilizare_title"
@@ -13,8 +11,8 @@
         android:layout_height="82dp"
         android:gravity="center"
         android:text="@string/ghid_titlu"
-        android:textSize="35sp"
-        android:textColor="@color/red_dark"/>
+        android:textColor="@color/red_dark"
+        android:textSize="35sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,6 +29,7 @@
             android:textSize="20sp" />
 
     </ScrollView>
+
     <Button
         android:id="@+id/returnFromGhidBtn"
         android:layout_width="match_parent"

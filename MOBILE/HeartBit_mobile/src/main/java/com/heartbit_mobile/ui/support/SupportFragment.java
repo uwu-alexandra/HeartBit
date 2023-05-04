@@ -51,25 +51,21 @@ public class SupportFragment extends Fragment {
 
     private void onLayoutGhidClick() {
 
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.hide(this);
-        transaction.commit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom_ghid, null);
+        builder.setView(dialogView);
 
-        GhidFragment ghidFragment = new GhidFragment();
-
-        // Setează argumentele fragmentului (dacă este necesar)
-        Bundle args = new Bundle();
-        args.putString("argument_key", "argument_value");
-        ghidFragment.setArguments(args);
-
-        // Adaugă referința către fragmentul anterior în argumentele fragmentului nou
-        Bundle newFragmentArgs = new Bundle();
-        newFragmentArgs.putString("previous_fragment_tag", this.getTag());
-        ghidFragment.setArguments(newFragmentArgs);
-
-        FragmentTransaction transaction2 = getParentFragmentManager().beginTransaction();
-        transaction2.add(R.id.frame_layout, ghidFragment);
-        transaction2.commit();
+        Button cancelButton = dialogView.findViewById(R.id.returnFromGhidBtn);
+        AlertDialog dialog = builder.create();
+        // Setarea listenerilor de click pentru butoane
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru anularea acțiunii
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void onLayoutSolicitareClick() {

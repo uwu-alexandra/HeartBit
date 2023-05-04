@@ -72,8 +72,8 @@ public class HomeFragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            connectBtn.setText("Conecteaza device wearable");
-                            connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+                            connectBtn.setText("Deconecteaza device wearable");
+                            connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
                         }
                     }, 100);
                     // Add code to connect device here
@@ -130,8 +130,8 @@ public class HomeFragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            connectBtn.setText("Deconecteaza device wearable");
-                            connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
+                            connectBtn.setText("Conecteaza device wearable");
+                            connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
                         }
                     }, 100);
 

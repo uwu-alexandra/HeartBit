@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment {
     BluetoothDevice arduinoBTModule = null;
     UUID arduinoUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     boolean gasit = false;
+    boolean conectat=false;
     private Queue<String> buffer = new LinkedList<String>();
 
     ConectareThread conectareThread = null;
@@ -68,14 +69,7 @@ public class HomeFragment extends Fragment {
                 if (!isConnected) {
                     // Connect the device
                     isConnected = true;
-                    // Delay the button state change for 500ms
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            connectBtn.setText("Deconecteaza device wearable");
-                            connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
-                        }
-                    }, 100);
+
                     // Add code to connect device here
 
                     // Check if we have the necessary permissions
@@ -107,6 +101,7 @@ public class HomeFragment extends Fragment {
                             }
                         }
                         if (gasit == true) {
+                            conectat=true;
                             ConectareThread connectThread = new ConectareThread(arduinoBTModule, arduinoUUID);
                             connectThread.start();
                             //Check if Socket connected
@@ -124,6 +119,20 @@ public class HomeFragment extends Fragment {
                     } else {
                         Toast.makeText(getContext(), "Niciun dispozitiv conectat. Conectaţi dispozitivul wearable şi încercaţi din nou.", Toast.LENGTH_SHORT).show();
                     }
+
+                    // Delay the button state change for 100ms
+                    if(conectat) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                connectBtn.setText("Deconecteaza device wearable");
+                                connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
+                            }
+                        }, 100);
+                    }
+                    else
+                        isConnected=false;
                 } else {
                     // Disconnect the device
                     isConnected = false;

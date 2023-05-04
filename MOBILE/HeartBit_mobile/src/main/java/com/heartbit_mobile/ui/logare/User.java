@@ -17,7 +17,6 @@ public class User {
     private String cod;
 
     public User() {
-
     }
 
     public User(String email, String password, String nume, String prenume, String cnp, String cod) {

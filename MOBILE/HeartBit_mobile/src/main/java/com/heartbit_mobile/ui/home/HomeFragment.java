@@ -44,11 +44,13 @@ public class HomeFragment extends Fragment {
     BluetoothDevice arduinoBTModule = null;
     UUID arduinoUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     boolean gasit = false;
-    boolean conectat=false;
-    private Queue<String> buffer = new LinkedList<String>();
+    boolean conectat = false;
+    private Queue<String> buffer = new LinkedList<>();
 
     ConectareThread conectareThread = null;
     ComunicareThread comunicareThread = null;
+
+    ProcesareThread procesareThread = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -101,13 +103,15 @@ public class HomeFragment extends Fragment {
                             }
                         }
                         if (gasit == true) {
-                            conectat=true;
                             ConectareThread connectThread = new ConectareThread(arduinoBTModule, arduinoUUID);
                             connectThread.start();
                             //Check if Socket connected
                             if (connectThread.getMmSocket().isConnected()) {
-                                ComunicareThread comunicareThread = new ComunicareThread(connectThread.getMmSocket(), isConnected,buffer);
+                                conectat = true;
+                                ComunicareThread comunicareThread = new ComunicareThread(connectThread.getMmSocket(), isConnected, buffer);
                                 comunicareThread.start();
+                                ProcesareThread procesareThread = new ProcesareThread(buffer);
+                                procesareThread.start();
                             }
                         }
                         if (gasit == false) {
@@ -118,7 +122,7 @@ public class HomeFragment extends Fragment {
                     }
 
                     // Delay the button state change for 100ms
-                    if(conectat) {
+                    if (conectat) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -127,13 +131,12 @@ public class HomeFragment extends Fragment {
                                 connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
                             }
                         }, 100);
-                    }
-                    else
-                        isConnected=false;
+                    } else
+                        isConnected = false;
                 } else {
                     // Disconnect the device
                     isConnected = false;
-                    // Delay the button state change for 500ms
+                    // Delay the button state change for 100ms
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -144,9 +147,13 @@ public class HomeFragment extends Fragment {
 
                     // Add code to disconnect device here
                     if (conectareThread != null) {
+
                         comunicareThread.cancel();
                         conectareThread.interrupt();
                         comunicareThread.interrupt();
+
+                        procesareThread.stopProcessing();
+                        procesareThread.interrupt();
                     }
                 }
             }

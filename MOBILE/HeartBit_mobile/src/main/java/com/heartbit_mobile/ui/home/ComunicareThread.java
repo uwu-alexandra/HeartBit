@@ -16,7 +16,6 @@ public class ComunicareThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private boolean isConnected;
-    private String valueRead;
     private Queue<String> bufferQueue;
     private ReentrantLock bufferLock = new ReentrantLock();
 
@@ -37,12 +36,7 @@ public class ComunicareThread extends Thread {
         //Input and Output streams members of the class
         mmInStream = tmpIn;
     }
-
-    public String getValueRead() {
-        return valueRead;
-    }
-
-    public void run() {
+       public void run() {
 
         byte[] buffer = new byte[1024];
         int bytes = 0; // bytes returned from read()

@@ -8,16 +8,22 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Queue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class ComunicareThread extends Thread{
+public class ComunicareThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private boolean isConnected;
     private String valueRead;
+    private Queue<String> bufferQueue;
+    private ReentrantLock bufferLock = new ReentrantLock();
 
-    public ComunicareThread(BluetoothSocket socket,boolean isConnected) {
+    public ComunicareThread(BluetoothSocket socket, boolean isConnected, Queue<String> bufferQueue) {
         mmSocket = socket;
-        this.isConnected=isConnected;
+        this.isConnected = isConnected;
+        this.bufferQueue = bufferQueue;
         InputStream tmpIn = null;
 
         // Get the input and output streams; using temp objects because
@@ -32,16 +38,16 @@ public class ComunicareThread extends Thread{
         mmInStream = tmpIn;
     }
 
-    public String getValueRead(){
+    public String getValueRead() {
         return valueRead;
     }
+
     public void run() {
 
         byte[] buffer = new byte[1024];
         int bytes = 0; // bytes returned from read()
 
         // Keep listening to the InputStream until an exception occurs.
-        //We just want to get 1 temperature readings from the Arduino
         while (isConnected) {
             try {
 
@@ -51,8 +57,9 @@ public class ComunicareThread extends Thread{
                 if (buffer[bytes] == '\n') {
                     readMessage = new String(buffer, 0, bytes);
                     Log.e(TAG, readMessage);
-                    //Value to be read by the Observer streamed by the Obervable
-                    valueRead=readMessage;
+                    bufferLock.lock();
+                    bufferQueue.add(readMessage);
+                    bufferLock.unlock();
                     bytes = 0;
                 } else {
                     bytes++;
@@ -63,7 +70,6 @@ public class ComunicareThread extends Thread{
                 break;
             }
         }
-
     }
 
     // Call this method from the main activity to shut down the connection.

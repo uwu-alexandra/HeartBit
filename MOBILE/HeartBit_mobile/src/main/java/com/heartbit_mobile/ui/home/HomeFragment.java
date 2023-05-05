@@ -106,11 +106,8 @@ public class HomeFragment extends Fragment {
                             connectThread.start();
                             //Check if Socket connected
                             if (connectThread.getMmSocket().isConnected()) {
-                                ComunicareThread comunicareThread = new ComunicareThread(connectThread.getMmSocket(), isConnected);
+                                ComunicareThread comunicareThread = new ComunicareThread(connectThread.getMmSocket(), isConnected,buffer);
                                 comunicareThread.start();
-                                if (comunicareThread.getValueRead() != null) {
-                                    buffer.add(comunicareThread.getValueRead());
-                                }
                             }
                         }
                         if (gasit == false) {

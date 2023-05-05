@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private boolean isConnected = false;
-    private static final int REQUEST_BLUETOOTH_PERMISSION = 1;
+    public static final int REQUEST_BLUETOOTH_PERMISSION = 1;
     BluetoothDevice arduinoBTModule = null;
     UUID arduinoUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     boolean gasit = false;

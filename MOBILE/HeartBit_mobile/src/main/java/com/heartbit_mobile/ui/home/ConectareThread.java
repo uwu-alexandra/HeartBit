@@ -13,7 +13,6 @@ import java.util.UUID;
 public class ConectareThread extends Thread {
     private static final int PERMISSION_REQUEST_CODE = 1;
     private final BluetoothSocket mmSocket;
-    private Context context;
 
     @SuppressLint("MissingPermission")
     public ConectareThread(BluetoothDevice device, UUID MY_UUID) {

@@ -8,6 +8,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -54,6 +55,7 @@ public class ComunicareThread extends Thread {
                     bufferLock.lock();
                     bufferQueue.add(readMessage);
                     bufferLock.unlock();
+                    Arrays.fill(buffer,(byte)0); //resetare buffer pentru a preveni reziduuri
                     bytes = 0;
                 } else {
                     bytes++;

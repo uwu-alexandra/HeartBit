@@ -4,70 +4,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="1200dp"
-    android:minHeight="400dp"
+    android:minHeight="500dp"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="10sp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Programare nouă"
-        android:textSize="20dp" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/prg_new_dialog_header"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/prg_new"
+            android:textSize="35sp"
+            android:textColor="@color/red_dark"/>
+
+
+        <Button
+            android:id="@+id/closeDialogBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="@string/X"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingVertical="5sp"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/Specialitate"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Alege specialitatea" />
+        android:hint="@string/specialitate_progr"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:paddingHorizontal="20sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingVertical="5sp"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/Data"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Alege data" />
+        android:hint="@string/data_prog"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:paddingHorizontal="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/locatie_prg"
+        android:textColorHint="@color/black"
+        android:gravity="start"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:textColor="@color/black"
+        android:textSize="17sp"/>
+
+    <Spinner
+        android:id="@+id/locatie_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:entries="@array/locatii_options"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:dropDownVerticalOffset="50dp"
+        android:paddingHorizontal="10sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Locatia"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Alege locatia" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingVertical="5sp"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/Medic"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Alege medic (optional)" />
+        android:hint="@string/medic_prg"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:paddingHorizontal="20sp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20sp"/>
 
     <Button
         android:id="@+id/sendCerereBtn"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_green"
-        android:text="Trimitere cerere"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/okButton"
+        android:text="@string/send_reuquest"
         android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/returnFromProgramareBtn"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:backgroundTint="@color/red_dark"
-        android:text="Renunţare"
+        android:text="@string/cancel"
         android:textColor="@color/white"/>
 </LinearLayout>

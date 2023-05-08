@@ -51,7 +51,7 @@
     <string name="Titlu_setari">Setări aplicaţie</string>
     <string name="ghid_titlu">Ghid de utilizare</string>
     <string name="back">Înapoi</string>
-    <string name="text_ghid_utilizare">Bine ați venit în ghidul de utilizare pentru aplicația mobilă <b>HearBit</b>. Acest ghid vă va ajuta să utilizați toate funcționalitățile aplicației noastre în mod eficient și în deplină siguranță. \n\n1. <b>Autentificare utilizatori</b> \nPentru a utiliza aplicația mobilă, trebuie să fiți autentificat. Înregistrați-vă și conectați-vă la aplicație cu ajutorul CNP-ului și a parolei personale. În cazul în care aveți dificultăți în procesul de autentificare, asigurați-vă că introduceți datele corecte și verificați conexiunea la internet. \n\n<b>2. Colectarea datelor de la pacient</b>\n Aplicația mobilă se conectează la dispozitivul wearable și primește datele despre starea de sănătate a pacientului. Pentru a asigura colectarea corectă a datelor, urmați instrucțiunile de conectare și verificați regulat starea conexiunii dintre cele două dispozitive. Datele colectate pot fi folosite pentru a detecta probleme de sănătate și pentru a oferi recomandări medicale în timp real. \n\n<b>3. Procesarea datelor </b>\nAplicația mobilă preia datele colectate de la dispozitivul wearable, le procesează și le transmite către cloud. Acest proces are loc prin intermediul unei conexiuni la internet. Datele sunt transformate în informații utile pentru utilizator, iar aplicația vă oferă recomandări personalizate bazate pe starea de sănătate a pacientului. \n\nAcestea sunt principalele funcționalități ale aplicației noastre mobile. Dacă aveți întrebări sau probleme în timpul utilizării aplicației, nu ezitați să contactați departamentul nostru de asistență tehnică. Suntem mereu aici pentru a vă ajuta!</string>
+    <string name="text_ghid_utilizare">Bine ați venit în ghidul de utilizare pentru aplicația mobilă <b>HearBit</b>. Acest ghid vă va ajuta să utilizați toate funcționalitățile aplicației noastre în mod eficient și în deplină siguranță. \n\n<b>1. Autentificare utilizatori</b> \nPentru a utiliza aplicația mobilă, trebuie să fiți autentificat. Înregistrați-vă și conectați-vă la aplicație cu ajutorul CNP-ului și a parolei personale. În cazul în care aveți dificultăți în procesul de autentificare, asigurați-vă că introduceți datele corecte și verificați conexiunea la internet. \n\n<b>2. Colectarea datelor de la pacient</b>\n Aplicația mobilă se conectează la dispozitivul wearable și primește datele despre starea de sănătate a pacientului. Pentru a asigura colectarea corectă a datelor, urmați instrucțiunile de conectare și verificați regulat starea conexiunii dintre cele două dispozitive. Datele colectate pot fi folosite pentru a detecta probleme de sănătate și pentru a oferi recomandări medicale în timp real. \n\n<b>3. Procesarea datelor </b>\nAplicația mobilă preia datele colectate de la dispozitivul wearable, le procesează și le transmite către cloud. Acest proces are loc prin intermediul unei conexiuni la internet. Datele sunt transformate în informații utile pentru utilizator, iar aplicația vă oferă recomandări personalizate bazate pe starea de sănătate a pacientului. \n\nAcestea sunt principalele funcționalități ale aplicației noastre mobile. Dacă aveți întrebări sau probleme în timpul utilizării aplicației, nu ezitați să contactați departamentul nostru de asistență tehnică. Suntem mereu aici pentru a vă ajuta!</string>
     <string name="solicitare_titlu">Solicitare</string>
     <string name="motiv">Motivul solicitării</string>
     <string name="detalii">Detalii</string>
@@ -59,5 +59,17 @@
     <string name="cancel">Renunţare</string>
     <string name="X">X</string>
     <string name="motiv_prompt">Motivul solicitării</string>
+    <string name="programari_titlu">Programările mele</string>
+    <string name="programare_add">Progr. nouă</string>
+    <string name="vezi_recomandari">Recomandări</string>
+    <string name="programari">Programări</string>
+    <string name="coloana_prog_trecute">trecute</string>
+    <string name="prog_coloana_viit">viitoare</string>
+    <string name="prg_new">Progr. nouă</string>
+    <string name="specialitate_progr">Alege specialitatea</string>
+    <string name="data_prog">Alege data</string>
+    <string name="locatie_prg">Alege locatia</string>
+    <string name="medic_prg">Alege medic*</string>
+    <string name="send_reuquest">Trimitere cerere</string>
 
 </resources>

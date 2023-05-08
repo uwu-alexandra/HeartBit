@@ -65,11 +65,15 @@
     <string name="programari">Programări</string>
     <string name="coloana_prog_trecute">trecute</string>
     <string name="prog_coloana_viit">viitoare</string>
-    <string name="prg_new">Progr. nouă</string>
+    <string name="prg_new">Programare nouă</string>
     <string name="specialitate_progr">Alege specialitatea</string>
     <string name="data_prog">Alege data</string>
     <string name="locatie_prg">Alege locatia</string>
     <string name="medic_prg">Alege medic*</string>
     <string name="send_reuquest">Trimitere cerere</string>
+    <string name="parola_now">Introduceţi parola actuală</string>
+    <string name="parola_new">Introduceţi parola nouă*</string>
+    <string name="parola_text_ajutator">*Noua parolă trebuie să conţină cel puţin 8 caractere (o literă mare, o literă mică, un număr şi un caracter special</string>
+    <string name="save_pass">Salvare noua parolă</string>
 
 </resources>

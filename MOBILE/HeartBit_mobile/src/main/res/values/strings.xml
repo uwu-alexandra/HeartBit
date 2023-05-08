@@ -59,5 +59,17 @@
     <string name="cancel">Renunţare</string>
     <string name="X">X</string>
     <string name="motiv_prompt">Motivul solicitării</string>
+    <string name="programari_titlu">Programările mele</string>
+    <string name="programare_add">Progr. nouă</string>
+    <string name="vezi_recomandari">Recomandări</string>
+    <string name="programari">Programări</string>
+    <string name="coloana_prog_trecute">trecute</string>
+    <string name="prog_coloana_viit">viitoare</string>
+    <string name="prg_new">Progr. nouă</string>
+    <string name="specialitate_progr">Alege specialitatea</string>
+    <string name="data_prog">Alege data</string>
+    <string name="locatie_prg">Alege locatia</string>
+    <string name="medic_prg">Alege medic*</string>
+    <string name="send_reuquest">Trimitere cerere</string>
 
 </resources>

@@ -4,4 +4,9 @@
         <item>Programare</item>
         <item>Altele</item>
     </string-array>
+    <string-array name="locatii_options">
+        <item>Timisoara (Spitalul X)</item>
+        <item>Timisoara (Spitalul Y)</item>
+        <item>Cluj (Clinica 1)</item>
+    </string-array>
 </resources>

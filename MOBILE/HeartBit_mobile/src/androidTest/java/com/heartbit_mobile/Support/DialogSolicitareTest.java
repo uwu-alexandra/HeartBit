@@ -32,7 +32,7 @@ public class DialogSolicitareTest {
     }
 
     @Test
-    public void checkCotent() {
+    public void checkContent() {
         Espresso.onView(withId(R.id.solicitare_title)).check(matches(ViewMatchers.isDisplayed()));
         Espresso.onView(withId(R.id.closeDialogBtn)).check(matches(ViewMatchers.isDisplayed()));
 

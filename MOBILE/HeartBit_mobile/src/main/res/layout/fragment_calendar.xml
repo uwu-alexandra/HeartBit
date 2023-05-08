@@ -4,40 +4,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.calendar.CalendarFragment">
+    tools:context=".ui.calendar.CalendarFragment"
+    >
 
     <TextView
+        android:id="@+id/header_title_progr"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="82dp"
         android:gravity="center"
-        android:text="Programările mele"
-        android:textSize="20dp" />
+        android:text="@string/programari_titlu"
+        android:textSize="35sp"
+        android:textColor="@color/red_dark"/>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey">
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/table_background_with_border">
 
         <TableRow>
 
             <LinearLayout
                 android:id="@+id/programareLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="377dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/baseline_add_circle_24" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/programareNoua"
                     android:layout_width="225dp"
-                    android:layout_height="30dp"
-                    android:text="Adaugă o programare"
-                    android:textSize="20dp" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/programare_add"
+                    android:textSize="30sp" />
 
                 <Space
                     android:layout_width="0dp"
@@ -45,9 +55,10 @@
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/baseline_arrow_right_24" />
+
             </LinearLayout>
         </TableRow>
 
@@ -59,21 +70,25 @@
                 android:id="@+id/recomandariLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
                 android:orientation="horizontal"
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/person_question_mark_svgrepo_com" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/recomandari"
                     android:layout_width="225dp"
-                    android:layout_height="30dp"
-                    android:text="Vezi recomandări"
-                    android:textSize="20dp" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/vezi_recomandari"
+                    android:textSize="30sp" />
 
                 <Space
                     android:layout_width="0dp"
@@ -81,46 +96,48 @@
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/baseline_arrow_right_24" />
             </LinearLayout>
         </TableRow>
     </TableLayout>
 
     <TextView
-        android:id="@+id/programari"
+        android:id="@+id/programari_progrNoua"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center"
-        android:scrollbars="vertical"
-        android:text="Programări"
-        android:textSize="20dp" />
+        android:text="@string/programari"
+        android:textSize="30sp"
+        android:paddingBottom="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/table_background_with_border">
 
         <Button
             android:id="@+id/pastBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="50dp"
             android:backgroundTint="@drawable/toggle_button_selected"
-            android:text="trecute"
-            android:textColor="@color/black" />
+            android:text="@string/coloana_prog_trecute"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
 
         <Button
             android:id="@+id/futureBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:backgroundTint="@drawable/toggle_button_selected"
-            android:text="viitoare"
-            android:textColor="@color/black" />
+            android:text="@string/prog_coloana_viit"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
 
     </LinearLayout>
 

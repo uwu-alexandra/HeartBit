@@ -61,3 +61,4 @@ public class SupportFragmentTest {
         Espresso.onView(withId(text_id)).check(matches(withText(equalToIgnoringWhiteSpace(expectedText))));
     }
 }
+

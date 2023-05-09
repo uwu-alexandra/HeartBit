@@ -1,28 +1,29 @@
-package com.heartbit_mobile;
+package com.heartbit_mobile.Support;
 
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.heartbit_mobile.MainActivity;
+import com.heartbit_mobile.R;
+
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
-import org.junit.Test;
 import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-
 @RunWith(Parameterized.class)
-public class SupportFragmentTest {
+public class SuportFragmentTest {
 
     @Rule
     public TestRule scenario = new ActivityScenarioRule<>(MainActivity.class);
@@ -45,7 +46,7 @@ public class SupportFragmentTest {
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"Titlul paginii", R.id.header_title, "Suport"},
+                {"Titlul paginii", R.id.header_title_suport, "Suport"},
                 {"Tabel rand1", R.id.ghid_utilizare, "Ghid de utilizare"},
                 {"Tabel rand2", R.id.solicitare, "Solicitare"},
                 {"Text ajutor", R.id.contact, "Ai nevoie de un alt fel de ajutor? \n\n Sună la clinică! \n 0255 200 200 \n Luni–Vineri, orele: 09–17"},
@@ -61,3 +62,6 @@ public class SupportFragmentTest {
         Espresso.onView(withId(text_id)).check(matches(withText(equalToIgnoringWhiteSpace(expectedText))));
     }
 }
+
+
+

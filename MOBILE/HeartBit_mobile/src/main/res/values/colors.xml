@@ -16,4 +16,5 @@
     <color name="red_darker">#600000</color>
     <color name="okButton">#00AB08</color>
     <color name="signUp">#4CAF50</color>
+    <color name="selected">#DAD6D4</color>
 </resources>

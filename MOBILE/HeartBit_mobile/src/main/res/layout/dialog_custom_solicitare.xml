@@ -25,6 +25,7 @@
             android:textSize="35sp"
             android:textColor="@color/red_dark"/>
 
+
         <Button
             android:id="@+id/closeDialogBtn"
             android:layout_width="wrap_content"
@@ -75,6 +76,11 @@
         android:textColorHint="@color/black"
         android:textCursorDrawable="@color/black"
         android:paddingHorizontal="20sp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20sp"/>
 
     <Button
         android:id="@+id/sendSolicitareBtn"

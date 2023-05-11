@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -112,16 +113,17 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Cod pentru confirmarea acțiunii
-                TextInputEditText specialitateTxt, dataTxt, locatiaTxt, medicTxt;
+                TextInputEditText specialitateTxt, dataTxt, medicTxt;
+                Spinner locatiaSpinner;
                 specialitateTxt = dialogView.findViewById(R.id.Specialitate);
                 dataTxt = dialogView.findViewById(R.id.Data);
-                locatiaTxt = dialogView.findViewById(R.id.Locatia);
+                locatiaSpinner = dialogView.findViewById(R.id.locatie_spinner);
                 medicTxt = dialogView.findViewById(R.id.Medic);
 
                 String specialitatea, data, locatia, medic;
                 specialitatea = specialitateTxt.getText().toString();
                 data = dataTxt.getText().toString();
-                locatia = locatiaTxt.getText().toString();
+                locatia = locatiaSpinner.getSelectedItem().toString();
                 medic = medicTxt.getText().toString();
 
                 if (TextUtils.isEmpty(specialitatea)) {
@@ -137,14 +139,6 @@ public class CalendarFragment extends Fragment {
                     dataTxt.requestFocus();
                     return;
                 }
-
-                if (TextUtils.isEmpty(locatia)) {
-                    Toast.makeText(getContext(), "Introduceţi locatia", Toast.LENGTH_SHORT).show();
-                    locatiaTxt.setError("Locatia necompletata");
-                    locatiaTxt.requestFocus();
-                    return;
-                }
-
 
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 String uid = currentUser.getUid();

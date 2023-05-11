@@ -45,6 +45,7 @@ public class CalendarFragment extends Fragment {
     private LinearLayout programareLayout;
     private LinearLayout recomandariLayout;
 
+
     private Button pastBtn;
     private Button futureBtn;
 

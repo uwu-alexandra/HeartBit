@@ -76,7 +76,7 @@ public class SupportFragment extends Fragment {
         Button cancelButton = dialogView.findViewById(R.id.returnFromSolicitareBtn);
         Button confirmButton = dialogView.findViewById(R.id.sendSolicitareBtn);
         AlertDialog dialog = builder.create();
-// Setarea listenerilor de click pentru butoane
+        // Setarea listenerilor de click pentru butoane
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

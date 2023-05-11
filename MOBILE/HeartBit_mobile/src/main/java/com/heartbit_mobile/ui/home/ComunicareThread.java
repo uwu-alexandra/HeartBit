@@ -2,8 +2,13 @@ package com.heartbit_mobile.ui.home;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
+import android.widget.Toast;
+
+
+import com.heartbit_mobile.MainActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,11 +24,13 @@ public class ComunicareThread extends Thread {
     private boolean isConnected;
     private Queue<String> bufferQueue;
     private ReentrantLock bufferLock = new ReentrantLock();
+    private Activity mActivity; //temporar
 
-    public ComunicareThread(BluetoothSocket socket, boolean isConnected, Queue<String> bufferQueue) {
+    public ComunicareThread(BluetoothSocket socket, boolean isConnected, Queue<String> bufferQueue,Activity mActivity) {
         mmSocket = socket;
         this.isConnected = isConnected;
         this.bufferQueue = bufferQueue;
+        this.mActivity=mActivity;
         InputStream tmpIn = null;
 
         // Get the input and output streams; using temp objects because
@@ -57,6 +64,8 @@ public class ComunicareThread extends Thread {
                     bufferLock.unlock();
                     Arrays.fill(buffer,(byte)0); //resetare buffer pentru a preveni reziduuri
                     bytes = 0;
+                    String message = "The size of the array is " + buffer.length;
+                    Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
                 } else {
                     bytes++;
                 }

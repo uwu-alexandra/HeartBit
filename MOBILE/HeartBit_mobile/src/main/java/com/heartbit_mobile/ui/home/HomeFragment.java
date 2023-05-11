@@ -108,10 +108,10 @@ public class HomeFragment extends Fragment {
                             //Check if Socket connected
                             if (connectThread.getMmSocket().isConnected()) {
                                 conectat = true;
-                                ComunicareThread comunicareThread = new ComunicareThread(connectThread.getMmSocket(), isConnected, buffer);
+                                ComunicareThread comunicareThread = new ComunicareThread(connectThread.getMmSocket(), isConnected, buffer, getActivity());
                                 comunicareThread.start();
-                                ProcesareThread procesareThread = new ProcesareThread(buffer);
-                                procesareThread.start();
+                                //ProcesareThread procesareThread = new ProcesareThread(buffer);
+                                //procesareThread.start();
                             }
                         }
                         if (gasit == false) {

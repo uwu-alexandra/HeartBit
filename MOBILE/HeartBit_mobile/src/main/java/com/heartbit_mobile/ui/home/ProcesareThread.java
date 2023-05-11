@@ -67,6 +67,7 @@ public class ProcesareThread extends Thread {
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .child(identificator)
                         .child((identificator + nr_citire))
+                        .push()
                         .setValue(dataProcesata)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

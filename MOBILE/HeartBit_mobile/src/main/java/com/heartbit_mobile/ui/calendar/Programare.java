@@ -103,5 +103,9 @@ public class Programare {
         this.Nume_medic = medic;
     }
 
-
+    @Override
+    public String toString() {
+        return "Data programării: " + Data_programare + "\n" +
+                "Locatia: '" + locatia;
+    }
 }

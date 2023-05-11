@@ -4,9 +4,13 @@ import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +43,10 @@ import com.heartbit_mobile.ui.logare.Register;
 import com.heartbit_mobile.ui.logare.User;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class CalendarFragment extends Fragment {
@@ -45,10 +54,14 @@ public class CalendarFragment extends Fragment {
     private LinearLayout programareLayout;
     private LinearLayout recomandariLayout;
 
-
+    private List<Programare> listaProgramariTrecute = new ArrayList<>();
+    private List<Programare> listaProgramariViitoare = new ArrayList<>();
     private Button pastBtn;
     private Button futureBtn;
-
+    private LinearLayout programariLayout;
+    private int backgroundColor = Color.parseColor("#E0E0E0");
+    private int strokeColor = Color.BLACK;
+    private int strokeWidth = 20;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +76,8 @@ public class CalendarFragment extends Fragment {
         recomandariLayout = view.findViewById(R.id.recomandariLayout);
         pastBtn = view.findViewById(R.id.pastBtn);
         futureBtn = view.findViewById(R.id.futureBtn);
+        programariLayout=view.findViewById(R.id.layoutProgramari);
+        loadListe();
         programareLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +175,7 @@ public class CalendarFragment extends Fragment {
                         }
 
                         FirebaseDatabase.getInstance().getReference("path/to/Programari")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(programare)
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(programare)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -228,10 +243,86 @@ public class CalendarFragment extends Fragment {
     }
 
     private void afisareDateIstoric() {
+        programariLayout.removeAllViews();
+        for(Programare p:listaProgramariTrecute)
+        {
+            TextView textView = new TextView(getContext());
+            textView.setText(p.toString());
 
+            ShapeDrawable shapeDrawable = new ShapeDrawable();
+            shapeDrawable.getPaint().setColor(backgroundColor);
+            shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
+            shapeDrawable.getPaint().setStrokeJoin(Paint.Join.ROUND);
+            shapeDrawable.getPaint().setStrokeCap(Paint.Cap.ROUND);
+            shapeDrawable.setIntrinsicWidth(100);
+            shapeDrawable.setIntrinsicHeight(50);
+            shapeDrawable.getPaint().setStyle(Paint.Style.STROKE);
+            shapeDrawable.getPaint().setColor(strokeColor);
+            shapeDrawable.getPaint().setStrokeWidth(strokeWidth);
+
+            textView.setBackground(shapeDrawable);
+            textView.setBackgroundColor(backgroundColor);
+            programariLayout.addView(textView);
+        }
     }
 
     private void afisareDateViitoare() {
+        programariLayout.removeAllViews();
+        for(Programare p:listaProgramariViitoare)
+        {
+            TextView textView = new TextView(getContext());
+            textView.setText(p.toString());
 
+            ShapeDrawable shapeDrawable = new ShapeDrawable();
+            shapeDrawable.getPaint().setColor(backgroundColor);
+            shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
+            shapeDrawable.getPaint().setStrokeJoin(Paint.Join.ROUND);
+            shapeDrawable.getPaint().setStrokeCap(Paint.Cap.ROUND);
+            shapeDrawable.setIntrinsicWidth(100);
+            shapeDrawable.setIntrinsicHeight(50);
+            shapeDrawable.getPaint().setStyle(Paint.Style.STROKE);
+            shapeDrawable.getPaint().setColor(strokeColor);
+            shapeDrawable.getPaint().setStrokeWidth(strokeWidth);
+
+            shapeDrawable.setPadding(10, 10, 10, 10);
+            shapeDrawable.setShape(new RectShape());
+
+            textView.setBackground(shapeDrawable);
+            textView.setBackgroundColor(backgroundColor);
+            programariLayout.addView(textView);
+        }
+    }
+
+    private void loadListe() {
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String dateString = dateFormat.format(currentDate);
+        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference("path/to/Programari/" + userUUID)
+
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            // Retrieve the data from the snapshot and do something with it
+                            Programare programare = snapshot.getValue(Programare.class);
+                            if(programare.getData().compareTo(dateString)<0)
+                            {
+                                listaProgramariTrecute.add(programare);
+                                Log.d("DATE", "Adding to listaProgramariTrecute: "+programare);
+                            }
+                            else
+                            {
+                                listaProgramariViitoare.add(programare);
+                                Log.d("DATE", "Adding to listaProgramariTrecute: "+programare);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle the error
+                        Toast.makeText(getActivity(), "Error retrieving data", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

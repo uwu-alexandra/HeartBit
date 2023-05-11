@@ -159,14 +159,24 @@ body {
   transform: translate(-50%, -50%);
 }
 /*IESIRE DIN CONT*/
-.v5_47025 {
+.v5_47025 {/*
   width: 221px;
   height: 90px;
-  opacity: 1;
+  opacity: 1;*/
   position: absolute;
   top: 50%;
   left: 80vw;
   transform: translate(-50%, -50%);
+ 
+  background: rgba(139,0,0,1);
+  opacity: 1;
+  position: relative;
+
+  border-top-left-radius: 37px;
+  border-top-right-radius: 37px;
+  border-bottom-left-radius: 37px;
+  border-bottom-right-radius: 37px;
+  overflow: hidden;
 }
 .v5_47026 {
   width: 221px;

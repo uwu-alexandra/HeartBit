@@ -63,10 +63,9 @@ onAuthStateChanged(auth, (user) => {
       console.log('Not signed in')
     }
   });
-logout.addEventListener('submit', (e) => {
+logout.addEventListener('click', (e) => {
     e.preventDefault();
     console.log('in eventlistener');
-    //const auth = getAuth();
     signOut(auth).then(() => {
         alert('Signed out successfully');
         document.location = 'index.html';

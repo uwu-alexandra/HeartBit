@@ -26,11 +26,10 @@ public class ComunicareThread extends Thread {
     private ReentrantLock bufferLock = new ReentrantLock();
     private Activity mActivity; //temporar
 
-    public ComunicareThread(BluetoothSocket socket, boolean isConnected, Queue<String> bufferQueue,Activity mActivity) {
+    public ComunicareThread(BluetoothSocket socket, boolean isConnected, Queue<String> bufferQueue) {
         mmSocket = socket;
         this.isConnected = isConnected;
         this.bufferQueue = bufferQueue;
-        this.mActivity=mActivity;
         InputStream tmpIn = null;
 
         // Get the input and output streams; using temp objects because
@@ -44,7 +43,8 @@ public class ComunicareThread extends Thread {
         //Input and Output streams members of the class
         mmInStream = tmpIn;
     }
-       public void run() {
+
+    public void run() {
 
         byte[] buffer = new byte[1024];
         int bytes = 0; // bytes returned from read()
@@ -52,34 +52,36 @@ public class ComunicareThread extends Thread {
         // Keep listening to the InputStream until an exception occurs.
         while (isConnected) {
             try {
+                if (mmInStream.available() > 0) {
+                    buffer[bytes] = (byte) mmInStream.read();
+                    String readMessage;
+                    // If I detect a "\n" means I already read a full measurement
+                    if (buffer[bytes] == '\r') {
+                        readMessage = new String(buffer, 0, bytes);
+                        Log.e(TAG, readMessage);
+                        bufferLock.lock();
+                        bufferQueue.add(readMessage);
+                        bufferLock.unlock();
+                        Arrays.fill(buffer, (byte) 0); //resetare buffer pentru a preveni reziduuri
+                        bytes = 0;
+                        String message = "The size of the array is " + buffer.length;
+                    } else {
+                        bytes++;
+                    }
 
-                buffer[bytes] = (byte) mmInStream.read();
-                String readMessage;
-                // If I detect a "\n" means I already read a full measurement
-                if (buffer[bytes] == '\n') {
-                    readMessage = new String(buffer, 0, bytes);
-                    Log.e(TAG, readMessage);
-                    bufferLock.lock();
-                    bufferQueue.add(readMessage);
-                    bufferLock.unlock();
-                    Arrays.fill(buffer,(byte)0); //resetare buffer pentru a preveni reziduuri
-                    bytes = 0;
-                    String message = "The size of the array is " + buffer.length;
-                    Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
-                } else {
-                    bytes++;
                 }
-
             } catch (IOException e) {
-                Log.d(TAG, "Input stream was disconnected", e);
-                break;
+                Log.e(TAG, "Error reading from InputStream: " + e.getMessage());
+                throw new RuntimeException(e);
             }
         }
     }
 
+
     // Call this method from the main activity to shut down the connection.
     public void cancel() {
         try {
+            mmInStream.close();
             mmSocket.close();
         } catch (IOException e) {
             Log.e(TAG, "Could not close the connect socket", e);

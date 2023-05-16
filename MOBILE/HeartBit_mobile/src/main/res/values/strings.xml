@@ -11,11 +11,11 @@
     <string name="cnp">CNP</string>
     <string name="support">Suport</string>
     <string name="title_support">Suport</string>
-    <string name="title_calendar">Programările mele</string>
+    <string name="title_calendar">Programări</string>
     <string name="notifications_title">Setări</string>
-    <string name="dashboard_title">Dosar medical</string>
+    <string name="dashboard_title">Dosar</string>
     <string name="home_title">Acasă</string>
-    <string name="calendar_title">Programările mele</string>
+    <string name="calendar_title">Programări</string>
     <string name="support_title">Suport</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

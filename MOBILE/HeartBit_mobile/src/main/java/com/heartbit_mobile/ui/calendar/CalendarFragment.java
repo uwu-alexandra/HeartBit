@@ -135,7 +135,6 @@ public class CalendarFragment extends Fragment {
                 dataTxt = dialogView.findViewById(R.id.Data);
                 locatiaSpinner = dialogView.findViewById(R.id.locatie_spinner);
                 medicTxt = dialogView.findViewById(R.id.Medic);
-
                 String specialitatea, data, locatia, medic;
                 specialitatea = specialitateTxt.getText().toString();
                 data = dataTxt.getText().toString();
@@ -196,6 +195,17 @@ public class CalendarFragment extends Fragment {
                                         Log.w(TAG, "Eroare la salvarea programării", e);
                                     }
                                 });
+                        Date currentDate = new Date();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                        String dateString = dateFormat.format(currentDate);
+                        if(programare.getData().compareTo(dateString)<0)
+                        {
+                            listaProgramariTrecute.add(programare);
+                        }
+                        else
+                        {
+                            listaProgramariViitoare.add(programare);
+                        }
                     }
 
                     @Override

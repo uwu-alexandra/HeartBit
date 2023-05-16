@@ -8,7 +8,7 @@ public class Data_procesata {
     @PropertyName("Denumire")
     private String denumire;
     @PropertyName("Time_stamp")
-    private Date time_stamp;
+    private String time_stamp;
     @PropertyName("Identificator")
     private String identificator;
     @PropertyName("Alerta")
@@ -19,20 +19,20 @@ public class Data_procesata {
     public Data_procesata() {
     }
 
-    public Data_procesata(String identificator, Date time_stamp, float valoare) {
+    public Data_procesata(String identificator, String time_stamp, float valoare) {
         this.identificator = identificator;
         switch (identificator) {
             case "EKG":
-                denumire = "EKG sensor";
+                this.denumire = "EKG sensor";
                 break;
             case "UMD":
-                denumire = "Umidity sensor";
+                this.denumire = "Umidity sensor";
                 break;
             case "TEMP":
-                denumire = "Temperature sensor";
+                this.denumire = "Temperature sensor";
                 break;
             case "PULS":
-                denumire = "Pulse sensor";
+                this.denumire = "Pulse sensor";
                 break;
         }
         this.time_stamp = time_stamp;
@@ -51,12 +51,12 @@ public class Data_procesata {
     }
 
     @PropertyName("Time_stamp")
-    public Date getTime_stamp() {
+    public String getTime_stamp() {
         return time_stamp;
     }
 
     @PropertyName("Time_stamp")
-    public void setTime_stamp(Date time_stamp) {
+    public void setTime_stamp(String time_stamp) {
         this.time_stamp = time_stamp;
     }
 
@@ -75,7 +75,7 @@ public class Data_procesata {
         return alerta;
     }
 
-    @PropertyName("Denumire")
+    @PropertyName("Alerta")
     public void setAlerta(boolean alerta) {
         this.alerta = alerta;
     }

@@ -1,11 +1,13 @@
 package com.heartbit_mobile.ui.home;
 
+import static android.content.ContentValues.TAG;
 import static androidx.core.content.ContextCompat.getSystemService;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -31,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.databinding.FragmentHomeBinding;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
@@ -47,10 +50,10 @@ public class HomeFragment extends Fragment {
     boolean conectat = false;
     private Queue<String> buffer = new LinkedList<>();
 
-    ConectareThread conectareThread = null;
     ComunicareThread comunicareThread = null;
 
     ProcesareThread procesareThread = null;
+    private BluetoothSocket mmSocket;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         //final TextView textView = binding.textHome;
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
+        if(comunicareThread!=null){isConnected=true;}
         Button connectBtn = view.findViewById(R.id.connectBtn);
         connectBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -81,14 +84,15 @@ public class HomeFragment extends Fragment {
 
                         // If we don't have the necessary permissions, request them
                         ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH_CONNECT},
+                                new String[]{Manifest.permission.BLUETOOTH_CONNECT},
                                 REQUEST_BLUETOOTH_PERMISSION);
                     }
-
+                    //Manifest.permission.BLUETOOTH,Manifest.permission.ACCESS_COARSE_LOCATION,
                     //Intances of BT Manager and BT Adapter needed to work with BT in Android.
                     BluetoothManager bluetoothManager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
                     BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
 
+                    //verificare STATE de adaugat
                     Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
                     if (pairedDevices.size() > 0) {
                         // There are paired devices. Get the name and address of each paired device.
@@ -96,23 +100,54 @@ public class HomeFragment extends Fragment {
                             String deviceName = device.getName();
                             String deviceHardwareAddress = device.getAddress(); // MAC address
 
-                            if (deviceName.equals("HC-05")) { //HC -05 gasit -> putem sa incepem comunicarea intre dispozitive
+                            if (deviceName.equals("HC-05")) { //HC-05 gasit -> putem sa incepem comunicarea intre dispozitive
                                 arduinoUUID = device.getUuids()[0].getUuid();
                                 arduinoBTModule = device;
                                 gasit = true;
+                                Toast.makeText(getContext(), "Found", Toast.LENGTH_SHORT).show();
                             }
                         }
                         if (gasit == true) {
-                            ConectareThread connectThread = new ConectareThread(arduinoBTModule, arduinoUUID);
-                            connectThread.start();
-                            //Check if Socket connected
-                            if (connectThread.getMmSocket().isConnected()) {
-                                conectat = true;
-                                ComunicareThread comunicareThread = new ComunicareThread(connectThread.getMmSocket(), isConnected, buffer, getActivity());
-                                comunicareThread.start();
-                                //ProcesareThread procesareThread = new ProcesareThread(buffer);
-                                //procesareThread.start();
+                            BluetoothSocket tmp = null;
+                            try {
+                                tmp = arduinoBTModule.createRfcommSocketToServiceRecord(arduinoUUID);
+                            } catch (IOException e) {
+                                Log.e(TAG, "Socket's create() method failed", e);
                             }
+                            mmSocket = tmp;
+                        }
+                            Toast.makeText(getContext(), "Attempt connection", Toast.LENGTH_SHORT).show();
+                        //Check if Socket connected
+                        boolean check=false;
+                        while(!check)
+                        {
+                        try {
+                            // Connect to the remote device through the socket. This call blocks
+                            // until it succeeds or throws an exception.
+                            mmSocket.connect();
+                            check=mmSocket.isConnected();
+                        } catch (IOException connectException) {
+                            // Unable to connect; close the socket and return.
+                            Toast.makeText(getActivity(), connectException.toString(), Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "connectException: " + connectException);
+
+                            try {
+                                mmSocket.close();
+                            } catch (IOException closeException) {
+                                Toast.makeText(getActivity(), closeException.toString(), Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "Could not close the client socket", closeException);
+                            }
+                        }
+                            if (check) {
+                                conectat=true;
+                                ComunicareThread comunicareThread = new ComunicareThread(mmSocket, isConnected, buffer);
+                                comunicareThread.start();
+                                Toast.makeText(getContext(), "Connection established", Toast.LENGTH_SHORT).show();
+
+                                ProcesareThread procesareThread = new ProcesareThread(buffer);
+                                procesareThread.start();
+                            } else
+                                Toast.makeText(getContext(), "Connection failed", Toast.LENGTH_SHORT).show();
                         }
                         if (gasit == false) {
                             Toast.makeText(getContext(), "Dispozitivul wearable nu a fost detectat. Verificaţi dacă dispozitivul este conectat", Toast.LENGTH_SHORT).show();
@@ -146,14 +181,13 @@ public class HomeFragment extends Fragment {
                     }, 100);
 
                     // Add code to disconnect device here
-                    if (conectareThread != null) {
-
-                        comunicareThread.cancel();
-                        conectareThread.interrupt();
+                    if (comunicareThread!=null) {
                         comunicareThread.interrupt();
-
+                        comunicareThread.cancel();
+                        comunicareThread = null;
                         procesareThread.stopProcessing();
                         procesareThread.interrupt();
+                        procesareThread=null;
                     }
                 }
             }

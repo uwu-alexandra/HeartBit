@@ -30,29 +30,43 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.heartbit_mobile.MainActivity;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.databinding.FragmentHomeBinding;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Set;
 import java.util.UUID;
 
 public class HomeFragment extends Fragment {
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof MainActivity) {
+            this.mainActivity = (MainActivity) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement SocketConnectionListener");
+        }
+    }
+
+    // Clear the listener when the fragment detaches from the activity
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+    }
+
     private FragmentHomeBinding binding;
-    private boolean isConnected = false;
+    private boolean isConnected;
     public static final int REQUEST_BLUETOOTH_PERMISSION = 1;
     BluetoothDevice arduinoBTModule = null;
     UUID arduinoUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     boolean gasit = false;
     boolean conectat = false;
-    private Queue<String> buffer = new LinkedList<>();
-
-    ComunicareThread comunicareThread = null;
-
-    ProcesareThread procesareThread = null;
+    //private Queue<String> buffer = new LinkedList<>();
+    private MainActivity mainActivity;
     private BluetoothSocket mmSocket;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,8 +79,17 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         //final TextView textView = binding.textHome;
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        if(comunicareThread!=null){isConnected=true;}
+        isConnected= mainActivity.isThreadsRunning();
+
+        //setare stare buton in caz de fragment exchange
+
         Button connectBtn = view.findViewById(R.id.connectBtn);
+
+        if(isConnected)
+        {
+            connectBtn.setText("Deconecteaza device wearable");
+            connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
+        }
         connectBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -87,7 +110,6 @@ public class HomeFragment extends Fragment {
                                 new String[]{Manifest.permission.BLUETOOTH_CONNECT},
                                 REQUEST_BLUETOOTH_PERMISSION);
                     }
-                    //Manifest.permission.BLUETOOTH,Manifest.permission.ACCESS_COARSE_LOCATION,
                     //Intances of BT Manager and BT Adapter needed to work with BT in Android.
                     BluetoothManager bluetoothManager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
                     BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
@@ -116,36 +138,34 @@ public class HomeFragment extends Fragment {
                             }
                             mmSocket = tmp;
                         }
-                            Toast.makeText(getContext(), "Attempt connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Attempt connection", Toast.LENGTH_SHORT).show();
                         //Check if Socket connected
-                        boolean check=false;
-                        while(!check)
-                        {
-                        try {
-                            // Connect to the remote device through the socket. This call blocks
-                            // until it succeeds or throws an exception.
-                            mmSocket.connect();
-                            check=mmSocket.isConnected();
-                        } catch (IOException connectException) {
-                            // Unable to connect; close the socket and return.
-                            Toast.makeText(getActivity(), connectException.toString(), Toast.LENGTH_SHORT).show();
-                            Log.e(TAG, "connectException: " + connectException);
-
+                        boolean check = false;
+                        while (!check) {
                             try {
-                                mmSocket.close();
-                            } catch (IOException closeException) {
-                                Toast.makeText(getActivity(), closeException.toString(), Toast.LENGTH_SHORT).show();
-                                Log.e(TAG, "Could not close the client socket", closeException);
-                            }
-                        }
-                            if (check) {
-                                conectat=true;
-                                ComunicareThread comunicareThread = new ComunicareThread(mmSocket, isConnected, buffer);
-                                comunicareThread.start();
-                                Toast.makeText(getContext(), "Connection established", Toast.LENGTH_SHORT).show();
+                                // Connect to the remote device through the socket. This call blocks
+                                // until it succeeds or throws an exception.
+                                mmSocket.connect();
+                                check = mmSocket.isConnected();
+                            } catch (IOException connectException) {
+                                // Unable to connect; close the socket and return.
+                                Toast.makeText(getActivity(), connectException.toString(), Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "connectException: " + connectException);
 
-                                ProcesareThread procesareThread = new ProcesareThread(buffer);
-                                procesareThread.start();
+                                try {
+                                    mmSocket.close();
+                                } catch (IOException closeException) {
+                                    Toast.makeText(getActivity(), closeException.toString(), Toast.LENGTH_SHORT).show();
+                                    Log.e(TAG, "Could not close the client socket", closeException);
+                                }
+                            }
+                            if (check) {
+                                conectat = true;
+                                if (mainActivity != null) {
+                                    // Call the method in MainActivity
+                                    mainActivity.runThreads(mmSocket, isConnected);
+                                }
+
                             } else
                                 Toast.makeText(getContext(), "Connection failed", Toast.LENGTH_SHORT).show();
                         }
@@ -181,13 +201,8 @@ public class HomeFragment extends Fragment {
                     }, 100);
 
                     // Add code to disconnect device here
-                    if (comunicareThread!=null) {
-                        comunicareThread.interrupt();
-                        comunicareThread.cancel();
-                        comunicareThread = null;
-                        procesareThread.stopProcessing();
-                        procesareThread.interrupt();
-                        procesareThread=null;
+                    if (mainActivity.comunicareThread != null) {
+                        mainActivity.closeThreads();
                     }
                 }
             }
@@ -195,7 +210,6 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
 
     @Override
     public void onDestroyView() {

@@ -25,10 +25,11 @@ public class ComunicareThread extends Thread {
     private Queue<String> bufferQueue;
     private ReentrantLock bufferLock = new ReentrantLock();
     private Activity mActivity; //temporar
+    private boolean isRunning;
 
     public ComunicareThread(BluetoothSocket socket, boolean isConnected, Queue<String> bufferQueue) {
         mmSocket = socket;
-        this.isConnected = isConnected;
+        this.isRunning = isConnected;
         this.bufferQueue = bufferQueue;
         InputStream tmpIn = null;
 
@@ -43,20 +44,22 @@ public class ComunicareThread extends Thread {
         //Input and Output streams members of the class
         mmInStream = tmpIn;
     }
-
+    public void stopThread() {
+        isRunning = false;
+    }
     public void run() {
 
         byte[] buffer = new byte[1024];
         int bytes = 0; // bytes returned from read()
 
         // Keep listening to the InputStream until an exception occurs.
-        while (isConnected) {
+        while (isRunning) {
             try {
                 if (mmInStream.available() > 0) {
                     buffer[bytes] = (byte) mmInStream.read();
                     String readMessage;
                     // If I detect a "\n" means I already read a full measurement
-                    if (buffer[bytes] == '\r') {
+                    if (buffer[bytes] == '\n') {
                         readMessage = new String(buffer, 0, bytes);
                         Log.e(TAG, readMessage);
                         bufferLock.lock();

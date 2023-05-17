@@ -49,6 +49,7 @@ public class ProcesareThread extends Thread {
             if (data != null) {
                 //Procesare
                 //String split in tip_data si time_stamp
+                data=data.replaceAll("[\r]", "");
                 String procesare[] = data.split(";");
                 String identificator = procesare[0];
                 LocalDateTime currentDateTime = LocalDateTime.now();
@@ -61,7 +62,6 @@ public class ProcesareThread extends Thread {
                 FirebaseDatabase.getInstance().getReference("path/to/Senzori")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .child(identificator)
-
                         .push()
                         .setValue(dataProcesata)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {

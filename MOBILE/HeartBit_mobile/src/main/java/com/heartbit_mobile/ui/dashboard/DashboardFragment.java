@@ -10,27 +10,42 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.heartbit_mobile.R;
 import com.heartbit_mobile.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+import java.util.ArrayList;
 
-    private FragmentDashboardBinding binding;
+public class DashboardFragment extends Fragment /*implements OnChartGestureListener, OnChartValueSelectedListener*/ {
+
+    private static final String TAG = "DashBoard";
+    private LineChart lineChart;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        //TextView textView = binding.textDashboard;
-        //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        lineChart = view.findViewById(R.id.lineChart);
+
+       //lineChart.setOnChartGestureListener(this);
+        //lineChart.setOnChartValueSelectedListener(this);
+
+        lineChart.setDragEnabled(true);
+        lineChart.setScaleEnabled(true);
+
+        ArrayList<Entry>yValues=new ArrayList<>();
+        LineDataSet set=new LineDataSet(yValues,"Data set 1");
+
+        set.setFillAlpha(120);
+
+
+        return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }

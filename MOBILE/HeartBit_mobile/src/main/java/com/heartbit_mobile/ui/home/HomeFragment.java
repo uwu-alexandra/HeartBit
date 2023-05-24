@@ -17,24 +17,44 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.heartbit_mobile.MainActivity;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.databinding.FragmentHomeBinding;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -69,6 +89,14 @@ public class HomeFragment extends Fragment {
     private MainActivity mainActivity;
     private BluetoothSocket mmSocket;
 
+    private LineChart lineChart;
+    Spinner dataOptionsSpinner;
+    ArrayList<Entry> dataValues = new ArrayList<>();
+    private LineDataSet lineDataSet = new LineDataSet(null, "Readings");
+    private ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
+    private LineData lineData;
+    int desiredVisibleRange = 30; // Number of data entries to display
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
@@ -79,14 +107,28 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         //final TextView textView = binding.textHome;
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        isConnected= mainActivity.isThreadsRunning();
+        isConnected = mainActivity.isThreadsRunning();
+
+
+        lineChart = view.findViewById(R.id.lineChart);
+        dataOptionsSpinner = view.findViewById(R.id.dataOptionsHome_spinner);
+        getData();
+        dataOptionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         //setare stare buton in caz de fragment exchange
-
         Button connectBtn = view.findViewById(R.id.connectBtn);
 
-        if(isConnected)
-        {
+        if (isConnected) {
             connectBtn.setText("Deconecteaza device wearable");
             connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
         }
@@ -209,6 +251,108 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void getData() {
+        String dataOptions = dataOptionsSpinner.getSelectedItem().toString();
+        String identificator = "";
+        switch (dataOptions) {
+            case "Puls":
+                identificator = "PULS";
+                break;
+            case "Umiditate":
+                identificator = "UMD";
+                break;
+            case "EKG":
+                identificator = "EKG";
+                break;
+            case "Temperatura":
+                identificator = "TEMP";
+                break;
+        }
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference myRef = firebaseDatabase.getReference("path/to/Senzori/" + UID + "/" + identificator);
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                if (dataSnapshot.hasChildren()) {
+                    Data_procesata dataProcesata = dataSnapshot.getValue(Data_procesata.class);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy:HH.mm.ss.SSS");
+                    Date date;
+                    try {
+                        date = sdf.parse(dataProcesata.getTime_stamp());
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    // Extract hours, minutes, seconds, and milliseconds from the date
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minutes = calendar.get(Calendar.MINUTE);
+                    int seconds = calendar.get(Calendar.SECOND);
+                    int milliseconds = calendar.get(Calendar.MILLISECOND);
+
+                    // Convert hours, minutes, seconds, and milliseconds to milliseconds
+                    long timestampMillis = (hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds;
+                    float xValue = (float) (timestampMillis / 1000.0);
+                    float yValue = Float.valueOf(dataProcesata.getValoare());
+                    dataValues.add(new Entry(xValue, yValue)); // Create Entry object directly
+
+                    showChart(dataValues);
+                } else {
+                    lineChart.clear();
+                    lineChart.invalidate();
+                }
+            }
+
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildChanged
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                // Implementation for onChildRemoved
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildMoved
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void showChart(ArrayList<Entry> dataValues) {
+        int entryCount = dataValues.size();
+
+        // Create a temporary vector to store the last 30 values
+        ArrayList<Entry> last30Values = new ArrayList<>();
+        if (entryCount > desiredVisibleRange) {
+            last30Values.addAll(dataValues.subList(entryCount - desiredVisibleRange, entryCount));
+        } else {
+            last30Values.addAll(dataValues);
+        }
+
+        lineDataSet.setValues(last30Values);
+        lineDataSet.setMode(LineDataSet.Mode.LINEAR);
+        lineDataSet.setDrawValues(true);
+        iLineDataSets.clear();
+        iLineDataSets.add(lineDataSet);
+        lineData = new
+
+                LineData(iLineDataSets);
+        lineChart.setData(lineData);
+        lineChart.notifyDataSetChanged();
+        lineChart.animateX(1, Easing.EaseInBounce);
+
+        lineChart.moveViewToX(entryCount - 1);
+        lineChart.invalidate();
     }
 
     @Override

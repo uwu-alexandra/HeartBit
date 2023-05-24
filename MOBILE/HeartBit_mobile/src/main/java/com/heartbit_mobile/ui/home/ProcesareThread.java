@@ -49,37 +49,40 @@ public class ProcesareThread extends Thread {
             if (data != null) {
                 //Procesare
                 //String split in tip_data si time_stamp
-                data=data.replaceAll("[\r]", "");
+                data = data.replaceAll("[\r]", "");
                 String procesare[] = data.split(";");
-                String identificator = procesare[0];
-                LocalDateTime currentDateTime = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy:HH.mm.ss.SSS");
-                String formattedDateTime = formatter.format(currentDateTime);
-                float valoare = Float.valueOf(procesare[1]);
-                Data_procesata dataProcesata = new Data_procesata(identificator, formattedDateTime, valoare);
-
-                //trimitere in cloud in functie de tipul de data in functie de identificator
-                FirebaseDatabase.getInstance().getReference("path/to/Senzori")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child(identificator)
-                        .push()
-                        .setValue(dataProcesata)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    // Dacă programarea a fost salvată cu succes, afișați un mesaj și închideți dialogul
-                                } else {
-                                    // În caz contrar, afișați un mesaj de eroare
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // În cazul în care apariție o eroare, afișați un mesaj corespunzător
-                                Log.w(TAG, "Eroare la procesare", e);
-                            }
-                        });
+                if (procesare.length == 2) {
+                    String identificator = procesare[0];
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy:HH.mm.ss.SSS");
+                    String formattedDateTime = formatter.format(currentDateTime);
+                    float valoare = Float.valueOf(procesare[1]);
+                    Data_procesata dataProcesata = new Data_procesata(identificator, formattedDateTime, valoare);
+                    if (!(dataProcesata.getDenumire().equals("EROARE"))) {
+                        //trimitere in cloud in functie de tipul de data in functie de identificator
+                        FirebaseDatabase.getInstance().getReference("path/to/Senzori")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child(identificator)
+                                .push()
+                                .setValue(dataProcesata)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            // Dacă programarea a fost salvată cu succes, afișați un mesaj și închideți dialogul
+                                        } else {
+                                            // În caz contrar, afișați un mesaj de eroare
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // În cazul în care apariție o eroare, afișați un mesaj corespunzător
+                                        Log.w(TAG, "Eroare la procesare", e);
+                                    }
+                                });
+                    }
+                }
             }
         }
     }

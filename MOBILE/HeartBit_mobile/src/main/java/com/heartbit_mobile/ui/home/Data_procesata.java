@@ -34,6 +34,7 @@ public class Data_procesata {
             case "PULS":
                 this.denumire = "Pulse sensor";
                 break;
+            default: this.denumire="EROARE";
         }
         this.time_stamp = time_stamp;
         this.alerta = false;

@@ -5,17 +5,11 @@ import static android.content.ContentValues.TAG;
 import android.app.Activity;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
-import android.widget.Toast;
-
-
-import com.heartbit_mobile.MainActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Queue;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ComunicareThread extends Thread {

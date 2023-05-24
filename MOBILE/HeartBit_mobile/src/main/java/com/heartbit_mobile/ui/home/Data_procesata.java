@@ -2,8 +2,6 @@ package com.heartbit_mobile.ui.home;
 
 import com.google.firebase.database.PropertyName;
 
-import java.util.Date;
-
 public class Data_procesata {
     @PropertyName("Denumire")
     private String denumire;
@@ -19,7 +17,7 @@ public class Data_procesata {
     public Data_procesata() {
     }
 
-    public Data_procesata(String identificator, String time_stamp, float valoare) {
+    public Data_procesata(String identificator, String time_stamp, float valoare,boolean alerta) {
         this.identificator = identificator;
         switch (identificator) {
             case "EKG":
@@ -37,7 +35,7 @@ public class Data_procesata {
             default: this.denumire="EROARE";
         }
         this.time_stamp = time_stamp;
-        this.alerta = false;
+        this.alerta = alerta;
         this.valoare = valoare;
     }
 

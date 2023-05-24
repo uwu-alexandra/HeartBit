@@ -1,36 +1,22 @@
 package com.heartbit_mobile;
-import static android.content.ContentValues.TAG;
-import static androidx.test.InstrumentationRegistry.getContext;
 
-
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.annotation.RequiresApi;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.heartbit_mobile.databinding.ActivityMainBinding;
 import com.heartbit_mobile.ui.calendar.CalendarFragment;
 import com.heartbit_mobile.ui.dashboard.DashboardFragment;
@@ -40,25 +26,27 @@ import com.heartbit_mobile.ui.home.ProcesareThread;
 import com.heartbit_mobile.ui.settings.SettingsFragment;
 import com.heartbit_mobile.ui.support.SupportFragment;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
-import java.util.UUID;
+import java.util.concurrent.locks.ReentrantLock;
 
-
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Queue<String> buffer = new LinkedList<>();
 
-    public ComunicareThread comunicareThread;
+    private ReentrantLock bufferLock = new ReentrantLock();
+    private ArrayList<Float> listaPraguriHigh = new ArrayList<>();
+    private ArrayList<Float> listaPraguriLow = new ArrayList<>();
 
+    public ComunicareThread comunicareThread;
     public ProcesareThread procesareThread;
     private BluetoothSocket mmSocket;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        loadPraguriArray();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -67,23 +55,23 @@ public class MainActivity extends AppCompatActivity{
 
         replaceFragment(new HomeFragment());
         binding.navView.setOnItemSelectedListener(item -> {
-                    switch (item.getItemId()) {
-                        case R.id.navigation_support:
-                            replaceFragment(new SupportFragment());
-                            break;
-                        case R.id.navigation_calendar:
-                            replaceFragment(new CalendarFragment());
-                            break;
-                        case R.id.navigation_home:
-                            replaceFragment(new HomeFragment());
-                            break;
-                        case R.id.navigation_dashboard:
-                            replaceFragment(new DashboardFragment());
-                            break;
-                        case R.id.navigation_settings:
-                            replaceFragment(new SettingsFragment());
-                            break;
-                    }
+            switch (item.getItemId()) {
+                case R.id.navigation_support:
+                    replaceFragment(new SupportFragment());
+                    break;
+                case R.id.navigation_calendar:
+                    replaceFragment(new CalendarFragment());
+                    break;
+                case R.id.navigation_home:
+                    replaceFragment(new HomeFragment());
+                    break;
+                case R.id.navigation_dashboard:
+                    replaceFragment(new DashboardFragment());
+                    break;
+                case R.id.navigation_settings:
+                    replaceFragment(new SettingsFragment());
+                    break;
+            }
             return true;
         });
 
@@ -96,26 +84,64 @@ public class MainActivity extends AppCompatActivity{
         fragmentTransaction.commit();
     }
 
-    public void runThreads(BluetoothSocket mmSocket,boolean isConnected)
-    {
-        this.mmSocket=mmSocket;
+    public void runThreads(BluetoothSocket mmSocket, boolean isConnected) {
+        this.mmSocket = mmSocket;
         comunicareThread = new ComunicareThread(mmSocket, isConnected, buffer);
         comunicareThread.start();
         Toast.makeText(MainActivity.this, "Connection established", Toast.LENGTH_SHORT).show();
 
-        procesareThread = new ProcesareThread(buffer);
+        procesareThread = new ProcesareThread(this,buffer,listaPraguriHigh,listaPraguriLow);
         procesareThread.start();
     }
-    public void closeThreads()
-    {
+
+    public void closeThreads() {
         comunicareThread.stopThread();
         comunicareThread.cancel();
         procesareThread.stopProcessing();
     }
+
     public boolean isThreadsRunning() {
-        if(comunicareThread!=null)
+        if (comunicareThread != null)
             return comunicareThread.isAlive();
         else
             return false;
+    }
+
+    public void loadPraguriArray() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference("path/to/praguri");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaPraguriLow.clear(); // Clear the array before adding new values
+                listaPraguriHigh.clear(); // Clear the array before adding new values
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    if (childSnapshot.getKey().equals("low")) {
+                        for (DataSnapshot dataSnapshot : childSnapshot.getChildren()) {
+                            if (dataSnapshot.getValue() instanceof Number) {
+                                Float value = ((Number) dataSnapshot.getValue()).floatValue();
+                                bufferLock.lock();
+                                listaPraguriLow.add(value);
+                                bufferLock.unlock();
+                            }
+                        }
+                    } else if (childSnapshot.getKey().equals("high")) {
+                        for (DataSnapshot dataSnapshot : childSnapshot.getChildren()) {
+                            if (dataSnapshot.getValue() instanceof Number) {
+                                Float value = ((Number) dataSnapshot.getValue()).floatValue();
+                                bufferLock.lock();
+                                listaPraguriHigh.add(value);
+                                bufferLock.unlock();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

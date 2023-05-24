@@ -1,10 +1,10 @@
 package com.heartbit_mobile.ui.dashboard;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -27,8 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.ui.home.Data_procesata;
 
-import java.lang.reflect.Array;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -145,6 +143,7 @@ public class DashboardFragment extends Fragment /*implements OnChartGestureListe
 
         // Move the view to the latest entry
         lineChart.moveViewToX(lineData.getXMax());
+        lineDataSet.setColor(Color.RED);
         lineChart.setTouchEnabled(true);
         lineChart.setDragEnabled(true);
         lineChart.setScaleEnabled(true);

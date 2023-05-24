@@ -1,8 +1,6 @@
 package com.heartbit_mobile.ui.home;
 
 import static android.content.ContentValues.TAG;
-import static androidx.core.content.ContextCompat.getSystemService;
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -10,6 +8,7 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,9 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -66,8 +63,7 @@ public class HomeFragment extends Fragment {
         if (context instanceof MainActivity) {
             this.mainActivity = (MainActivity) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement SocketConnectionListener");
+            throw new RuntimeException(context.toString() + " must implement SocketConnectionListener");
         }
     }
 
@@ -97,10 +93,8 @@ public class HomeFragment extends Fragment {
     private LineData lineData;
     int desiredVisibleRange = 30; // Number of data entries to display
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         //View root = binding.getRoot();
@@ -143,14 +137,10 @@ public class HomeFragment extends Fragment {
                     // Add code to connect device here
 
                     // Check if we have the necessary permissions
-                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED
-                            || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                            || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
 
                         // If we don't have the necessary permissions, request them
-                        ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{Manifest.permission.BLUETOOTH_CONNECT},
-                                REQUEST_BLUETOOTH_PERMISSION);
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.BLUETOOTH_CONNECT}, REQUEST_BLUETOOTH_PERMISSION);
                     }
                     //Intances of BT Manager and BT Adapter needed to work with BT in Android.
                     BluetoothManager bluetoothManager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
@@ -228,8 +218,7 @@ public class HomeFragment extends Fragment {
                                 connectBtn.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
                             }
                         }, 100);
-                    } else
-                        isConnected = false;
+                    } else isConnected = false;
                 } else {
                     // Disconnect the device
                     isConnected = false;
@@ -330,6 +319,7 @@ public class HomeFragment extends Fragment {
 
     public void showChart(ArrayList<Entry> dataValues) {
         int entryCount = dataValues.size();
+        lineDataSet.setColor(Color.RED);
 
         // Create a temporary vector to store the last 30 values
         ArrayList<Entry> last30Values = new ArrayList<>();
@@ -346,7 +336,7 @@ public class HomeFragment extends Fragment {
         iLineDataSets.add(lineDataSet);
         lineData = new
 
-                LineData(iLineDataSets);
+        LineData(iLineDataSets);
         lineChart.setData(lineData);
         lineChart.notifyDataSetChanged();
         lineChart.animateX(1, Easing.EaseInBounce);

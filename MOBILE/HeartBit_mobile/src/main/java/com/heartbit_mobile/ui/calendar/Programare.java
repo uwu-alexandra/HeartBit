@@ -2,10 +2,6 @@ package com.heartbit_mobile.ui.calendar;
 
 import com.google.firebase.database.PropertyName;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Programare {
     @PropertyName("specialitatea")
     private String specialitatea;

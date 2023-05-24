@@ -4,7 +4,6 @@ import static com.heartbit_mobile.ui.home.HomeFragment.REQUEST_BLUETOOTH_PERMISS
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.ui.logare.Login;
-import com.heartbit_mobile.ui.logare.Register;
 
 public class SettingsFragment extends Fragment {
 

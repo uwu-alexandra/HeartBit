@@ -101,7 +101,7 @@ public class SettingsFragment extends Fragment {
         Button cancelButton = dialogView.findViewById(R.id.returnFromSchimbareParola);
         Button confirmButton = dialogView.findViewById(R.id.salvareNouaParola);
         AlertDialog dialog = builder.create();
-// Setarea listenerilor de click pentru butoane
+        // Setarea listenerilor de click pentru butoane
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,11 +206,34 @@ public class SettingsFragment extends Fragment {
                 .setPositiveButton(R.string.stergere_positive_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // stergeti utilizatorul aici
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            user.delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // User account deleted successfully
+                                                // Perform any additional actions or show a success message
+                                                Toast.makeText(getContext(), "Contul a fost şters cu succes", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(getActivity(), Login.class);
+                                                startActivity(intent);
+                                                getActivity().finish();
+                                            } else {
+                                                // An error occurred while deleting the user account
+                                                // Handle the error or show an error message
+                                                Toast.makeText(getContext(), "A apărut o problemă la ştergerea contului", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                            dialog.dismiss();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.stergere_negative_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // închideți dialogul fără a face nimic
+                        dialog.dismiss();
                     }
                 });
         AlertDialog dialog = builder.create();

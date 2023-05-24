@@ -129,7 +129,7 @@ public class CalendarFragment extends Fragment {
                 dataTxt = dialogView.findViewById(R.id.Data);
                 locatiaSpinner = dialogView.findViewById(R.id.locatie_spinner);
                 medicTxt = dialogView.findViewById(R.id.Medic);
-                String specialitatea, data, locatia, medic;
+                String data, locatia, medic;
                 data = dataTxt.getText().toString();
                 locatia = locatiaSpinner.getSelectedItem().toString();
                 medic = medicTxt.getText().toString();
@@ -202,7 +202,7 @@ public class CalendarFragment extends Fragment {
                     }
                 };
 
-// atașați listenerul la referința bazei de date
+            // atașați listenerul la referința bazei de date
                 databaseRef.addListenerForSingleValueEvent(userListener);
 
                 dialog.dismiss();
@@ -213,13 +213,21 @@ public class CalendarFragment extends Fragment {
 
 
     private void onLayoutRecomandariClick() {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.hide(this);
-        transaction.commit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom_recomandari, null);
+        builder.setView(dialogView);
 
-        FragmentTransaction transaction2 = getParentFragmentManager().beginTransaction();
-        transaction2.add(R.id.frame_layout, new RecomandariFragment());
-        transaction2.commit();
+        Button cancelButton = dialogView.findViewById(R.id.returnFromRecomandariBtn);
+        AlertDialog dialog = builder.create();
+        // Setarea listenerilor de click pentru butoane
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cod pentru anularea acțiunii
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void onPastBtnClick() {

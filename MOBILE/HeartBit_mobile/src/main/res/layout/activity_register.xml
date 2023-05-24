@@ -47,7 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="@string/password"
-        android:backgroundTint="@color/black"/>
+        android:backgroundTint="@color/black"
+        android:inputType="textPassword"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

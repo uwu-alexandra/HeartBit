@@ -51,7 +51,8 @@
         android:hint="@string/password"
         android:backgroundTint="@color/black"
         android:textColorHint="@color/black"
-        android:textCursorDrawable="@color/black"/>
+        android:textCursorDrawable="@color/black"
+        android:inputType="textPassword"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

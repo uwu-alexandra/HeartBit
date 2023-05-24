@@ -3,8 +3,6 @@ package com.heartbit_mobile.ui.calendar;
 import com.google.firebase.database.PropertyName;
 
 public class Programare {
-    @PropertyName("specialitatea")
-    private String specialitatea;
     @PropertyName("Data_programare")
     private String Data_programare;
 
@@ -22,33 +20,20 @@ public class Programare {
 
     }
 
-    public Programare(String specialitatea,String data,String locatia,String nume,String prenume){
-        this.specialitatea=specialitatea;
+    public Programare(String data,String locatia,String nume,String prenume){
         this.Data_programare=data;
         this.locatia=locatia;
         this.Nume_pacient=nume;
         this.Prenume_pacient=prenume;
     }
 
-    public Programare(String specialitatea,String data,String locatia,String medic,String nume,String prenume) {
-        this.specialitatea=specialitatea;
+    public Programare(String data,String locatia,String medic,String nume,String prenume) {
         this.Data_programare=data;
         this.locatia=locatia;
         this.Nume_medic=medic;
         this.Nume_pacient=nume;
         this.Prenume_pacient=prenume;
     }
-
-    @PropertyName("specialitatea")
-    public String getSpecialitatea() {
-        return specialitatea;
-    }
-
-    @PropertyName("specialitatea")
-    public void setSpecialitatea(String specialitatea) {
-        this.specialitatea = specialitatea;
-    }
-
     @PropertyName("Data_programare")
     public String getData() {
         return Data_programare;

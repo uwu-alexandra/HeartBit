@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/header_title_progr"
+        android:id="@+id/header_title_programare"
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:gravity="center"

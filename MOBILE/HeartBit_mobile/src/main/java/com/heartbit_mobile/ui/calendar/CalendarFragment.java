@@ -124,24 +124,15 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Cod pentru confirmarea acțiunii
-                TextInputEditText specialitateTxt, dataTxt, medicTxt;
+                TextInputEditText dataTxt, medicTxt;
                 Spinner locatiaSpinner;
-                specialitateTxt = dialogView.findViewById(R.id.Specialitate);
                 dataTxt = dialogView.findViewById(R.id.Data);
                 locatiaSpinner = dialogView.findViewById(R.id.locatie_spinner);
                 medicTxt = dialogView.findViewById(R.id.Medic);
                 String specialitatea, data, locatia, medic;
-                specialitatea = specialitateTxt.getText().toString();
                 data = dataTxt.getText().toString();
                 locatia = locatiaSpinner.getSelectedItem().toString();
                 medic = medicTxt.getText().toString();
-
-                if (TextUtils.isEmpty(specialitatea)) {
-                    Toast.makeText(getContext(), "Introduceţi specialitatea", Toast.LENGTH_SHORT).show();
-                    specialitateTxt.setError("Specialitatea necompletata");
-                    specialitateTxt.requestFocus();
-                    return;
-                }
 
                 if (TextUtils.isEmpty(data)) {
                     Toast.makeText(getContext(), "Introduceţi data", Toast.LENGTH_SHORT).show();
@@ -163,9 +154,9 @@ public class CalendarFragment extends Fragment {
                         String prenume = user.getPrenume();
 
                         if (TextUtils.isEmpty(medic)) {
-                            programare = new Programare(specialitatea, data, locatia, nume, prenume);
+                            programare = new Programare(data, locatia, nume, prenume);
                         } else {
-                            programare = new Programare(specialitatea, data, locatia, medic, nume, prenume);
+                            programare = new Programare( data, locatia, medic, nume, prenume);
                         }
 
                         FirebaseDatabase.getInstance().getReference("path/to/Programari")

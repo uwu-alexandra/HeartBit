@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -100,9 +101,9 @@ public class SupportFragment extends Fragment {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialTextView detaliiTxt;
+                EditText detaliiTxt;
                 Spinner motivSpinner;
-                detaliiTxt=dialogView.findViewById(R.id.detaliiTxt);
+                detaliiTxt=dialogView.findViewById(R.id.Detalii);
                 motivSpinner=dialogView.findViewById(R.id.motiv_spinner);
                 String detalii,motiv;
                 detalii=detaliiTxt.getText().toString();

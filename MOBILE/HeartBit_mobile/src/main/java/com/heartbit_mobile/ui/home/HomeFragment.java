@@ -9,6 +9,11 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -75,6 +80,9 @@ public class HomeFragment extends Fragment {
     }
 
     private FragmentHomeBinding binding;
+    private int contorRecomanadari = 0;
+    private int contorProgramari = 0;
+    private ShapeDrawable shapeDrawable;
     private boolean isConnected;
     public static final int REQUEST_BLUETOOTH_PERMISSION = 1;
     BluetoothDevice arduinoBTModule = null;
@@ -84,7 +92,6 @@ public class HomeFragment extends Fragment {
     //private Queue<String> buffer = new LinkedList<>();
     private MainActivity mainActivity;
     private BluetoothSocket mmSocket;
-
     private LineChart lineChart;
     Spinner dataOptionsSpinner;
     ArrayList<Entry> dataValues = new ArrayList<>();
@@ -97,12 +104,8 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        //View root = binding.getRoot();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        //final TextView textView = binding.textHome;
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         isConnected = mainActivity.isThreadsRunning();
-
 
         lineChart = view.findViewById(R.id.lineChart);
         dataOptionsSpinner = view.findViewById(R.id.dataOptionsHome_spinner);
@@ -242,6 +245,24 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    public void countProgramari() {
+
+    }
+
+    public void countRecomandari() {
+
+    }
+
+    private Drawable createCircleBackground() {
+        int color= Color.GREEN;
+        int size=24;
+        ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
+        shapeDrawable.getPaint().setColor(color);
+        shapeDrawable.setIntrinsicHeight(size);
+        shapeDrawable.setIntrinsicWidth(size);
+        return shapeDrawable;
+    }
+
     public void getData() {
         String dataOptions = dataOptionsSpinner.getSelectedItem().toString();
         String identificator = "";
@@ -336,7 +357,7 @@ public class HomeFragment extends Fragment {
         iLineDataSets.add(lineDataSet);
         lineData = new
 
-        LineData(iLineDataSets);
+                LineData(iLineDataSets);
         lineChart.setData(lineData);
         lineChart.notifyDataSetChanged();
         lineChart.animateX(1, Easing.EaseInBounce);

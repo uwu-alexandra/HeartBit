@@ -8,16 +8,26 @@
     <TextView
         android:id="@+id/recomandari"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="80dp"
         android:gravity="center"
         android:text="Recomandări active"
         android:textColor="@color/red_dark"
-        android:textSize="35sp" />
+        android:textSize="30sp"
+        />
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+       >
+
+        <LinearLayout
+            android:id="@+id/containerRecomandari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
     </ScrollView>
 
     <Button

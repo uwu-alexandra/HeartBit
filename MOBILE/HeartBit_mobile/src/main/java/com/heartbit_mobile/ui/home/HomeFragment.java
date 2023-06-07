@@ -8,15 +8,22 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +31,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.bluetooth.BluetoothDevice;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,9 +59,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.heartbit_mobile.MainActivity;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.databinding.FragmentHomeBinding;
+import com.heartbit_mobile.ui.calendar.Programare;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -59,6 +73,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class HomeFragment extends Fragment {
 
@@ -80,9 +95,8 @@ public class HomeFragment extends Fragment {
     }
 
     private FragmentHomeBinding binding;
-    private int contorRecomanadari = 0;
+    private int contorRecomandari = 0;
     private int contorProgramari = 0;
-    private ShapeDrawable shapeDrawable;
     private boolean isConnected;
     public static final int REQUEST_BLUETOOTH_PERMISSION = 1;
     BluetoothDevice arduinoBTModule = null;
@@ -98,6 +112,9 @@ public class HomeFragment extends Fragment {
     private LineDataSet lineDataSet = new LineDataSet(null, "Readings");
     private ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
     private LineData lineData;
+
+    private LinearLayout currentLayoutProgramare;
+    private TableRow tableRowProgramari,tableRowRecomandari;
     int desiredVisibleRange = 30; // Number of data entries to display
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,10 +123,14 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         isConnected = mainActivity.isThreadsRunning();
-
         lineChart = view.findViewById(R.id.lineChart);
         dataOptionsSpinner = view.findViewById(R.id.dataOptionsHome_spinner);
         getData();
+
+        tableRowProgramari = view.findViewById(R.id.rowProgramari);
+        tableRowRecomandari=view.findViewById(R.id.rowRecomandari);
+        countProgramari();
+        countRecomandari();
         dataOptionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -246,21 +267,136 @@ public class HomeFragment extends Fragment {
     }
 
     public void countProgramari() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String currentDateStr = dateFormat.format(new Date());
+        Date currentDateTemp;
+        try {
+            currentDateTemp = dateFormat.parse(currentDateStr);
+        } catch (ParseException e) {
+            // Handle the exception if the parsing fails
+            currentDateTemp = null;
+        }
+        final Date currentDate = currentDateTemp;
+        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference("path/to/Programari/" + userUUID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        contorProgramari = 0;
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            // Retrieve the data from the snapshot and do something with it
+                            Programare programare = snapshot.getValue(Programare.class);
+                            Date data;
+                            try {
+                                data = dateFormat.parse(programare.getData());
+                            } catch (ParseException e) {
+                                data = null;
+                                throw new RuntimeException(e);
+                            }
+                            if (data.compareTo(currentDate) > 0) {
+                                contorProgramari++;
+                                updateCountLayoutProgramare();
+                            }
 
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle the error
+                        Toast.makeText(getActivity(), "Error retrieving data", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+    }
+
+    private void updateCountLayoutProgramare() {
+        Drawable drawable = createCountDrawable(contorProgramari);
+        tableRowProgramari.removeAllViews();
+        createCountLayout(drawable, "Programări viitoare", tableRowProgramari);
     }
 
     public void countRecomandari() {
+        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference("path/to/Recomandari/" + userUUID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                         contorRecomandari = (int) dataSnapshot.getChildrenCount();
+                        updateCountLayoutRecomandari();
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle the error
+                        Toast.makeText(getActivity(), "Error retrieving data", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    private Drawable createCircleBackground() {
-        int color= Color.GREEN;
-        int size=24;
-        ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
-        shapeDrawable.getPaint().setColor(color);
-        shapeDrawable.setIntrinsicHeight(size);
-        shapeDrawable.setIntrinsicWidth(size);
-        return shapeDrawable;
+    private void updateCountLayoutRecomandari() {
+        Drawable drawable = createCountDrawable(contorRecomandari);
+        tableRowRecomandari.removeAllViews();
+        createCountLayout(drawable, "Recomandări active", tableRowRecomandari);
+    }
+
+    private Drawable createCountDrawable(int count) {
+        // Create the background circle shape
+        int backgroundColor = Color.parseColor("#008000");;
+        int size = 100;
+        ShapeDrawable backgroundDrawable = new ShapeDrawable(new OvalShape());
+        backgroundDrawable.getPaint().setColor(backgroundColor);
+        backgroundDrawable.setIntrinsicHeight(size);
+        backgroundDrawable.setIntrinsicWidth(size);
+
+        // Create the text drawable for the count
+        String countText = String.valueOf(count);
+        int textColor = Color.WHITE;
+        int textSize = 50;
+        TextPaint textPaint = new TextPaint();
+        textPaint.setColor(textColor);
+        textPaint.setTextSize(textSize);
+        textPaint.setAntiAlias(true);
+        float textWidth = textPaint.measureText(countText);
+        float textHeight = textPaint.getFontMetrics().bottom - textPaint.getFontMetrics().top;
+
+        // Calculate the center position to draw the text
+        int textCenterX = (int) (size / 2 - textWidth / 2);
+        int textCenterY = (int) (size / 2 - (textPaint.descent() + textPaint.ascent()) / 2);
+
+        // Create a bitmap and canvas to draw the text on the background circle
+        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR); // Clear the canvas
+        backgroundDrawable.setBounds(0, 0, size, size);
+        backgroundDrawable.draw(canvas);
+        canvas.drawText(countText, textCenterX, textCenterY, textPaint);
+
+        // Create a bitmap drawable from the bitmap
+        BitmapDrawable countDrawable = new BitmapDrawable(getResources(), bitmap);
+
+        return countDrawable;
+    }
+
+    private void createCountLayout(Drawable countDrawable, String text, TableRow tableRow) {
+        // Create LinearLayout
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Create ImageView
+        ImageView countImageView = new ImageView(getContext());
+        countImageView.setImageDrawable(countDrawable);
+
+        // Create TextView
+        TextView countTextView = new TextView(getContext());
+        countTextView.setText(text);
+        countTextView.setTextSize(25);
+
+        // Add views to LinearLayout
+        linearLayout.addView(countImageView);
+        linearLayout.addView(countTextView);
+
+        linearLayout.setPadding(0,0,0,16);
+        tableRow.addView(linearLayout);
     }
 
     public void getData() {

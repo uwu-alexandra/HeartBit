@@ -3,58 +3,131 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#FFFFFF">
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/header_title_home"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:gravity="center"
-        android:text="@string/home_title"
-        android:textColor="@color/red_dark"
-        android:textSize="35sp"/>
+        android:orientation="vertical"
+        tools:context=".ui.home.HomeFragment">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/table_background_with_border">
-    </TableLayout>
+        <TextView
+            android:id="@+id/header_title_home"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:gravity="center"
+            android:text="@string/home_title"
+            android:textColor="@color/red_dark"
+            android:textSize="35sp" />
 
-    <Spinner
-        android:id="@+id/dataOptionsHome_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:entries="@array/data_options"
-        android:backgroundTint="@color/black"
-        android:textColorHint="@color/black"
-        android:textCursorDrawable="@color/black"
-        android:dropDownVerticalOffset="50dp"
-        android:paddingHorizontal="10sp"/>
+        <TableLayout
+            android:id="@+id/tabelHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/table_background_with_border">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
-        android:layout_width="match_parent"
-        android:layout_height="400dp" />
+            <TableRow
+                android:id="@+id/rowProgramari"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/connectBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/okButton"
-        android:text="Conecteaza device wearable"
-        android:textColor="@color/white"
-        android:textAlignment="center"/>
-</LinearLayout>
+                <LinearLayout
+                    android:id="@+id/programariLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/programariTxt"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:text="Programari"
+                        android:textSize="25sp" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowRecomandari"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/recomandariLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                   >
+
+                    <TextView
+                        android:id="@+id/recomandariTxt"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:text="Recomandări"
+                        android:textSize="25sp" />
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/feedbackLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/baseline_message_24" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/feedbackTxt"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:text="Feedback"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+
+        <Spinner
+            android:id="@+id/dataOptionsHome_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:backgroundTint="@color/black"
+            android:dropDownVerticalOffset="50dp"
+            android:entries="@array/data_options"
+            android:paddingHorizontal="10sp"
+            android:textColorHint="@color/black"
+            android:textCursorDrawable="@color/black" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
+        <Button
+            android:id="@+id/connectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/okButton"
+            android:text="Conecteaza device wearable"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+    </LinearLayout>
 </ScrollView>

@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.heartbit_mobile.databinding.ActivityMainBinding;
 import com.heartbit_mobile.ui.calendar.CalendarFragment;
+import com.heartbit_mobile.ui.calendar.Programare;
 import com.heartbit_mobile.ui.dashboard.DashboardFragment;
 import com.heartbit_mobile.ui.home.ComunicareThread;
 import com.heartbit_mobile.ui.home.HomeFragment;
@@ -26,7 +28,10 @@ import com.heartbit_mobile.ui.home.ProcesareThread;
 import com.heartbit_mobile.ui.settings.SettingsFragment;
 import com.heartbit_mobile.ui.support.SupportFragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantLock;
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     public ProcesareThread procesareThread;
     private BluetoothSocket mmSocket;
 
+    public int contorProgramari=0,contorRecomandari=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
+        countProgramari();
+        countRecomandari();
         replaceFragment(new HomeFragment());
         binding.navView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -143,5 +151,67 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void countProgramari() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String currentDateStr = dateFormat.format(new Date());
+        Date currentDateTemp;
+        try {
+            currentDateTemp = dateFormat.parse(currentDateStr);
+        } catch (ParseException e) {
+            // Handle the exception if the parsing fails
+            currentDateTemp = null;
+        }
+        final Date currentDate = currentDateTemp;
+        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference("path/to/Programari/" + userUUID)
+                .addValueEventListener(new ValueEventListener() {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        contorProgramari = 0;
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            // Retrieve the data from the snapshot and do something with it
+                            Programare programare = snapshot.getValue(Programare.class);
+                            Date data;
+                            try {
+                                data = dateFormat.parse(programare.getData());
+                            } catch (ParseException e) {
+                                data = null;
+                                throw new RuntimeException(e);
+                            }
+                            if (data.compareTo(currentDate) > 0) {
+                                contorProgramari++;
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+    }
+    public void countRecomandari() {
+        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference("path/to/Recomandari/" + userUUID)
+                .addValueEventListener(new ValueEventListener() {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        contorRecomandari = (int) dataSnapshot.getChildrenCount();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle the error
+                    }
+                });
+    }
+    public int getContorProgramari()
+    {
+        return contorProgramari;
+    }
+    public int getContorRecomandari()
+    {
+        return contorRecomandari;
     }
 }

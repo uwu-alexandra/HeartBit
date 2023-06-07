@@ -95,8 +95,7 @@ public class HomeFragment extends Fragment {
     }
 
     private FragmentHomeBinding binding;
-    private int contorRecomandari = 0;
-    private int contorProgramari = 0;
+
     private boolean isConnected;
     public static final int REQUEST_BLUETOOTH_PERMISSION = 1;
     BluetoothDevice arduinoBTModule = null;
@@ -129,8 +128,10 @@ public class HomeFragment extends Fragment {
 
         tableRowProgramari = view.findViewById(R.id.rowProgramari);
         tableRowRecomandari=view.findViewById(R.id.rowRecomandari);
-        countProgramari();
-        countRecomandari();
+        int contorProgramari= mainActivity.getContorProgramari();
+        int contorRecomandari= mainActivity.getContorRecomandari();
+        updateCountLayoutProgramare(contorProgramari);
+        updateCountLayoutRecomandari(contorRecomandari);
         dataOptionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -266,74 +267,13 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    public void countProgramari() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        String currentDateStr = dateFormat.format(new Date());
-        Date currentDateTemp;
-        try {
-            currentDateTemp = dateFormat.parse(currentDateStr);
-        } catch (ParseException e) {
-            // Handle the exception if the parsing fails
-            currentDateTemp = null;
+        private void updateCountLayoutProgramare(int contorProgramari) {
+            Drawable drawable = createCountDrawable(contorProgramari);
+            tableRowProgramari.removeAllViews();
+            createCountLayout(drawable, "Programări viitoare", tableRowProgramari);
         }
-        final Date currentDate = currentDateTemp;
-        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseDatabase.getInstance().getReference("path/to/Programari/" + userUUID)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        contorProgramari = 0;
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            // Retrieve the data from the snapshot and do something with it
-                            Programare programare = snapshot.getValue(Programare.class);
-                            Date data;
-                            try {
-                                data = dateFormat.parse(programare.getData());
-                            } catch (ParseException e) {
-                                data = null;
-                                throw new RuntimeException(e);
-                            }
-                            if (data.compareTo(currentDate) > 0) {
-                                contorProgramari++;
-                                updateCountLayoutProgramare();
-                            }
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // Handle the error
-                        Toast.makeText(getActivity(), "Error retrieving data", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-    }
-
-    private void updateCountLayoutProgramare() {
-        Drawable drawable = createCountDrawable(contorProgramari);
-        tableRowProgramari.removeAllViews();
-        createCountLayout(drawable, "Programări viitoare", tableRowProgramari);
-    }
-
-    public void countRecomandari() {
-        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseDatabase.getInstance().getReference("path/to/Recomandari/" + userUUID)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                         contorRecomandari = (int) dataSnapshot.getChildrenCount();
-                        updateCountLayoutRecomandari();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // Handle the error
-                        Toast.makeText(getActivity(), "Error retrieving data", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private void updateCountLayoutRecomandari() {
+   
+    private void updateCountLayoutRecomandari(int contorRecomandari) {
         Drawable drawable = createCountDrawable(contorRecomandari);
         tableRowRecomandari.removeAllViews();
         createCountLayout(drawable, "Recomandări active", tableRowRecomandari);

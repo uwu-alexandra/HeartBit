@@ -31,6 +31,7 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
+
     public boolean isValidCNP(String cnp) {
         // Verificarea lungimii
         if (cnp.length() != 13) {
@@ -70,6 +71,7 @@ public class Register extends AppCompatActivity {
 
         return true; // CNP-ul este valid
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -167,8 +169,7 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-                if(!isValidCNP(cnp))
-                {
+                if (!isValidCNP(cnp)) {
                     Toast.makeText(Register.this, "CNP-ul introdus nu este valid", Toast.LENGTH_SHORT).show();
                     editTextCnp.setError("CNP invalid");
                     editTextCnp.requestFocus();

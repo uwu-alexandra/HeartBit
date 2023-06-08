@@ -16,6 +16,7 @@ public class Recomandare {
         this.data_recomandare = data_recomandare;
         this.text = text;
     }
+
     @PropertyName("date")
     public String getData_recomandare() {
         return data_recomandare;
@@ -25,6 +26,7 @@ public class Recomandare {
     public void setData_recomandare(String data_recomandare) {
         this.data_recomandare = data_recomandare;
     }
+
     @PropertyName("text")
     public String getText() {
         return text;

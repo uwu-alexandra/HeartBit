@@ -1,6 +1,7 @@
 package com.heartbit_mobile.ui.home;
 
 import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -34,7 +35,7 @@ public class ProcesareThread extends Thread {
     private boolean isRunning = false;
     private Context mContext;
 
-    public ProcesareThread(Context context,Queue<String> bufferQueue, ArrayList<Float> high, ArrayList<Float> low) {
+    public ProcesareThread(Context context, Queue<String> bufferQueue, ArrayList<Float> high, ArrayList<Float> low) {
         this.mContext = context.getApplicationContext();
         this.bufferQueue = bufferQueue;
         this.high = high;

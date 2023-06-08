@@ -16,24 +16,25 @@ public class Programare {
     @PropertyName("Nume_medic")
     private String Nume_medic;
 
-    public Programare(){
+    public Programare() {
 
     }
 
-    public Programare(String data,String locatia,String nume,String prenume){
-        this.Data_programare=data;
-        this.locatia=locatia;
-        this.Nume_pacient=nume;
-        this.Prenume_pacient=prenume;
+    public Programare(String data, String locatia, String nume, String prenume) {
+        this.Data_programare = data;
+        this.locatia = locatia;
+        this.Nume_pacient = nume;
+        this.Prenume_pacient = prenume;
     }
 
-    public Programare(String data,String locatia,String medic,String nume,String prenume) {
-        this.Data_programare=data;
-        this.locatia=locatia;
-        this.Nume_medic=medic;
-        this.Nume_pacient=nume;
-        this.Prenume_pacient=prenume;
+    public Programare(String data, String locatia, String medic, String nume, String prenume) {
+        this.Data_programare = data;
+        this.locatia = locatia;
+        this.Nume_medic = medic;
+        this.Nume_pacient = nume;
+        this.Prenume_pacient = prenume;
     }
+
     @PropertyName("Data_programare")
     public String getData() {
         return Data_programare;

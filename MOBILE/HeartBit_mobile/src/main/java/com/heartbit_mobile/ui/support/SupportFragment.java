@@ -103,13 +103,12 @@ public class SupportFragment extends Fragment {
             public void onClick(View v) {
                 EditText detaliiTxt;
                 Spinner motivSpinner;
-                detaliiTxt=dialogView.findViewById(R.id.Detalii);
-                motivSpinner=dialogView.findViewById(R.id.motiv_spinner);
-                String detalii,motiv;
-                detalii=detaliiTxt.getText().toString();
-                motiv=motivSpinner.getSelectedItem().toString();
-                if (TextUtils.isEmpty(detalii))
-                {
+                detaliiTxt = dialogView.findViewById(R.id.Detalii);
+                motivSpinner = dialogView.findViewById(R.id.motiv_spinner);
+                String detalii, motiv;
+                detalii = detaliiTxt.getText().toString();
+                motiv = motivSpinner.getSelectedItem().toString();
+                if (TextUtils.isEmpty(detalii)) {
                     Toast.makeText(getContext(), "Introduceţi detalii", Toast.LENGTH_SHORT).show();
                     detaliiTxt.setError("Detalii necompletate");
                     detaliiTxt.requestFocus();

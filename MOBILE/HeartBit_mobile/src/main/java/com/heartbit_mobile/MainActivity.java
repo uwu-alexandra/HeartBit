@@ -3,6 +3,7 @@ package com.heartbit_mobile;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public ProcesareThread procesareThread;
     private BluetoothSocket mmSocket;
 
-    public int contorProgramari=0,contorRecomandari=0;
+    public int contorProgramari = 0, contorRecomandari = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         comunicareThread.start();
         Toast.makeText(MainActivity.this, "Connection established", Toast.LENGTH_SHORT).show();
 
-        procesareThread = new ProcesareThread(this,buffer,listaPraguriHigh,listaPraguriLow);
+        procesareThread = new ProcesareThread(this, buffer, listaPraguriHigh, listaPraguriLow);
         procesareThread.start();
     }
 
@@ -192,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
     public void countRecomandari() {
         String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference("path/to/Recomandari/" + userUUID)
@@ -206,12 +208,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-    public int getContorProgramari()
-    {
+
+    public int getContorProgramari() {
         return contorProgramari;
     }
-    public int getContorRecomandari()
-    {
+
+    public int getContorRecomandari() {
         return contorRecomandari;
     }
 }

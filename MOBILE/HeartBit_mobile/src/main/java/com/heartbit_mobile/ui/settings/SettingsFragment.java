@@ -41,7 +41,8 @@ public class SettingsFragment extends Fragment {
     private LinearLayout permisiuneBluetoothLayout;
     private LinearLayout cadruLegalLayout;
 
-    private TextInputEditText parolaVecheTxt,parolaNouaTxt,parolaNouaComfirmareTxt;
+    private TextInputEditText parolaVecheTxt, parolaNouaTxt, parolaNouaComfirmareTxt;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,9 +117,9 @@ public class SettingsFragment extends Fragment {
                 // Cod pentru confirmarea acțiunii
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = auth.getCurrentUser();
-                parolaVecheTxt=dialogView.findViewById(R.id.parolaActuala);
-                parolaNouaTxt=dialogView.findViewById(R.id.parolaNoua);
-                parolaNouaComfirmareTxt=dialogView.findViewById(R.id.comfirmareParolaNoua);
+                parolaVecheTxt = dialogView.findViewById(R.id.parolaActuala);
+                parolaNouaTxt = dialogView.findViewById(R.id.parolaNoua);
+                parolaNouaComfirmareTxt = dialogView.findViewById(R.id.comfirmareParolaNoua);
 
                 String oldPassword = parolaVecheTxt.getText().toString();
                 String newPassword = parolaNouaTxt.getText().toString();
@@ -145,7 +146,7 @@ public class SettingsFragment extends Fragment {
                     return;
                 }
 
-                if (newPassword.equals(newPasswordVerificare)){
+                if (newPassword.equals(newPasswordVerificare)) {
                     AuthCredential credential = EmailAuthProvider.getCredential(currentUser.getEmail(), oldPassword);
                     currentUser.reauthenticate(credential)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment {
     private LineData lineData;
 
     private LinearLayout currentLayoutProgramare;
-    private TableRow tableRowProgramari,tableRowRecomandari;
+    private TableRow tableRowProgramari, tableRowRecomandari;
     int desiredVisibleRange = 30; // Number of data entries to display
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,9 +127,9 @@ public class HomeFragment extends Fragment {
         getData();
 
         tableRowProgramari = view.findViewById(R.id.rowProgramari);
-        tableRowRecomandari=view.findViewById(R.id.rowRecomandari);
-        int contorProgramari= mainActivity.getContorProgramari();
-        int contorRecomandari= mainActivity.getContorRecomandari();
+        tableRowRecomandari = view.findViewById(R.id.rowRecomandari);
+        int contorProgramari = mainActivity.getContorProgramari();
+        int contorRecomandari = mainActivity.getContorRecomandari();
         updateCountLayoutProgramare(contorProgramari);
         updateCountLayoutRecomandari(contorRecomandari);
         dataOptionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -267,12 +267,12 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-        private void updateCountLayoutProgramare(int contorProgramari) {
-            Drawable drawable = createCountDrawable(contorProgramari);
-            tableRowProgramari.removeAllViews();
-            createCountLayout(drawable, "Programări viitoare", tableRowProgramari);
-        }
-   
+    private void updateCountLayoutProgramare(int contorProgramari) {
+        Drawable drawable = createCountDrawable(contorProgramari);
+        tableRowProgramari.removeAllViews();
+        createCountLayout(drawable, "Programări viitoare", tableRowProgramari);
+    }
+
     private void updateCountLayoutRecomandari(int contorRecomandari) {
         Drawable drawable = createCountDrawable(contorRecomandari);
         tableRowRecomandari.removeAllViews();
@@ -281,8 +281,9 @@ public class HomeFragment extends Fragment {
 
     private Drawable createCountDrawable(int count) {
         // Create the background circle shape
-        int backgroundColor = Color.parseColor("#008000");;
-        int size = 100;
+        int backgroundColor = Color.parseColor("#008000");
+        ;
+        int size = 90;
         ShapeDrawable backgroundDrawable = new ShapeDrawable(new OvalShape());
         backgroundDrawable.getPaint().setColor(backgroundColor);
         backgroundDrawable.setIntrinsicHeight(size);
@@ -335,7 +336,7 @@ public class HomeFragment extends Fragment {
         linearLayout.addView(countImageView);
         linearLayout.addView(countTextView);
 
-        linearLayout.setPadding(0,0,0,16);
+        linearLayout.setPadding(0, 0, 0, 16);
         tableRow.addView(linearLayout);
     }
 
@@ -431,9 +432,7 @@ public class HomeFragment extends Fragment {
         lineDataSet.setDrawValues(true);
         iLineDataSets.clear();
         iLineDataSets.add(lineDataSet);
-        lineData = new
-
-                LineData(iLineDataSets);
+        lineData = new LineData(iLineDataSets);
         lineChart.setData(lineData);
         lineChart.notifyDataSetChanged();
         lineChart.animateX(1, Easing.EaseInBounce);

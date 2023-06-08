@@ -17,7 +17,7 @@ public class Data_procesata {
     public Data_procesata() {
     }
 
-    public Data_procesata(String identificator, String time_stamp, float valoare,boolean alerta) {
+    public Data_procesata(String identificator, String time_stamp, float valoare, boolean alerta) {
         this.identificator = identificator;
         switch (identificator) {
             case "EKG":
@@ -32,7 +32,8 @@ public class Data_procesata {
             case "PULS":
                 this.denumire = "Pulse sensor";
                 break;
-            default: this.denumire="EROARE";
+            default:
+                this.denumire = "EROARE";
         }
         this.time_stamp = time_stamp;
         this.alerta = alerta;

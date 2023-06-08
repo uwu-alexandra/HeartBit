@@ -38,9 +38,11 @@ public class ComunicareThread extends Thread {
         //Input and Output streams members of the class
         mmInStream = tmpIn;
     }
+
     public void stopThread() {
         isRunning = false;
     }
+
     public void run() {
 
         byte[] buffer = new byte[1024];

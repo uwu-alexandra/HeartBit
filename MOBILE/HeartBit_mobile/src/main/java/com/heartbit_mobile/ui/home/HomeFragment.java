@@ -192,6 +192,7 @@ public class HomeFragment extends Fragment {
                                 tmp = arduinoBTModule.createRfcommSocketToServiceRecord(arduinoUUID);
                             } catch (IOException e) {
                                 Log.e(TAG, "Socket's create() method failed", e);
+                                return;
                             }
                             mmSocket = tmp;
                         }
@@ -202,13 +203,19 @@ public class HomeFragment extends Fragment {
                             try {
                                 // Connect to the remote device through the socket. This call blocks
                                 // until it succeeds or throws an exception.
-                                mmSocket.connect();
-                                check = mmSocket.isConnected();
+                                if(mmSocket!=null) {
+                                    mmSocket.connect();
+                                    check = mmSocket.isConnected();
+                                }
+                                else {
+                                    Toast.makeText(getContext(), "Niciun dispozitiv conectat", Toast.LENGTH_SHORT).show();
+                                    isConnected = false;
+                                    return;
+                                }
                             } catch (IOException connectException) {
                                 // Unable to connect; close the socket and return.
                                 Toast.makeText(getActivity(), connectException.toString(), Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "connectException: " + connectException);
-
                                 try {
                                     mmSocket.close();
                                 } catch (IOException closeException) {

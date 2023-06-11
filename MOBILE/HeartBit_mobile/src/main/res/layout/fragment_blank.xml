@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.calendar.RecomandariFragment">
+    tools:context=".ui.BlankFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/blank"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Recomandari active"
-        android:textSize="30dp" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

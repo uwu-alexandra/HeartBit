@@ -9,4 +9,10 @@
         <item>Timisoara (Spitalul Y)</item>
         <item>Cluj (Clinica 1)</item>
     </string-array>
+    <string-array name="data_options">
+        <item>EKG</item>
+        <item>Puls</item>
+        <item>Umiditate</item>
+        <item>Temperatura</item>
+    </string-array>
 </resources>

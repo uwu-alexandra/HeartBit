@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
-    tools:context=".ui.support.GhidFragment">
+    android:padding="15dp">
 
     <TextView
-        android:id="@+id/ghid_utilizare_title"
+        android:id="@+id/recomandari"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="80dp"
         android:gravity="center"
-        android:text="@string/ghid_titlu"
-        android:textSize="35sp"
-        android:textColor="@color/red_dark"/>
+        android:text="Recomandări active"
+        android:textColor="@color/red_dark"
+        android:textSize="30sp"
+        />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+       >
 
-        <TextView
-            android:id="@+id/ghid_utilizare_content"
+        <LinearLayout
+            android:id="@+id/containerRecomandari"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:scrollbars="vertical"
-            android:text="@string/text_ghid_utilizare"
-            android:textSize="20sp" />
-
+            android:orientation="vertical">
+        </LinearLayout>
     </ScrollView>
+
     <Button
-        android:id="@+id/returnFromGhidBtn"
+        android:id="@+id/returnFromRecomandariBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/back"
         android:textColor="@color/white" />
-
 </LinearLayout>

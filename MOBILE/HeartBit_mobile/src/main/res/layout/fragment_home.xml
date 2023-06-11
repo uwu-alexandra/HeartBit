@@ -1,22 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".ui.home.HomeFragment">
+
+        <TextView
+            android:id="@+id/header_title_home"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:gravity="center"
+            android:text="@string/home_title"
+            android:textColor="@color/red_dark"
+            android:textSize="35sp" />
+
+        <TableLayout
+            android:id="@+id/tabelHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/table_background_with_border">
+
+            <TableRow
+                android:id="@+id/rowProgramari"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/programariLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/programariTxt"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:text="Programari"
+                        android:textSize="25sp" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowRecomandari"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/recomandariLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                   >
+
+                    <TextView
+                        android:id="@+id/recomandariTxt"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:text="Recomandări"
+                        android:textSize="25sp" />
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/feedbackLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/baseline_message_24" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/feedbackTxt"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:text="Feedback"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+
+        <Spinner
+            android:id="@+id/dataOptionsHome_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:backgroundTint="@color/black"
+            android:dropDownVerticalOffset="50dp"
+            android:entries="@array/data_options"
+            android:paddingHorizontal="10sp"
+            android:textColorHint="@color/black"
+            android:textCursorDrawable="@color/black" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
+        <Button
+            android:id="@+id/connectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/okButton"
+            android:text="Conecteaza device wearable"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</ScrollView>

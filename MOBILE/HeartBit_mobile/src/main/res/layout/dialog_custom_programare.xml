@@ -25,32 +25,7 @@
             android:textSize="35sp"
             android:textColor="@color/red_dark"/>
 
-
-        <Button
-            android:id="@+id/closeDialogBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:text="@string/X"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-
     </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="5sp"/>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Specialitate"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="@string/specialitate_progr"
-        android:backgroundTint="@color/black"
-        android:textColorHint="@color/black"
-        android:textCursorDrawable="@color/black"
-        android:paddingHorizontal="20sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

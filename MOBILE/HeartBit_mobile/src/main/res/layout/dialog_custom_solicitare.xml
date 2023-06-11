@@ -25,19 +25,10 @@
             android:textSize="35sp"
             android:textColor="@color/red_dark"/>
 
-
-        <Button
-            android:id="@+id/closeDialogBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:text="@string/X"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-
     </LinearLayout>
 
     <TextView
+        android:id="@+id/detaliiTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/motiv_prompt"
@@ -65,17 +56,17 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="5sp"/>
+        android:paddingVertical="5sp">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/Detalii"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:hint="@string/detalii"
-        android:backgroundTint="@color/black"
-        android:textColorHint="@color/black"
-        android:textCursorDrawable="@color/black"
-        android:paddingHorizontal="20sp"/>
+        <EditText
+            android:id="@+id/Detalii"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="@string/detalii"
+            android:textCursorDrawable="@color/black"
+            android:paddingHorizontal="20sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

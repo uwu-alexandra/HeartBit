@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
 }
+
 android {
     namespace 'com.heartbit_mobile'
     compileSdk 33
@@ -43,12 +44,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.3.0'
     implementation 'com.google.firebase:firebase-database:20.2.0'
     implementation 'androidx.test.ext:junit:1.1.5'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'org.testng:testng:6.9.6'
+
 }
 
 java {

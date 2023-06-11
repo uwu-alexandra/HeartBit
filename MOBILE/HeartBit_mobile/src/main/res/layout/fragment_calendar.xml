@@ -8,13 +8,14 @@
     >
 
     <TextView
-        android:id="@+id/header_title_progr"
+        android:id="@+id/header_title_programare"
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:gravity="center"
         android:text="@string/programari_titlu"
         android:textSize="35sp"
         android:textColor="@color/red_dark"/>
+
 
     <TableLayout
         android:layout_width="match_parent"
@@ -110,7 +111,7 @@
         android:gravity="center"
         android:text="@string/programari"
         android:textSize="30sp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -141,4 +142,17 @@
 
     </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layoutProgramari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

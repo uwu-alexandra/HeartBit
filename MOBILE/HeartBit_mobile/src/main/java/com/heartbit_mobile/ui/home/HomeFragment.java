@@ -429,7 +429,8 @@ public class HomeFragment extends Fragment {
         // Create a temporary vector to store the last 30 values
         ArrayList<Entry> last30Values = new ArrayList<>();
         if (entryCount > desiredVisibleRange) {
-            last30Values.addAll(dataValues.subList(entryCount - desiredVisibleRange, entryCount));
+            last30Values.addAll(dataValues.subList(
+                entryCount - desiredVisibleRange, entryCount));
         } else {
             last30Values.addAll(dataValues);
         }

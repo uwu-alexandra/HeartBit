@@ -424,3 +424,131 @@ body {
     text-align: center;
   }
 }
+
+.v5_47031 {
+  width: 284px;
+  height: 90px;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 35vw;
+  transform: translate(-50%, -50%);
+}
+.v5_47032 {
+  width: 284px;
+  height: 90px;
+  background: #4CAF50;
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  border-top-left-radius: 37px;
+  border-top-right-radius: 37px;
+  border-bottom-left-radius: 37px;
+  border-bottom-right-radius: 37px;
+  overflow: hidden;
+}
+.v5_47032:hover {
+  background: rgb(177, 25, 25);
+}
+.v5_47032:active {
+  background: rgb(104, 10, 10);
+}
+.v5_47033 {
+  width: 217px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 25px;
+  left: 34px;
+  font-family: Adamina;
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+@media screen and (max-width: 1419px) {
+  .v5_47031 {
+    width: 200px;
+    height: 70px;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 35vw;
+    transform: translate(-50%, -50%);
+  }
+  .v5_47032 {
+    width: 200px;
+    height: 70px;
+    background: #4CAF50;
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    border-top-left-radius: 27px;
+    border-top-right-radius: 27px;
+    border-bottom-left-radius: 27px;
+    border-bottom-right-radius: 27px;
+    overflow: hidden;
+  }
+  .v5_47032:hover {
+    background: rgb(177, 25, 25);
+  }
+  .v5_47032:active {
+    background: rgb(104, 10, 10);
+  }
+  .v5_47033 {
+    width: 50px;
+    color: rgba(255,255,255,1);
+    position: absolute;
+    top: 20px;
+    left: 39px;
+    font-family: Adamina;
+    font-weight: Regular;
+    font-size: 20px;
+    opacity: 1;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 995px) {
+  .v5_47031 {
+    width: 124px;
+    height: 60px;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 35vw;
+    transform: translate(-50%, -50%);
+  }
+  .v5_47032 {
+    width: 124px;
+    height: 60px;
+    background: #4CAF50;
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    border-top-left-radius: 27px;
+    border-top-right-radius: 27px;
+    border-bottom-left-radius: 27px;
+    border-bottom-right-radius: 27px;
+    overflow: hidden;
+  }
+  .v5_47032:hover {
+    background: rgb(177, 25, 25);
+  }
+  .v5_47032:active {
+    background: rgb(104, 10, 10);
+  }
+  .v5_47033 {
+    width: 50px;
+    color: rgba(255,255,255,1);
+    position: absolute;
+    top: 20px;
+    left: 14px;
+    font-family: Adamina;
+    font-weight: Regular;
+    font-size: 15px;
+    opacity: 1;
+    text-align: center;
+  }
+}

@@ -40,10 +40,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Get a reference to the database
 const database = getDatabase(app);
+const urlParams = new URLSearchParams(window.location.search);
+let uid = urlParams.get('uid');
+const histRef = ref(database, `path/to/Solicitari/${uid}`);
 const usersRef = ref(database, 'Users/');
-
+console.log('uid = ' + uid);
 const auth = getAuth();
-let uid;
 onAuthStateChanged(auth, (user) => {
   const urlParams = new URLSearchParams(window.location.search);
   const uidParam = urlParams.get('uid');
@@ -54,7 +56,7 @@ onAuthStateChanged(auth, (user) => {
     const userTypeRef = ref(database, `Users/${user.uid}/userType`);
     onValue(userTypeRef, (snapshot) => {
       const userType = snapshot.val();
-      if (userType === 'medic' || (uidParam && user.uid === uidParam)) {
+      if (userType === 'medic' || userType === 'admin' || (uidParam && user.uid === uidParam)) {
         showAuthenticatedElements();
       } else {
         window.location.href = 'index.html'; // Redirect to index.html if user is not of type 'medic'
@@ -62,65 +64,73 @@ onAuthStateChanged(auth, (user) => {
     });
   }
 });
+let users;
+let currentUser;
+let userData;
+let userType;
+let currentUserType;
+onValue(usersRef, (snapshot) => {
+  users = snapshot.val();
+  currentUser = auth.currentUser;
+  userData = users[currentUser.uid];
+  uid = currentUser.uid;
+  console.log(currentUser.uid);
+});
 
+onValue(usersRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    if (childSnapshot.key === currentUser.uid) {
+      currentUserType = childSnapshot.val().userType;
+      console.log(currentUserType);
+    }
+  });
+});
 var logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
   e.preventDefault();
   console.log('in eventlistener');
   signOut(auth).then(() => {
-    alert('Signed out successfully');
-    document.location = 'index.html';
+      alert('Signed out successfully');
+      document.location = 'index.html';
   }).catch((error) => {
-    console.log('Not logged in');
+      console.log('Not logged in');
   });
 });
-
 // Retrieve data
-const usersDiv = document.querySelector('#users');
-onValue(usersRef, (snapshot) => {
-
-  snapshot.forEach((user) => {
-    if (user.val().userType === 'pacient') {
+const histsDiv = document.querySelector('#cards');
+onValue(histRef, (snapshot) => {
+  snapshot.forEach((hist) => {
       const card = document.createElement('div');
       card.classList.add('card');
       card.innerHTML = `
-      <img src="../images/person.png" style="max-width:40%;max-height:40%;object-fit:fill;">
-      <p>${user.val().nume} ${user.val().prenume}</p>
+      <h2>${hist.val().Motiv_solicitare}</h2>
+      <p>${hist.val().Detalii_solicitare}</p>
       `;
-      card.addEventListener('click', () => {
-        window.location.href = `FisaMedicala.html?uid=${user.key}`;
-      });
-      usersDiv.appendChild(card);
-    }
+      histsDiv.appendChild(card);
   });
 });
-
-const searchBar = document.getElementById('searchBar');
-searchBar.addEventListener('input', () => {
-  const query = searchBar.value.toLowerCase();
-  usersDiv.innerHTML = ''; // Clear previous results
-  onValue(usersRef, (snapshot) => {
-    const users = snapshot.val();
-    snapshot.forEach((user) => {
-      if (((user.val().nume.toLowerCase().includes(query) || user.val().prenume.toLowerCase().includes(query)) || (user.val().nume.toLowerCase() + ' ' + user.val().prenume.toLowerCase()).includes(query)) && user.val().userType === 'pacient') {
-        {
-          const card = document.createElement('div');
-          card.classList.add('card');
-          card.innerHTML = `
-          <img src="../images/person.png" style="max-width:40%;max-height:40%;object-fit:fill;">
-          <p>${user.val().nume} ${user.val().prenume}</p>
-          `;
-          card.addEventListener('click', () => {
-            window.location.href = `FisaMedicala.html?uid=${user.key}`;
-          });
-          usersDiv.appendChild(card);
-        }
-      }
-    });
-  });
+const fisMed = document.getElementById('fisMed');
+fisMed.addEventListener('click', () => {
+    window.location.href = `FisaMedicala.html?uid=${uid}`;
 });
+if(userType === 'pacient'){
+  document.getElementsByClassName('v5_47033').innerHTML = 'Recomandări';
+}
+else{
+  document.getElementsByClassName('v5_47033').innerHTML = 'Pacienti';
+  
+}
+const rec = document.getElementById('rec');
+rec.addEventListener('click', () => {
+  if(currentUserType === 'pacient'){
+      window.location.href = `RecomandarePacient.html?uid=${uid}`;
+  }
+  else{
+      window.location.href = `Pacienti.html?uid=${currentUser.uid}`;
 
+  }    
+});
 const profil = document.getElementById('profil');
 profil.addEventListener('click', () => {
-  window.location.href = `Profil.html?uid=${uid}`;
+    window.location.href = `Profil.html?uid=${currentUser.uid}`;
 });

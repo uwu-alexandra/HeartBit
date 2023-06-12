@@ -14,7 +14,7 @@ function hideAuthenticatedElements() {
 }
 hideAuthenticatedElements();
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -40,10 +40,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Get a reference to the database
 const database = getDatabase(app);
-const usersRef = ref(database, 'Users/');
+
+const urlParams = new URLSearchParams(window.location.search);
+const uid = urlParams.get('uid');
+const usersRef = ref(database, `path/to/Recomandari/${uid}`);
+
+// Retrieve data
+let userType = '';
 
 const auth = getAuth();
-let uid;
 onAuthStateChanged(auth, (user) => {
   const urlParams = new URLSearchParams(window.location.search);
   const uidParam = urlParams.get('uid');
@@ -54,7 +59,7 @@ onAuthStateChanged(auth, (user) => {
     const userTypeRef = ref(database, `Users/${user.uid}/userType`);
     onValue(userTypeRef, (snapshot) => {
       const userType = snapshot.val();
-      if (userType === 'medic' || (uidParam && user.uid === uidParam)) {
+      if (userType === 'medic' || userType === 'admin' || (uidParam && user.uid === uidParam)) {
         showAuthenticatedElements();
       } else {
         window.location.href = 'index.html'; // Redirect to index.html if user is not of type 'medic'
@@ -62,7 +67,13 @@ onAuthStateChanged(auth, (user) => {
     });
   }
 });
-
+onValue(usersRef, (snapshot) => {
+  const users = snapshot.val();
+  const currentUser = auth.currentUser;
+  const userData = users[currentUser.uid];
+  userType = userData.userType;
+  // Display the user's data on the web page
+});
 var logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
   e.preventDefault();
@@ -75,52 +86,60 @@ logout.addEventListener('click', (e) => {
   });
 });
 
-// Retrieve data
 const usersDiv = document.querySelector('#users');
-onValue(usersRef, (snapshot) => {
-
-  snapshot.forEach((user) => {
-    if (user.val().userType === 'pacient') {
+if (usersDiv){
+  onValue(usersRef, (snapshot) => {
+    snapshot.forEach((recomandare) => {
       const card = document.createElement('div');
       card.classList.add('card');
       card.innerHTML = `
-      <img src="../images/person.png" style="max-width:40%;max-height:40%;object-fit:fill;">
-      <p>${user.val().nume} ${user.val().prenume}</p>
+      <h1>${recomandare.val().text}</h1>
+      <p>${recomandare.val().date}</p>
       `;
-      card.addEventListener('click', () => {
-        window.location.href = `FisaMedicala.html?uid=${user.key}`;
-      });
       usersDiv.appendChild(card);
-    }
-  });
-});
-
-const searchBar = document.getElementById('searchBar');
-searchBar.addEventListener('input', () => {
-  const query = searchBar.value.toLowerCase();
-  usersDiv.innerHTML = ''; // Clear previous results
-  onValue(usersRef, (snapshot) => {
-    const users = snapshot.val();
-    snapshot.forEach((user) => {
-      if (((user.val().nume.toLowerCase().includes(query) || user.val().prenume.toLowerCase().includes(query)) || (user.val().nume.toLowerCase() + ' ' + user.val().prenume.toLowerCase()).includes(query)) && user.val().userType === 'pacient') {
-        {
-          const card = document.createElement('div');
-          card.classList.add('card');
-          card.innerHTML = `
-          <img src="../images/person.png" style="max-width:40%;max-height:40%;object-fit:fill;">
-          <p>${user.val().nume} ${user.val().prenume}</p>
-          `;
-          card.addEventListener('click', () => {
-            window.location.href = `FisaMedicala.html?uid=${user.key}`;
-          });
-          usersDiv.appendChild(card);
-        }
-      }
     });
   });
+}
+else
+  usersDiv.innerHTML = 'Nu exista recomandari';
+const openFormBtn = document.getElementById('openFormBtn');
+const textForm = document.getElementById('textForm');
+openFormBtn.addEventListener('click', () => {
+  textForm.style.display = 'block';
 });
 
-const profil = document.getElementById('profil');
-profil.addEventListener('click', () => {
-  window.location.href = `Profil.html?uid=${uid}`;
+// Add event listener to the close button to close the form
+const closeFormBtn = document.getElementById('closeFormBtn');
+closeFormBtn.addEventListener('click', () => {
+  textForm.style.display = 'none';
+});
+
+// Add event listener to the submit button to add text to the database
+const submitBtn = document.getElementById('submitBtn');
+const dateInput = document.getElementById('dateInput');
+const textInput = document.getElementById('textInput');
+submitBtn.addEventListener('click', () => {
+  const date = dateInput.value;
+  const text = textInput.value;
+  
+  if (date && text) {
+    const path = `path/to/Recomandari/${uid}`;
+    const newTextRef = push(ref(database, path));
+    usersDiv.innerHTML = '';
+    set(newTextRef, { date, text })
+      
+      .catch((error) => {
+        console.error('Error adding text:', error);
+      });
+      
+  }
+});
+const fisMed = document.getElementById('fisMed');
+fisMed.addEventListener('click', () => {
+  window.location.href = `FisaMedicala.html?uid=${uid}`;
+});
+
+const hist = document.getElementById('hist');
+hist.addEventListener('click', () => {
+  window.location.href = `Istoric.html?uid=${uid}`;
 });

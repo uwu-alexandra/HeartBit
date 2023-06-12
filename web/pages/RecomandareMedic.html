@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Adamina&display=swap" rel="stylesheet" />
+    <link href="../css/WelcomePacient.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="module" src="RecomandareMedic.js"></script>
+    <title>HeartBit</title>
+</head>
+
+<body>
+    <div class="authenticated">
+        <div class="v5_47023">
+            <div class="v5_47022">
+                <a id="logout">
+                    <div class="v5_47025">
+                        <div class="v5_47026"></div>
+                        <span class="v5_47027">Ieșire din cont</span>
+                    </div>
+                </a>
+                <a id="fisMed">
+                    <div class="v5_47028">
+                        <div class="v5_47029"></div>
+                        <span class="v5_47030">Fișa medicală</span>
+                    </div>
+                </a>
+                <a id="hist">
+                    <div class="v5_47034">
+                        <div class="v5_47035"></div>
+                        <span class="v5_47036">Istoric</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="v5_47016">
+            <div class="v5_47006"></div>
+            <span class="v5_47015">© 2023 HeartBit. All rights reserved.</span>
+            <div class="v50_177">
+                <span class="v5_47017">HeartBit</span>
+                <div class="v5_47018"></div>
+            </div>
+        </div>
+        <div id="users"></div>
+        <div id="formContainer">
+            <button id="openFormBtn">Adauga recomandare</button>
+            <div id="textForm" style="display: none;">
+                <input type="date" id="dateInput" placeholder="Select date" />
+                <textarea id="textInput" placeholder="Enter text"></textarea>
+                <div id="formButtons">
+                    <button id="submitBtn">Submit</button>
+                    <button id="closeFormBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

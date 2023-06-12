@@ -335,3 +335,107 @@
     top:572px;
   }
 }
+/*ANULARE*/
+.e10_122 { 
+	width:297px;
+	height:59.252525329589844px;
+	position:absolute;
+	left:726px;
+	top:572px;
+}
+.e10_123 { 
+	background-color:rgb(177, 25, 25);
+	width:297px;
+	height:59.252525329589844px;
+	position:absolute;
+	left: -100px;
+	top:572px;
+	border-top-left-radius:37px;
+	border-top-right-radius:37px;
+	border-bottom-left-radius:37px;
+	border-bottom-right-radius:37px;
+}
+.e10_123:hover {
+  background-color: rgb(223, 34, 34);
+}
+.e10_123:active {
+  background-color: rgb(131, 19, 19);
+}
+#e10_124 { 
+	color:rgba(255, 255, 255, 1);
+	width:227px;
+	height:46.55555725097656px;
+	position:absolute;
+	left:34.732696533203125px;
+	top:7px;
+	font-family:Adamina;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+@media screen and (max-width: 1324px) {
+  .e10_122 { 
+    width:297px;
+    height:59.252525329589844px;
+    position:absolute;
+    left:626px;
+    top:572px;
+  }
+  .e10_123 { 
+    background-color:rgb(177, 25, 25);
+    width:297px;
+    height:59.252525329589844px;
+    position:absolute;
+    left:-50px;
+    top:572px;
+    border-top-left-radius:37px;
+    border-top-right-radius:37px;
+    border-bottom-left-radius:37px;
+    border-bottom-right-radius:37px;
+  }
+  .e10_123:hover {
+    background-color: rgb(223, 34, 34);
+  }
+  .e10_123:active {
+    background-color: rgb(131, 19, 19);
+  }
+  #e10_124 { 
+    color:rgba(255, 255, 255, 1);
+    width:227px;
+    height:46.55555725097656px;
+    position:absolute;
+    left:34.732696533203125px;
+    top:70px;
+    font-family:Adamina;
+    text-align:center;
+    font-size:20px;
+    letter-spacing:0;
+  }
+}
+@media screen and (max-width: 1225px) {
+  .e10_119 { 
+    width:197px;
+    height:59.252525329589844px;
+    position:absolute;
+    left:280px;
+    top:572px;
+  }
+}
+@media screen and (max-width: 1133px) {
+  .e10_119 { 
+    width:197px;
+    height:59.252525329589844px;
+    position:absolute;
+    left:250px;
+    top:572px;
+  }
+}
+@media screen and (max-width: 994px) {
+  .e10_119 { 
+    width:197px;
+    height:59.252525329589844px;
+    position:absolute;
+    left:260px;
+    top:572px;
+  }
+}

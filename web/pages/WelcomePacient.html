@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link href="https://fonts.googleapis.com/css?family=Adamina&display=swap" rel="stylesheet" />
-        <link href="../css/WelcomePacient.css" rel="stylesheet" />
-        <title>HeartBit</title>
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Adamina&display=swap" rel="stylesheet" />
+    <link href="../css/WelcomePacient.css" rel="stylesheet" />
+
+    <script type="module" src="WelcomePacient.js"></script>
+    <title>HeartBit</title>
+</head>
+
+<body>
+    <div class="authenticated">
         <div class="v5_46974">
             <div class="v5_47016">
                 <div class="v5_47006"></div>
@@ -18,36 +23,48 @@
             </div>
             <div class="v48_166">
                 <div class="v5_47019"></div>
-                <span class="v5_47020">Welcome, Pacient.</span>
+                <span class="v5_47020" id="v5_47020"></span>
+                <button class="detalii">
+                    Detalii profil
+                </button>
             </div>
+
             <div class="v5_47023">
                 <div class="v5_47022">
-                    <a href="IesireCont.html">
+                    <a id="logout">
                         <div class="v5_47025">
                             <div class="v5_47026"></div>
                             <span class="v5_47027">Ieșire din cont</span>
                         </div>
                     </a>
-                    <a href="FisaMedicala.html">
+                    <a id="fisMed">
                         <div class="v5_47028">
                             <div class="v5_47029"></div>
                             <span class="v5_47030">Fișa medicală</span>
                         </div>
                     </a>
-                    <a href="Recomandari.html">
+                    <a id="rec">
                         <div class="v5_47031">
                             <div class="v5_47032"></div>
                             <span class="v5_47033">Recomandări</span>
                         </div>
                     </a>
-                    <a href="Istoric.html">
+                    <a id="hist">
                         <div class="v5_47034">
                             <div class="v5_47035"></div>
                             <span class="v5_47036">Istoric</span>
                         </div>
-                    </a>   
+                    </a>
+                    <a id="profil">
+                        <div class="v5_47037">
+                            <div class="v5_47038"></div>
+                            <span class="v5_47039">Profil</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

@@ -13,19 +13,34 @@ public class User {
     private String email;
     @PropertyName("password")
     private String password;
-    @PropertyName("cod")
-    private String cod;
+    @PropertyName("id")
+    private String id;
+
+    @PropertyName("userType")
+    private String userType;
 
     public User() {
     }
 
-    public User(String email, String password, String nume, String prenume, String cnp, String cod) {
+    public User(String email, String password, String nume, String prenume, String cnp, String id) {
         this.email = email;
         this.password = password;
         this.nume = nume;
         this.prenume = prenume;
         this.cnp = cnp;
-        this.cod = cod;
+        this.id = id;
+        Character type = id.charAt(0);
+        switch (type) {
+            case '1':
+                userType = "medic";
+                break;
+            case '2':
+                userType = "pacient";
+                break;
+            case '3':
+                userType = "admin";
+                break;
+        }
     }
 
     @PropertyName("nume")
@@ -78,13 +93,23 @@ public class User {
         this.password = password;
     }
 
-    @PropertyName("cod")
-    public String getCod() {
-        return cod;
+    @PropertyName("id")
+    public String getId() {
+        return id;
     }
 
-    @PropertyName("cod")
-    public void setCod(String cod) {
-        this.cod = cod;
+    @PropertyName("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @PropertyName("userType")
+    public String getUserType() {
+       return userType;
+    }
+
+    @PropertyName("userType")
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

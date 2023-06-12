@@ -90,7 +90,7 @@ public class ProcesareThread extends Thread {
                         }
                     }
                     Data_procesata dataProcesata = new Data_procesata(identificator, formattedDateTime, valoare, alerta);
-                    if (!(dataProcesata.getDenumire().equals("EROARE") || (dataProcesata.getValoare() == 999))) {
+                    if (!(dataProcesata.getDenumire().equals("EROARE") || (dataProcesata.getValoare() >= 200))) {
                         //trimitere in cloud in functie de tipul de data in functie de identificator
                         FirebaseDatabase.getInstance().getReference("path/to/Senzori")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

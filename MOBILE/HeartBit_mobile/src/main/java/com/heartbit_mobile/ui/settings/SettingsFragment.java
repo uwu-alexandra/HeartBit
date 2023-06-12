@@ -30,6 +30,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.heartbit_mobile.R;
 import com.heartbit_mobile.ui.logare.Login;
 
@@ -206,6 +208,12 @@ public class SettingsFragment extends Fragment {
                 .setTitle(R.string.stergere_title)
                 .setPositiveButton(R.string.stergere_positive_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // stergeti inregistrarea din Users
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                        String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        DatabaseReference myRef = firebaseDatabase.getReference("Users/"+UID);
+                        myRef.removeValue();
+
                         // stergeti utilizatorul aici
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         if (user != null) {

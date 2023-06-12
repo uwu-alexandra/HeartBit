@@ -107,14 +107,18 @@ public class HomeFragment extends Fragment {
     private BluetoothSocket mmSocket;
     private LineChart lineChart;
     Spinner dataOptionsSpinner;
-    ArrayList<Entry> dataValues = new ArrayList<>();
+    ArrayList<Entry> dataValuesEKG = new ArrayList<>();
+    ArrayList<Entry> dataValuesPULS = new ArrayList<>();
+    ArrayList<Entry> dataValuesTEMP = new ArrayList<>();
+    ArrayList<Entry> dataValuesUMD = new ArrayList<>();
     private LineDataSet lineDataSet = new LineDataSet(null, "Readings");
     private ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
     private LineData lineData;
 
     private LinearLayout currentLayoutProgramare;
     private TableRow tableRowProgramari, tableRowRecomandari;
-    int desiredVisibleRange = 30; // Number of data entries to display
+    private int desiredVisibleRange = 30; // Number of data entries to display
+    private int selectArray = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -124,7 +128,11 @@ public class HomeFragment extends Fragment {
         isConnected = mainActivity.isThreadsRunning();
         lineChart = view.findViewById(R.id.lineChart);
         dataOptionsSpinner = view.findViewById(R.id.dataOptionsHome_spinner);
-        getData();
+
+        getDataEKG();
+        getDataPULS();
+        getDataTEMP();
+        getDataUMD();
 
         tableRowProgramari = view.findViewById(R.id.rowProgramari);
         tableRowRecomandari = view.findViewById(R.id.rowRecomandari);
@@ -135,7 +143,30 @@ public class HomeFragment extends Fragment {
         dataOptionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getData();
+                String dataOptions = dataOptionsSpinner.getSelectedItem().toString();
+                switch (dataOptions) {
+                    case "EKG":
+                        lineChart.clear();
+                        selectArray = 1;
+                        getDataEKG();
+
+                        break;
+                    case "Puls":
+                        lineChart.clear();
+                        selectArray = 2;
+                        getDataPULS();
+                        break;
+                    case "Temperatura":
+                        lineChart.clear();
+                        selectArray = 3;
+                        getDataTEMP();
+                        break;
+                    case "Umiditate":
+                        lineChart.clear();
+                        selectArray = 4;
+                        getDataUMD();
+                        break;
+                }
             }
 
             @Override
@@ -203,11 +234,10 @@ public class HomeFragment extends Fragment {
                             try {
                                 // Connect to the remote device through the socket. This call blocks
                                 // until it succeeds or throws an exception.
-                                if(mmSocket!=null) {
+                                if (mmSocket != null) {
                                     mmSocket.connect();
                                     check = mmSocket.isConnected();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(getContext(), "Niciun dispozitiv conectat", Toast.LENGTH_SHORT).show();
                                     isConnected = false;
                                     return;
@@ -289,7 +319,7 @@ public class HomeFragment extends Fragment {
     private Drawable createCountDrawable(int count) {
         // Create the background circle shape
         int backgroundColor = Color.parseColor("#008000");
-        ;
+
         int size = 90;
         ShapeDrawable backgroundDrawable = new ShapeDrawable(new OvalShape());
         backgroundDrawable.getPaint().setColor(backgroundColor);
@@ -347,26 +377,10 @@ public class HomeFragment extends Fragment {
         tableRow.addView(linearLayout);
     }
 
-    public void getData() {
-        String dataOptions = dataOptionsSpinner.getSelectedItem().toString();
-        String identificator = "";
-        switch (dataOptions) {
-            case "Puls":
-                identificator = "PULS";
-                break;
-            case "Umiditate":
-                identificator = "UMD";
-                break;
-            case "EKG":
-                identificator = "EKG";
-                break;
-            case "Temperatura":
-                identificator = "TEMP";
-                break;
-        }
+    public void getDataEKG() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference myRef = firebaseDatabase.getReference("path/to/Senzori/" + UID + "/" + identificator);
+        DatabaseReference myRef = firebaseDatabase.getReference("path/to/Senzori/" + UID + "/EKG");
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
@@ -392,9 +406,189 @@ public class HomeFragment extends Fragment {
                     long timestampMillis = (hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds;
                     float xValue = (float) (timestampMillis / 1000.0);
                     float yValue = Float.valueOf(dataProcesata.getValoare());
-                    dataValues.add(new Entry(xValue, yValue)); // Create Entry object directly
+                    dataValuesEKG.add(new Entry(xValue, yValue)); // Create Entry object directly
 
-                    showChart(dataValues);
+                    if (selectArray == 1)
+                        showChart(dataValuesEKG);
+                } else {
+                    lineChart.clear();
+                    lineChart.invalidate();
+                }
+            }
+
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildChanged
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                // Implementation for onChildRemoved
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildMoved
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getDataPULS() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference myRef = firebaseDatabase.getReference("path/to/Senzori/" + UID + "/PULS");
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                if (dataSnapshot.hasChildren()) {
+                    Data_procesata dataProcesata = dataSnapshot.getValue(Data_procesata.class);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy:HH.mm.ss.SSS");
+                    Date date;
+                    try {
+                        date = sdf.parse(dataProcesata.getTime_stamp());
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    // Extract hours, minutes, seconds, and milliseconds from the date
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minutes = calendar.get(Calendar.MINUTE);
+                    int seconds = calendar.get(Calendar.SECOND);
+                    int milliseconds = calendar.get(Calendar.MILLISECOND);
+
+                    // Convert hours, minutes, seconds, and milliseconds to milliseconds
+                    long timestampMillis = (hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds;
+                    float xValue = (float) (timestampMillis / 1000.0);
+                    float yValue = Float.valueOf(dataProcesata.getValoare());
+                    dataValuesPULS.add(new Entry(xValue, yValue)); // Create Entry object directly
+
+                    if (selectArray == 2)
+                        showChart(dataValuesPULS);
+                } else {
+                    lineChart.clear();
+                    lineChart.invalidate();
+                }
+            }
+
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildChanged
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                // Implementation for onChildRemoved
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildMoved
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getDataTEMP() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference myRef = firebaseDatabase.getReference("path/to/Senzori/" + UID + "/TEMP");
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                if (dataSnapshot.hasChildren()) {
+                    Data_procesata dataProcesata = dataSnapshot.getValue(Data_procesata.class);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy:HH.mm.ss.SSS");
+                    Date date;
+                    try {
+                        date = sdf.parse(dataProcesata.getTime_stamp());
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    // Extract hours, minutes, seconds, and milliseconds from the date
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minutes = calendar.get(Calendar.MINUTE);
+                    int seconds = calendar.get(Calendar.SECOND);
+                    int milliseconds = calendar.get(Calendar.MILLISECOND);
+
+                    // Convert hours, minutes, seconds, and milliseconds to milliseconds
+                    long timestampMillis = (hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds;
+                    float xValue = (float) (timestampMillis / 1000.0);
+                    float yValue = Float.valueOf(dataProcesata.getValoare());
+                    dataValuesTEMP.add(new Entry(xValue, yValue)); // Create Entry object directly
+
+                    if (selectArray == 3)
+                        showChart(dataValuesTEMP);
+                } else {
+                    lineChart.clear();
+                    lineChart.invalidate();
+                }
+            }
+
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildChanged
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                // Implementation for onChildRemoved
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Implementation for onChildMoved
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getDataUMD() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference myRef = firebaseDatabase.getReference("path/to/Senzori/" + UID + "/UMD");
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                if (dataSnapshot.hasChildren()) {
+                    Data_procesata dataProcesata = dataSnapshot.getValue(Data_procesata.class);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy:HH.mm.ss.SSS");
+                    Date date;
+                    try {
+                        date = sdf.parse(dataProcesata.getTime_stamp());
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    // Extract hours, minutes, seconds, and milliseconds from the date
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minutes = calendar.get(Calendar.MINUTE);
+                    int seconds = calendar.get(Calendar.SECOND);
+                    int milliseconds = calendar.get(Calendar.MILLISECOND);
+
+                    // Convert hours, minutes, seconds, and milliseconds to milliseconds
+                    long timestampMillis = (hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds;
+                    float xValue = (float) (timestampMillis / 1000.0);
+                    float yValue = Float.valueOf(dataProcesata.getValoare());
+                    dataValuesUMD.add(new Entry(xValue, yValue)); // Create Entry object directly
+                    if (selectArray == 4)
+                        showChart(dataValuesUMD);
                 } else {
                     lineChart.clear();
                     lineChart.invalidate();

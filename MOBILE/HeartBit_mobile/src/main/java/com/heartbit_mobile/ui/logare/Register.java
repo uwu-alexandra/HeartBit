@@ -26,7 +26,7 @@ import com.heartbit_mobile.R;
 
 public class Register extends AppCompatActivity {
 
-    private TextInputEditText editTextCnp, editTextPassword, editTextNume, editTextPrenume, editTextEmail, editTextCod;
+    private TextInputEditText editTextCnp, editTextPassword, editTextNume, editTextPrenume, editTextEmail, editTextId;
     private Button registerBtn;
     private FirebaseAuth mAuth;
     ProgressBar progressBar;
@@ -93,7 +93,7 @@ public class Register extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         editTextNume = findViewById(R.id.nume);
         editTextPrenume = findViewById(R.id.prenume);
-        editTextCod = findViewById(R.id.cod);
+        editTextId = findViewById(R.id.cod);
         registerBtn = findViewById(R.id.registerBtn);
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -112,13 +112,13 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                String cnp, password, nume, prenume, email, cod;
+                String cnp, password, nume, prenume, email, id;
                 cnp = editTextCnp.getText().toString();
                 password = editTextPassword.getText().toString();
                 nume = editTextNume.getText().toString();
                 prenume = editTextPrenume.getText().toString();
                 email = editTextEmail.getText().toString();
-                cod = editTextCod.getText().toString();
+                id = editTextId.getText().toString();
 
                 if (TextUtils.isEmpty(cnp)) {
                     Toast.makeText(Register.this, "Introduceţi cnp", Toast.LENGTH_SHORT).show();
@@ -156,16 +156,24 @@ public class Register extends AppCompatActivity {
                 }
 
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(Register.this, "Email invalid", Toast.LENGTH_SHORT).show();
-                    editTextEmail.setError("Email invalid");
+                    Toast.makeText(Register.this, "Email-ul nu este valid", Toast.LENGTH_SHORT).show();
+                    editTextEmail.setError("Email-ul nu este valid");
                     editTextEmail.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(cod)) {
+                if (TextUtils.isEmpty(id)) {
                     Toast.makeText(Register.this, "Introduceţi codul", Toast.LENGTH_SHORT).show();
-                    editTextCod.setError("Cod necompletat");
-                    editTextCod.requestFocus();
+                    editTextId.setError("Id necompletat");
+                    editTextId.requestFocus();
+                    return;
+                }
+
+                if (!(id.startsWith("1") || id.startsWith("2") || id.startsWith("3"))) {
+                    // Check if 'cod' does not start with "1", "2", or "3"
+                    Toast.makeText(Register.this, "Id-ul trebuie să înceapă cu 1, 2 sau 3", Toast.LENGTH_SHORT).show();
+                    editTextId.setError("Id-ul nu este valid");
+                    editTextId.requestFocus();
                     return;
                 }
 
@@ -183,7 +191,7 @@ public class Register extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     //we will store the additional fields in FireBase
-                                    User user = new User(email, password, nume, prenume, cnp, cod);
+                                    User user = new User(email, password, nume, prenume, cnp, id);
                                     FirebaseDatabase.getInstance().getReference("Users")
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

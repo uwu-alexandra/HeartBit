@@ -880,6 +880,7 @@ body{
 }
 .charts-container {
   display: flex;
+  width: 50%;
   z-index: -1;
 }
 
@@ -959,4 +960,8 @@ button#schimba:hover {
 
 #download:hover {
   background-color: #45a049;
+}
+.graphs-container{
+  width: 50%;
+  float: right;
 }

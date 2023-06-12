@@ -164,8 +164,8 @@ function generateLineGraph1(data) {
     legend: { position: 'bottom' },
     hAxis: { title: 'Data' },
     vAxis: { title: 'EKG' },
-    width: 1200,
-    height: 600,
+    width: 1000,
+    height: 500,
   };
 
   const chart = new google.visualization.LineChart(document.getElementById('ekgChart'));
@@ -211,8 +211,8 @@ try {
       legend: { position: 'bottom' },
       hAxis: { title: 'Data' },
       vAxis: { title: 'Temperatura' },
-      width: 1200,
-      height: 600,
+      width: 1000,
+      height: 500,
     };
 
     const chart = new google.visualization.LineChart(document.getElementById('tempChart'));
@@ -257,8 +257,8 @@ function generateLineGraph3(data) {
     legend: { position: 'bottom' },
     hAxis: { title: 'Data' },
     vAxis: { title: 'Umiditate' },
-    width: 1200,
-    height: 600,
+    width: 1000,
+    height: 500,
 
   };
 
@@ -300,8 +300,8 @@ function generateLineGraph4(data) {
     legend: { position: 'bottom' },
     hAxis: { title: 'Data' },
     vAxis: { title: 'Puls' },
-    width: 1200,
-    height: 600,
+    width: 1000,
+    height: 500,
   };
 
   const chart = new google.visualization.LineChart(document.getElementById('pulseChart'));
@@ -369,19 +369,15 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('uid = ' + key);
     const dataPath = `path/to/Senzori/${key}`;
 
-    // Retrieve data from the specified path
     const dataRef = ref(database, dataPath);
     onValue(dataRef, (snapshot) => {
       const sensorData = snapshot.val();
       const { jsPDF } = window.jspdf;
 
-      // Create a new PDF document
       const doc = new jsPDF();
 
-      // Set the content of the PDF document
       doc.text(nume, 10, 10);
 
-      // Prepare the table data
       const tableData = [];
       for (const entryKey in sensorData) {
         if (sensorData.hasOwnProperty(entryKey)) {
@@ -395,10 +391,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Set the table headers
       const tableHeaders = ['Alerta', 'Denumire', 'Identificator', 'Time_Stamp', 'Valoare'];
 
-      // Generate the table using the autoTable plugin
       doc.autoTable({
         head: [tableHeaders],
         body: tableData.map(obj => Object.values(obj)),

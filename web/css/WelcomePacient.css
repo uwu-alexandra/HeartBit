@@ -965,3 +965,56 @@ button#schimba:hover {
   width: 50%;
   float: right;
 }
+#edit {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4c53af;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#edit:hover {
+  background-color: #5961ce;
+}
+#form {
+  position: relative;
+  z-index: 2;
+}
+.edit-form {
+  top: 0;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+}
+
+.edit-form label {
+  display: flex;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.edit-form input[type="number"] {
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.edit-form button {
+  padding: 10px 20px;
+  background-color: #428bca;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-form button:hover {
+  background-color: #3071a9;
+}

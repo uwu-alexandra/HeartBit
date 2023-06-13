@@ -3,6 +3,7 @@ function showAuthenticatedElements() {
   const elements = document.querySelectorAll('.authenticated');
   elements.forEach((element) => {
     element.style.display = 'block';
+    document.getElementById('form').style.display = 'none';
   });
 }
 
@@ -15,7 +16,7 @@ function hideAuthenticatedElements() {
 }
 hideAuthenticatedElements();
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js';
-import { getDatabase, ref, onValue, limitToLast, get, query } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js';
+import { getDatabase, ref, onValue, limitToLast, set, query, get } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js';
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -78,9 +79,13 @@ onAuthStateChanged(auth, (user) => {
 onValue(usrRef, (snapshot) => {
   users = snapshot.val();
   currentUser = auth.currentUser;
-  userData = users[currentUser.uid];
-  uid = currentUser.uid;
-  console.log(currentUser.uid);
+  if (currentUser) {
+    userData = users[currentUser.uid];
+    uid = currentUser.uid;
+    console.log(currentUser.uid);
+  }
+  else
+    document.location('index.html');
 });
 
 onValue(usrRef, (snapshot) => {
@@ -92,11 +97,33 @@ onValue(usrRef, (snapshot) => {
   });
 });
 let nume = '';
+var ekg_low = 0;
+var ekg_high = 0;
+
+var puls_low = 0;
+var puls_high = 0;
+
+var temp_low = 0;
+var temp_high = 0;
+
+var umid_low = 0;
+var umid_high = 0;
 console.log(currentUserType);
 const user = document.getElementById('user');
 onValue(usrRef, (snapshot) => {
   snapshot.forEach((childSnapshot) => {
     if (childSnapshot.key === key) {
+      ekg_low = childSnapshot.val().ekg_low;
+      ekg_high = childSnapshot.val().ekg_high;
+
+      puls_low = childSnapshot.val().puls_low;
+      puls_high = childSnapshot.val().puls_high;
+
+      temp_low = childSnapshot.val().temp_low;
+      temp_high = childSnapshot.val().temp_high;
+
+      umid_low = childSnapshot.val().umid_low;
+      umid_high = childSnapshot.val().umid_high;
       userType = childSnapshot.val().userType;
       nume = `${childSnapshot.val().nume} ${childSnapshot.val().prenume}`;
       let gen = 'x';
@@ -133,7 +160,7 @@ onValue(lastNEntriesQuery, (snapshot) => {
   snapshot.forEach((childSnapshot) => {
     const pulse = Number(childSnapshot.val().Valoare);
     const timestamp = childSnapshot.val().Time_stamp;
-    const status = (pulse >= 60 && pulse <= 100) ? 'DA' : 'NU';
+    const status = (pulse >= ekg_low && pulse <= ekg_high) ? 'DA' : 'NU';
     const row = `<tr><td>${timestamp}</td><td>${pulse}</td><td>${status}</td></tr>`;
     pulseTableBody.innerHTML += row;
 
@@ -184,7 +211,7 @@ try {
     snapshot.forEach((childSnapshot) => {
       const temperature = childSnapshot.val().Valoare;
       const timestamp = childSnapshot.val().Time_stamp;
-      const status = (temperature >= 36.1 && temperature <= 37.2) ? 'DA' : 'NU';
+      const status = (temperature >= temp_low && temperature <= temp_high) ? 'DA' : 'NU';
       const row = `<tr><td>${timestamp}</td><td>${temperature}</td><td>${status}</td></tr>`;
       temperatureTableBody.innerHTML += row;
       tempData.push({ timestamp, temperature });
@@ -410,4 +437,90 @@ window.addEventListener('DOMContentLoaded', () => {
   // Add event listener to the download as JSON button
   const downloadJSONButton = document.getElementById('download');
   downloadJSONButton.addEventListener('click', saveDataAsPDF);
+});
+const edit = document.getElementById('edit');
+
+const uRef = ref(database, `Users/${key}`);
+edit.addEventListener('click', () => {
+  const form = document.getElementById('form');
+  if (form.style.display === 'none') {
+    // Form is currently hidden, show the form
+    form.style.display = 'block';
+
+    // Get a reference to the user's node
+    
+
+    // Fetch the user's data from Firebase
+    onValue(uRef, (snapshot) => {
+      const userData = snapshot.val();
+
+      // Generate the form fields
+      const fields = ['ekg_low', 'ekg_high', 'puls_low', 'puls_high', 'temp_low', 'temp_high', 'umid_low', 'umid_high'];
+
+      for (const field of fields) {
+        const label = document.createElement('label');
+        label.textContent = field;
+        form.appendChild(label);
+
+        const input = document.createElement('input');
+        input.setAttribute('type', 'number');
+        input.setAttribute('value', userData[field]);
+        input.setAttribute('name', field);
+        input.setAttribute('id', field);
+        form.appendChild(input);
+
+      }
+      const saveButton = document.createElement('button');
+      saveButton.setAttribute('type', 'submit');
+      saveButton.setAttribute('id', 'save');
+      saveButton.textContent = 'Save';
+      form.appendChild(saveButton);
+      saveButton.addEventListener('click', (event) =>{
+        event.preventDefault();
+        console.log('aici');
+        // Get the updated values from the form
+        const newEkgLow = document.getElementById('ekg_low').value;
+        const newEkgHigh = document.getElementById('ekg_high').value;
+        const newPulsLow = document.getElementById('puls_low').value;
+        const newPulsHigh = document.getElementById('puls_high').value;
+        const newTempLow = document.getElementById('temp_low').value;
+        const newTempHigh = document.getElementById('temp_high').value;
+        const newUmidLow = document.getElementById('umid_low').value;
+        const newUmidHigh = document.getElementById('umid_high').value;
+      
+        try {
+          onValue(uRef, (snapshot) => {
+            const existingData = snapshot.val();
+            const updatedData = {
+              ...existingData,
+              ekg_low: newEkgLow || existingData.ekg_low,
+              ekg_high: newEkgHigh || existingData.ekg_high,
+              puls_low: newPulsLow || existingData.puls_low,
+              puls_high: newPulsHigh || existingData.puls_high,
+              temp_low: newTempLow || existingData.temp_low,
+              temp_high: newTempHigh || existingData.temp_high,
+              umid_low: newUmidLow || existingData.umid_low,
+              umid_high: newUmidHigh || existingData.umid_high
+            };
+            console.log('pdatede data: ' + updatedData)
+            form.style.display = 'none';
+            set(uRef, updatedData, (error) => {
+              if (error) {
+                console.log('Error saving user data:', error);
+              } else {
+                console.log('Data updated successfully!');
+                // Close the form or perform any other actions
+              }
+            });
+          });
+        } catch (error) {
+          console.log('Error saving user data:', error);
+        }
+      })
+    });
+  } else {
+    // Form is currently shown, hide the form
+    form.style.display = 'none';
+    form.innerHTML = ''; // Clear the form content
+  }
 });

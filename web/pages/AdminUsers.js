@@ -146,40 +146,6 @@ function toggleEditForm(userId) {
   const editForm = card.querySelector('.edit-form');
   editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
 }
-/*
-function saveUserData(userId) {
-  const card = document.querySelector(`.card [data-userid="${userId}"]`).closest('.card');
-  const newName = card.querySelector('.edit-name').value;
-  const newId = card.querySelector('.edit-id').value;
-  const newPrenume = card.querySelector('.edit-prenume').value;
-  const newUserType = card.querySelector('.edit-userType').value;
-
-  const userRef = ref(database, `Users/${userId}`);
-  try {
-    set(userRef, {
-      nume: newName,
-      id: newId,
-      prenume: newPrenume,
-      userType: newUserType
-    }, (error) => {
-      if (error) {
-        console.log('Error saving user data:', error);
-      } else {
-        toggleEditForm(userId);
-        const nameElement = card.querySelector('p[data-field="nume"]');
-        const idElement = card.querySelector('p[data-field="id"]');
-        const prenumeElement = card.querySelector('p[data-field="prenume"]');
-        const userTypeElement = card.querySelector('p[data-field="userType"]');
-        nameElement.textContent = `Name: ${newName}`;
-        idElement.textContent = `ID: ${newId}`;
-        prenumeElement.textContent = `Prenume: ${newPrenume}`;
-        userTypeElement.textContent = `User Type: ${newUserType}`;
-      }
-    });
-  } catch (error) {
-    console.log('Error saving user data:', error);
-  }
-}*/
 function saveUserData(userId) {
   const card = document.querySelector(`.card [data-userid="${userId}"]`).closest('.card');
   const newName = card.querySelector('.edit-name').value;

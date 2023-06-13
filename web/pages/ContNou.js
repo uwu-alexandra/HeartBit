@@ -70,23 +70,59 @@ signupForm.addEventListener('submit', (e) => {
       } else {
         userType = 'unknown';
       }
+      if(userType === 'pacient')
+      {
+        var ekg_low = 60;
+        var ekg_high = 100;
+        
+        var puls_low = 60;
+        var puls_high = 100;
 
-      set(ref(database, 'Users/' + user.uid), {
-        id,
-        email,
-        nume,
-        prenume,
-        userType,
-        password,
-        cnp,
-      })
+        var temp_low = 36.1;
+        var temp_high = 37.2;
+        
+        var umid_low = 30;
+        var umid_high = 50;
+        
+        set(ref(database, 'Users/' + user.uid), {
+          id,
+          email,
+          nume,
+          prenume,
+          userType,
+          password,
+          cnp,
+          ekg_low,
+          ekg_high,
+          puls_low,
+          puls_high,
+          temp_low,
+          temp_high,
+          umid_low,
+          umid_high,
+        })
+        .then(() => {
+          document.location = 'WelcomePacient.html?uid=' + user.uid;
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('An error occurred while adding user data to the database.');
+        });
+      }
+      else{
+        set(ref(database, 'Users/' + user.uid), {
+          id,
+          email,
+          nume,
+          prenume,
+          userType,
+          password,
+          cnp,
+        })
         .then(() => {
           switch (userType) {
             case 'medic':
               document.location = 'WelcomeMedic.html?uid=' + user.uid;
-              break;
-            case 'pacient':
-              document.location = 'WelcomePacient.html?uid=' + user.uid;
               break;
             case 'admin':
               document.location = 'Admin.html';
@@ -100,6 +136,7 @@ signupForm.addEventListener('submit', (e) => {
           console.error(error);
           alert('An error occurred while adding user data to the database.');
         });
+      }
     })
     .catch((error) => {
       const errorCode = error.code;

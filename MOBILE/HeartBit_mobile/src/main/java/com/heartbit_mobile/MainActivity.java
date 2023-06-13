@@ -118,31 +118,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadPraguriArray() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference("path/to/praguri");
+        String uid = FirebaseAuth.getInstance().getUid();
+
+        DatabaseReference myRef = firebaseDatabase.getReference("Users/" + uid);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listaPraguriLow.clear(); // Clear the array before adding new values
                 listaPraguriHigh.clear(); // Clear the array before adding new values
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    if (childSnapshot.getKey().equals("low")) {
-                        for (DataSnapshot dataSnapshot : childSnapshot.getChildren()) {
-                            if (dataSnapshot.getValue() instanceof Number) {
-                                Float value = ((Number) dataSnapshot.getValue()).floatValue();
-                                bufferLock.lock();
-                                listaPraguriLow.add(value);
-                                bufferLock.unlock();
-                            }
-                        }
-                    } else if (childSnapshot.getKey().equals("high")) {
-                        for (DataSnapshot dataSnapshot : childSnapshot.getChildren()) {
-                            if (dataSnapshot.getValue() instanceof Number) {
-                                Float value = ((Number) dataSnapshot.getValue()).floatValue();
-                                bufferLock.lock();
-                                listaPraguriHigh.add(value);
-                                bufferLock.unlock();
-                            }
-                        }
+                    String key = childSnapshot.getKey();
+                    if (key.endsWith("_low")) {
+                        Float value = childSnapshot.getValue(Float.class);
+                        bufferLock.lock();
+                        listaPraguriLow.add(value);
+                        bufferLock.unlock();
+                    } else if (key.endsWith("_high")) {
+                        Float value = childSnapshot.getValue(Float.class);
+                        bufferLock.lock();
+                        listaPraguriHigh.add(value);
+                        bufferLock.unlock();
                     }
                 }
             }

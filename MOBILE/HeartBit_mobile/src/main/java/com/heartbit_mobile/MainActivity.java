@@ -129,12 +129,12 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     String key = childSnapshot.getKey();
                     if (key.endsWith("_low")) {
-                        Float value = childSnapshot.getValue(Float.class);
+                        Float value = Float.valueOf(childSnapshot.getValue(String.class));
                         bufferLock.lock();
                         listaPraguriLow.add(value);
                         bufferLock.unlock();
                     } else if (key.endsWith("_high")) {
-                        Float value = childSnapshot.getValue(Float.class);
+                        Float value = Float.valueOf(childSnapshot.getValue(String.class));
                         bufferLock.lock();
                         listaPraguriHigh.add(value);
                         bufferLock.unlock();

@@ -47,13 +47,13 @@ const usersRef = ref(database, `path/to/Recomandari/${uid}`);
 
 // Retrieve data
 let userType = '';
-
+const uidParam = urlParams.get('uid');
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   const urlParams = new URLSearchParams(window.location.search);
-  const uidParam = urlParams.get('uid');
+  
 
-  if (!user || (uidParam && user.uid !== uidParam)) {
+  if (!user ) {
     window.location.href = 'index.html'; // Redirect to index.html if no user is logged in or uid does not match
   } else {
     const userTypeRef = ref(database, `Users/${user.uid}/userType`);
@@ -67,11 +67,15 @@ onAuthStateChanged(auth, (user) => {
     });
   }
 });
+let userData = '';
 onValue(usersRef, (snapshot) => {
   const users = snapshot.val();
   const currentUser = auth.currentUser;
-  const userData = users[currentUser.uid];
-  userType = userData.userType;
+  if (users) {
+    userData = users[currentUser.uid];
+
+    userType = userData.userType;
+  }
   // Display the user's data on the web page
 });
 var logout = document.querySelector('#logout');
@@ -86,22 +90,51 @@ logout.addEventListener('click', (e) => {
   });
 });
 
+// const usersDiv = document.querySelector('#users');
+// if (usersDiv){
+//   onValue(usersRef, (snapshot) => {
+//     snapshot.forEach((recomandare) => {
+//       const card = document.createElement('div');
+//       card.classList.add('card');
+//       card.innerHTML = `
+//       <h1>${recomandare.val().text}</h1>
+//       <p>${recomandare.val().date}</p>
+//       `;
+//       usersDiv.appendChild(card);
+//     });
+//   });
+// }
+// else
+//   usersDiv.innerHTML = 'Nu exista recomandari';
 const usersDiv = document.querySelector('#users');
-if (usersDiv){
+if (usersDiv) {
   onValue(usersRef, (snapshot) => {
     snapshot.forEach((recomandare) => {
       const card = document.createElement('div');
       card.classList.add('card');
       card.innerHTML = `
-      <h1>${recomandare.val().text}</h1>
-      <p>${recomandare.val().date}</p>
+        <h1>${recomandare.val().text}</h1>
+        <p>${recomandare.val().date}</p>
+        <button class="delete-btn">Delete</button>
       `;
+      const deleteBtn = card.querySelector('.delete-btn');
+      deleteBtn.addEventListener('click', () => {
+        const cardRef = ref(database, `path/to/Recomandari/${uid}/${recomandare.key}`);
+        usersDiv.innerHTML = '';
+        set(cardRef, null)
+          .then(() => {
+            // Card deleted successfully
+          })
+          .catch((error) => {
+            console.error('Error deleting card:', error);
+          });
+      });
       usersDiv.appendChild(card);
     });
   });
-}
-else
+} else {
   usersDiv.innerHTML = 'Nu exista recomandari';
+}
 const openFormBtn = document.getElementById('openFormBtn');
 const textForm = document.getElementById('textForm');
 openFormBtn.addEventListener('click', () => {
@@ -121,25 +154,25 @@ const textInput = document.getElementById('textInput');
 submitBtn.addEventListener('click', () => {
   const date = dateInput.value;
   const text = textInput.value;
-  
+
   if (date && text) {
-    const path = `path/to/Recomandari/${uid}`;
+    const path = `path/to/Recomandari/${uidParam}`;
     const newTextRef = push(ref(database, path));
     usersDiv.innerHTML = '';
     set(newTextRef, { date, text })
-      
+
       .catch((error) => {
         console.error('Error adding text:', error);
       });
-      
+
   }
 });
 const fisMed = document.getElementById('fisMed');
 fisMed.addEventListener('click', () => {
-  window.location.href = `FisaMedicala.html?uid=${uid}`;
+  window.location.href = `FisaMedicala.html?uid=${uidParam}`;
 });
 
 const hist = document.getElementById('hist');
 hist.addEventListener('click', () => {
-  window.location.href = `Istoric.html?uid=${uid}`;
+  window.location.href = `Istoric.html?uid=${uidParam}`;
 });

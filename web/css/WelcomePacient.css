@@ -1018,3 +1018,11 @@ button#schimba:hover {
 .edit-form button:hover {
   background-color: #3071a9;
 }
+.delete-btn {
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

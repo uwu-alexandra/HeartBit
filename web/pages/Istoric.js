@@ -42,6 +42,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const urlParams = new URLSearchParams(window.location.search);
 let uid = urlParams.get('uid');
+const uidParam = urlParams.get('uid');
 const histRef = ref(database, `path/to/Solicitari/${uid}`);
 const usersRef = ref(database, 'Users/');
 console.log('uid = ' + uid);
@@ -50,8 +51,8 @@ onAuthStateChanged(auth, (user) => {
   const urlParams = new URLSearchParams(window.location.search);
   const uidParam = urlParams.get('uid');
 
-  if (!user || (uidParam && user.uid !== uidParam)) {
-    window.location.href = 'index.html'; // Redirect to index.html if no user is logged in or uid does not match
+  if (!user ) {
+    //window.location.href = 'index.html'; // Redirect to index.html if no user is logged in or uid does not match
   } else {
     const userTypeRef = ref(database, `Users/${user.uid}/userType`);
     onValue(userTypeRef, (snapshot) => {
@@ -111,7 +112,7 @@ onValue(histRef, (snapshot) => {
 });
 const fisMed = document.getElementById('fisMed');
 fisMed.addEventListener('click', () => {
-    window.location.href = `FisaMedicala.html?uid=${uid}`;
+    window.location.href = `FisaMedicala.html?uid=${uidParam}`;
 });
 if(userType === 'pacient'){
   document.getElementsByClassName('v5_47033').innerHTML = 'Recomandări';
@@ -123,10 +124,10 @@ else{
 const rec = document.getElementById('rec');
 rec.addEventListener('click', () => {
   if(currentUserType === 'pacient'){
-      window.location.href = `RecomandarePacient.html?uid=${uid}`;
+      window.location.href = `RecomandarePacient.html?uid=${uidParam}`;
   }
   else{
-      window.location.href = `Pacienti.html?uid=${currentUser.uid}`;
+      window.location.href = `RecomandareMedic.html?uid=${uidParam}`;
 
   }    
 });

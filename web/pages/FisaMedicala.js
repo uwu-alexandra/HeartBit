@@ -377,10 +377,10 @@ profil.addEventListener('click', () => {
 });
 rec.addEventListener('click', () => {
   if (currentUserType === 'pacient') {
-    window.location.href = `RecomandarePacient.html?uid=${uid}`;
+    window.location.href = `RecomandarePacient.html?uid=${key}`;
   }
   else {
-    window.location.href = `RecomandareMedic.html?uid=${uid}`;
+    window.location.href = `RecomandareMedic.html?uid=${key}`;
 
   }
 });
